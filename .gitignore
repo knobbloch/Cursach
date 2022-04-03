@@ -1,1 +1,6 @@
 .vs
+*.dll
+*.exe
+Cursach/ApplicationProject/bin
+*.sln
+.editorconfig
