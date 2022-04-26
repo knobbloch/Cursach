@@ -28,5 +28,20 @@ namespace ApplicationProject.Views.InterPageView
         /// Used to present active page
         /// </summary>
         IViewPresenter PageViewPresenter { get; }
+
+        /// <summary>
+        /// Updates the analysis button's undertext
+        /// </summary>
+        string AnalysisButtonName { set; }
+
+        /// <summary>
+        /// Updates the plan button's undertext
+        /// </summary>
+        string PlanButtonName { set; }
+
+        /// <summary>
+        /// Updates the account button's undertext
+        /// </summary>
+        string AccountName { set; }
     }
 }

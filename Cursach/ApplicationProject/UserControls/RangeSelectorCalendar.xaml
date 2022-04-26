@@ -1,0 +1,139 @@
+﻿<UserControl x:Class="ApplicationProject.UserControls.RangeSelectorCalendar"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:ApplicationProject.UserControls"
+             mc:Ignorable="d" 
+             d:DesignHeight="1000" d:DesignWidth="1000" Height="{Binding ActualWidth}" MinWidth="100" Background="White" DataContext="{Binding RelativeSource={RelativeSource Self}}" IsVisibleChanged="Self_IsVisibleChanged">
+    <UserControl.Resources>
+        <Style x:Key="HighlightOnHover" TargetType="Polygon">
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Fill" Value="DarkBlue" />
+                </Trigger>
+                <Trigger Property="IsMouseOver" Value="False">
+                    <Setter Property="Fill" Value="Black" />
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </UserControl.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="6*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="5*" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="Auto" />
+        </Grid.ColumnDefinitions>
+
+        <Viewbox Margin="5" Grid.Row="1" Grid.Column="1">
+            <Polygon Points="0,5 8,10 8,0" Margin="0" Style="{StaticResource HighlightOnHover}"/>
+        </Viewbox>
+        <Viewbox Margin="5" Grid.Row="1" Grid.Column="3">
+            <Polygon Points="8,5 0,10 0,0" Margin="0" Style="{StaticResource HighlightOnHover}"/>
+        </Viewbox>
+        <Border BorderBrush="Black" BorderThickness="2" Grid.Row="2" Grid.ColumnSpan="5"/>
+        <Border BorderBrush="Black" BorderThickness="2" Grid.ColumnSpan="5"/>
+        <Border BorderBrush="Black" BorderThickness="2" Grid.Row="4" Grid.ColumnSpan="5"/>
+        <Border BorderBrush="Black" BorderThickness="2" Grid.RowSpan="5"/>
+        <Border BorderBrush="Black" BorderThickness="2" Grid.Column="4" Grid.RowSpan="5"/>
+        <Grid Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="3" Name="DaysGrid" Visibility="Visible">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <Border Grid.Row="1" BorderBrush="Black" BorderThickness="2" Grid.ColumnSpan="13" />
+            <Border Grid.Row="3" BorderBrush="Black" BorderThickness="2" Grid.ColumnSpan="13" />
+            <Border Grid.Row="5" BorderBrush="Black" BorderThickness="2" Grid.ColumnSpan="13" />
+            <Border Grid.Row="7" BorderBrush="Black" BorderThickness="2" Grid.ColumnSpan="13" />
+            <Border Grid.Row="9" BorderBrush="Black" BorderThickness="2" Grid.ColumnSpan="13" />
+            <Border Grid.Row="11" BorderBrush="Black" BorderThickness="2" Grid.ColumnSpan="13" />
+            <Border Grid.Column="1" Grid.Row="1" BorderBrush="Black" BorderThickness="2" Grid.RowSpan="12" />
+            <Border Grid.Column="3" Grid.Row="1" BorderBrush="Black" BorderThickness="2" Grid.RowSpan="12" />
+            <Border Grid.Column="5" Grid.Row="1" BorderBrush="Black" BorderThickness="2" Grid.RowSpan="12" />
+            <Border Grid.Column="7" Grid.Row="1" BorderBrush="Black" BorderThickness="2" Grid.RowSpan="12" />
+            <Border Grid.Column="9" Grid.Row="1" BorderBrush="Black" BorderThickness="2" Grid.RowSpan="12" />
+            <Border Grid.Column="11" Grid.Row="1" BorderBrush="Black" BorderThickness="2" Grid.RowSpan="12" />
+
+            <Viewbox>
+                <TextBlock Text="{Binding DayOneAbbreviation}"/>
+            </Viewbox>
+            <Viewbox Grid.Column="2">
+                <TextBlock Text="{Binding DayTwoAbbreviation}"/>
+            </Viewbox>
+            <Viewbox Grid.Column="4">
+                <TextBlock Text="{Binding DayThreeAbbreviation}"/>
+            </Viewbox>
+            <Viewbox Grid.Column="6">
+                <TextBlock Text="{Binding DayFourAbbreviation}"/>
+            </Viewbox>
+            <Viewbox Grid.Column="8">
+                <TextBlock Text="{Binding DayFiveAbbreviation}"/>
+            </Viewbox>
+            <Viewbox Grid.Column="10">
+                <TextBlock Text="{Binding DaySixAbbreviation}"/>
+            </Viewbox>
+            <Viewbox Grid.Column="12">
+                <TextBlock Text="{Binding DaySevenAbbreviation}"/>
+            </Viewbox>
+        </Grid>
+        <Grid Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="3" Name="MonthsYearsGrid" Visibility="Hidden">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+
+            <Border BorderBrush="Black" BorderThickness="2" Grid.RowSpan="5" Grid.Column="1"/>
+            <Border BorderBrush="Black" BorderThickness="2" Grid.RowSpan="5" Grid.Column="3"/>
+            <Border BorderBrush="Black" BorderThickness="2" Grid.RowSpan="5" Grid.Column="5"/>
+            <Border BorderBrush="Black" BorderThickness="2" Grid.ColumnSpan="7" Grid.Row="1"/>
+            <Border BorderBrush="Black" BorderThickness="2" Grid.ColumnSpan="7" Grid.Row="3"/>
+        </Grid>
+        </Grid>
+</UserControl>

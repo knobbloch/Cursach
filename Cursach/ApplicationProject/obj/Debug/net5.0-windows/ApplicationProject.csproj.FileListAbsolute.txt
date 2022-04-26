@@ -26,3 +26,7 @@ C:\HSE\Курсач\Cursach\ApplicationProject\obj\Debug\net5.0-windows\UserCont
 C:\HSE\Курсач\Cursach\ApplicationProject\obj\Debug\net5.0-windows\UserControls\RoundButton.g.cs
 C:\HSE\Курсач\Cursach\ApplicationProject\obj\Debug\net5.0-windows\UserControls\RoundButton.baml
 C:\HSE\Курсач\Cursach\ApplicationProject\obj\Debug\net5.0-windows\GeneratedInternalTypeHelper.g.cs
+C:\HSE\Курсач\Cursach\ApplicationProject\obj\Debug\net5.0-windows\UserControls\DatedPageView\DatedPageView.g.cs
+C:\HSE\Курсач\Cursach\ApplicationProject\obj\Debug\net5.0-windows\UserControls\DatedPageView\DatedPageView.baml
+C:\HSE\Курсач\Cursach\ApplicationProject\obj\Debug\net5.0-windows\UserControls\RangeSelectorCalendar.g.cs
+C:\HSE\Курсач\Cursach\ApplicationProject\obj\Debug\net5.0-windows\UserControls\RangeSelectorCalendar.baml

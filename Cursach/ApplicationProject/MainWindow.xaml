@@ -7,5 +7,9 @@
         xmlns:uc="clr-namespace:ApplicationProject.UserControls"
         mc:Ignorable="d"
         Title="Dunno" SizeToContent="WidthAndHeight">
-    <ContentControl Name="ActiveView" />
+    <Grid>
+        <ContentControl Name="ActiveView" Visibility="Visible"/>
+        <Canvas Name="OverlayLayer" Background="Transparent" Visibility="Hidden" Panel.ZIndex="1" Width="{Binding ActualWidth, ElementName=ActiveView}" Height="{Binding ActualHeight, ElementName=ActiveView}"/>
+        <uc:RangeSelectorCalendar Visibility="Hidden"/>
+    </Grid>
 </Window>
