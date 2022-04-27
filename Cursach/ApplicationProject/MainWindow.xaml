@@ -8,8 +8,10 @@
         mc:Ignorable="d"
         Title="Dunno" SizeToContent="WidthAndHeight">
     <Grid>
-        <ContentControl Name="ActiveView" Visibility="Visible"/>
+        <ContentControl Name="ActiveView" Visibility="Hidden"/>
         <Canvas Name="OverlayLayer" Background="Transparent" Visibility="Hidden" Panel.ZIndex="1" Width="{Binding ActualWidth, ElementName=ActiveView}" Height="{Binding ActualHeight, ElementName=ActiveView}"/>
-        <uc:RangeSelectorCalendar Visibility="Hidden"/>
+        <Viewbox>
+            <uc:RangeSelectorCalendar x:Name="TestCalendar" Visibility="Visible"/>
+        </Viewbox>
     </Grid>
 </Window>

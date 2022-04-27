@@ -39,11 +39,7 @@ namespace ApplicationProject.UserControls.DatedPageView
 
             DateRangeSelectorRoot = new Viewbox
             {
-                Child = new Calendar
-                {
-                    CalendarButtonStyle = FindResource("CalendarButtonStyle") as Style,
-                    CalendarDayButtonStyle = FindResource("CalendarDayButtonStyle") as Style
-                }
+                Child = new Calendar()
             };
 
             DateRangeSelectorCalendar = (Calendar)DateRangeSelectorRoot.Child;
