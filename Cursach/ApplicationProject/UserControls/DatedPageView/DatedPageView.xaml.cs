@@ -16,9 +16,12 @@ using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Windows.Controls.Primitives;
+using System.Globalization;
 
 using ApplicationProject.Views.DatedPageView;
 using ApplicationProject.Views;
+
+using ApplicationProject.UserControls;
 
 namespace ApplicationProject.UserControls.DatedPageView
 {
@@ -31,6 +34,8 @@ namespace ApplicationProject.UserControls.DatedPageView
 
         public DatedPageView()
         {
+            m_PageNameTextKey = "";
+
             InitializeComponent();
 
             DateRangeTypes = new ObservableCollection<DateRangeType>();
@@ -39,29 +44,29 @@ namespace ApplicationProject.UserControls.DatedPageView
 
             DateRangeSelectorRoot = new Viewbox
             {
-                Child = new Calendar()
+                Child = new RangeSelectorCalendar()
             };
 
-            DateRangeSelectorCalendar = (Calendar)DateRangeSelectorRoot.Child;
-
-            DateRangeSelectorCalendar.DisplayModeChanged += DateRangeSelector_DisplayModeChanged;
-        }
-
-        public void DateRangeSelectorCalendar_Button_Click(object sender, RoutedEventArgs e)
-        {
-            if(e.Source is CalendarButton)
-            {
-                MessageBox.Show((e.Source as CalendarButton).Content.ToString());
-            }
-        }
-
-        public void DateRangeSelectorCalendar_DayButton_Click(object sender, RoutedEventArgs e)
-        {
-            MessageBox.Show("DayButtonClick!");
+            DateRangeSelectorCalendar = (RangeSelectorCalendar)DateRangeSelectorRoot.Child;
+            DateRangeSelectorCalendar.SelectionTarget = RangeSelectorCalendar.RangeSelectorCalendarMode.Month;
+            DateRangeSelectorCalendar.SelectionChanged += DaterRangeSelector_SelectionChanged;
+            CurrentCulture = null;
         }
 
         protected Viewbox DateRangeSelectorRoot { get; }
-        protected Calendar DateRangeSelectorCalendar { get; }
+        protected RangeSelectorCalendar DateRangeSelectorCalendar { get; }
+        private CultureInfo m_CurrentCulture;
+        protected CultureInfo CurrentCulture
+        {
+            get => m_CurrentCulture;
+            set
+            {
+                m_CurrentCulture = value ?? System.Threading.Thread.CurrentThread.CurrentUICulture ?? CultureInfo.CurrentUICulture;
+                DateRangeSelectorCalendar.CurrentCulture = m_CurrentCulture;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(PageNameText)));
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(DateRangeText)));
+            }
+        }
 
         #region IBaseView
         public void Show()
@@ -72,17 +77,11 @@ namespace ApplicationProject.UserControls.DatedPageView
         {
             Hidden?.Invoke(this, EventArgs.Empty);
         }
-        public bool IsPresentable
-        {
-            get
-            {
-                return PageNameTextKey != null &&
-                       DateRangeTypes.Count > 0;
-            }
-        }
+        public bool IsPresentable => DateRangeTypes.Count > 0;
 
-        public void OnCultureChanged(System.Globalization.CultureInfo culture)
+        public void OnCultureChanged(CultureInfo culture)
         {
+            CurrentCulture = culture;
             PresentedView?.OnCultureChanged(culture);
         }
 
@@ -125,35 +124,63 @@ namespace ApplicationProject.UserControls.DatedPageView
         public event EventHandler NextDateRangeSelected;
         public event EventHandler PreviousDateRangeSelected;
 
-        public DateRange DateRange
+        public DateRange DisplayedDateRange
         {
-            get => m_DateRangeText;
+            get => m_DisplayedDateRange;
             set
             {
-                m_DateRangeText = value;
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(DateRange)));
+                m_DisplayedDateRange = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(DateRangeText)));
             }
         }
-        private DateRange m_DateRangeText;
+        private DateRange m_DisplayedDateRange;
+
+        public string DateRangeText => ConvertToDateRangeDisplay(DisplayedDateRange);
+
+        public string PageNameText => PageNameTextKey.ToString();
         public string PageNameTextKey
         {
-            get => m_PageNameText;
+            get => m_PageNameTextKey;
             set
             {
-                m_PageNameText = value ?? throw new ArgumentNullException(nameof(PageNameTextKey));
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(PageNameTextKey)));
+                m_PageNameTextKey = value ?? throw new ArgumentNullException(nameof(PageNameTextKey));
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(PageNameText)));
             }
         }
-        private string m_PageNameText;
+        private string m_PageNameTextKey;
 
         public ICollection<DateRangeType> DateRangeTypes { get; }
 
-        public DateRange DateRangeBounds
+        public DateRange? DateRangeBounds
         {
-            set { }
+            get => new(DateRangeSelectorCalendar.LowerBoundary.Value, DateRangeSelectorCalendar.UpperBoundary.Value);
+            set
+            {
+                DateRangeSelectorCalendar.LowerBoundary = value.HasValue ? value.Value.Start : null;
+                DateRangeSelectorCalendar.UpperBoundary = value.HasValue ? value.Value.End : null;
+            }
         }
 
-        public IViewPresenter PageViewPresenter { get => this; }
+        public DateRangeType.RangeType SelectedRangeType
+        {
+            get => m_SelectedRangeType;
+            set
+            {
+                m_SelectedRangeType = value;
+                switch(m_SelectedRangeType)
+                {
+                    case DateRangeType.RangeType.MONTH:
+                        DateRangeSelectorCalendar.SelectionTarget = RangeSelectorCalendar.RangeSelectorCalendarMode.Month;
+                        break;
+                    case DateRangeType.RangeType.YEAR:
+                        DateRangeSelectorCalendar.SelectionTarget = RangeSelectorCalendar.RangeSelectorCalendarMode.Year;
+                        break;
+                }
+            }
+        }
+        private DateRangeType.RangeType m_SelectedRangeType;
+
+        public IViewPresenter PageViewPresenter => this;
         #endregion
 
         #region ISupportOverlay
@@ -180,6 +207,22 @@ namespace ApplicationProject.UserControls.DatedPageView
         public event PropertyChangedEventHandler PropertyChanged;
         #endregion
 
+        #region Methods
+        protected string ConvertToDateRangeDisplay(DateRange range)
+        {
+            switch(m_SelectedRangeType)
+            {
+                case DateRangeType.RangeType.MONTH:
+                    return DisplayedDateRange.Start.ToString("MMMM yyyy", CurrentCulture);
+                case DateRangeType.RangeType.YEAR:
+                    return DisplayedDateRange.Start.ToString("yyyy", CurrentCulture);
+            }
+            return "ERROR";
+        }
+        #endregion
+
+        #region Handled events
+
         private void DateRangeSelector_Click(object sender, RoutedEventArgs e)
         {
             if(e.OriginalSource == DateRangeSelector)
@@ -201,11 +244,6 @@ namespace ApplicationProject.UserControls.DatedPageView
         private void ButtonNextDateRange_Click(object sender, RoutedEventArgs e)
         {
             NextDateRangeSelected?.Invoke(this, EventArgs.Empty);
-        }
-
-        private void DateRangeSelector_DisplayModeChanged(object sender, CalendarModeChangedEventArgs e)
-        {
-
         }
 
         private void Overlay_Click(object sender, EventArgs e)
@@ -235,5 +273,16 @@ namespace ApplicationProject.UserControls.DatedPageView
             if(DateRangeTypes.Count == 1)
                 DateRangeTypeSelector.SelectedIndex = 0;
         }
+
+        private void DaterRangeSelector_SelectionChanged(object sender, EventArgs e)
+        {
+            if(sender == DateRangeSelectorCalendar)
+            {
+                foreach (RangeSelectorCalendar.DateRange range in DateRangeSelectorCalendar.SelectedRanges)
+                    DateRangeSelected?.Invoke(this, new DateRangeSelectedEventArgs(new DateRange(range.Start, range.End)));
+            }
+        }
+
+        #endregion
     }
 }

@@ -7,8 +7,7 @@ namespace ApplicationProject.Views.DatedPageView
         public enum RangeType
         {
             MONTH,
-            YEAR,
-            CUSTOM
+            YEAR
         }
 
         public string DisplayName

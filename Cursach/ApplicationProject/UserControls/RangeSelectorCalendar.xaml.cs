@@ -364,7 +364,7 @@ namespace ApplicationProject.UserControls
 
         protected void OnMonthSelected(DateTime monthStart)
         {
-            if(SelectionTarget == RangeSelectorCalendarMode.Year)
+            if(SelectionTarget == RangeSelectorCalendarMode.Month)
                 AddToSelection(monthStart, new DateTime(monthStart.Year, monthStart.Month, DateTime.DaysInMonth(monthStart.Year, monthStart.Month)));
             else
             {

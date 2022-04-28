@@ -28,7 +28,7 @@ namespace ApplicationProject.Views.DatedPageView
         /// <summary>
         /// Updates the text displayed as current date range
         /// </summary>
-        DateRange DateRange { set; }
+        DateRange DisplayedDateRange { set; }
         /// <summary>
         /// Updates the text displayed as current page's name
         /// </summary>
@@ -36,13 +36,19 @@ namespace ApplicationProject.Views.DatedPageView
 
         /// <summary>
         /// Sets the allowed bounds for DateRange
+        /// Set to null to disable
         /// </summary>
-        DateRange DateRangeBounds { set; }
+        DateRange? DateRangeBounds { set; }
 
         /// <summary>
         /// Stores all available date range types
         /// </summary>
         ICollection<DateRangeType> DateRangeTypes { get; }
+
+        /// <summary>
+        /// Sets the range type to be used by the calendar
+        /// </summary>
+        DateRangeType.RangeType SelectedRangeType { set; }
 
         /// <summary>
         /// Used to present active page

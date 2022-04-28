@@ -23,7 +23,11 @@
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
-            <ToggleButton Grid.Column="1" Grid.Row="1" Name="DateRangeSelector" Foreground="Black" Click="DateRangeSelector_Click" />
+            <ToggleButton Grid.Column="1" Grid.Row="1" Name="DateRangeSelector" Foreground="Black" Click="DateRangeSelector_Click">
+                <Viewbox>
+                    <TextBlock Text="{Binding DateRangeText}" Foreground="Black" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                </Viewbox>
+            </ToggleButton>
             <ComboBox Grid.Row="1" Grid.Column="2" x:Name="DateRangeTypeSelector" SelectionChanged="DateRangeTypeSelector_SelectionChanged">
                 <ComboBox.ItemTemplate>
                     <DataTemplate>
@@ -34,7 +38,7 @@
                 </ComboBox.ItemTemplate>
             </ComboBox>
             <Viewbox Grid.RowSpan="2" VerticalAlignment="Bottom" HorizontalAlignment="Left">
-                <TextBlock Text="{Binding PageNameTextKey}" Foreground="Black" VerticalAlignment="Bottom" HorizontalAlignment="Left" LineStackingStrategy="BlockLineHeight"/>
+                <TextBlock Text="{Binding PageNameText}" Foreground="Black" VerticalAlignment="Bottom" HorizontalAlignment="Left" LineStackingStrategy="BlockLineHeight"/>
             </Viewbox>
         </Grid>
         <Border Grid.Row="1" BorderThickness="2" BorderBrush="Black"/>
