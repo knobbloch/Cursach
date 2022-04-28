@@ -7,7 +7,13 @@
     </ApplicationDefinition>
   </ItemGroup>
   <ItemGroup>
+    <Compile Update="UserControls\DatedPageView\DatedPageView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="UserControls\InterPageView\InterPageView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="UserControls\RangeSelectorCalendar.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="UserControls\RoundButton.xaml.cs">
@@ -18,7 +24,13 @@
     <Page Update="MainWindow.xaml">
       <SubType>Designer</SubType>
     </Page>
+    <Page Update="UserControls\DatedPageView\DatedPageView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="UserControls\InterPageView\InterPageView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="UserControls\RangeSelectorCalendar.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="UserControls\RoundButton.xaml">

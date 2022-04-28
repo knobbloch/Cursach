@@ -28,7 +28,7 @@ namespace ApplicationProject.UserControls
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(ButtonContent)));
             }
         }
-        protected FrameworkElement m_ButtonContent;
+        private FrameworkElement m_ButtonContent;
 
         public FrameworkElement UnderContent
         {
@@ -39,7 +39,7 @@ namespace ApplicationProject.UserControls
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(UnderContent)));
             }
         }
-        protected FrameworkElement m_UnderContent;
+        private FrameworkElement m_UnderContent;
 
         public Brush ButtonColor
         {
@@ -50,12 +50,15 @@ namespace ApplicationProject.UserControls
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(ButtonColor)));
             }
         }
-        protected Brush m_ButtonColor;
+        private Brush m_ButtonColor;
 
         [Category("Behaviour")]
         public event RoutedEventHandler Click;
 
-        void OnClick(object sender, RoutedEventArgs e) => Click?.Invoke(this, e);
+        void OnClick(object sender, RoutedEventArgs e)
+        {
+            Click?.Invoke(this, e);
+        }
 
         public RoundButton()
         {
