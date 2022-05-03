@@ -8,10 +8,14 @@
         mc:Ignorable="d"
         Title="Dunno" SizeToContent="WidthAndHeight">
     <Grid>
-        <ContentControl Name="ActiveView" Visibility="Visible"/>
+        <ContentControl Name="ActiveView" Visibility="Hidden"/>
         <Canvas Name="OverlayLayer" Background="Transparent" Visibility="Hidden" Panel.ZIndex="1" Width="{Binding ActualWidth, ElementName=ActiveView}" Height="{Binding ActualHeight, ElementName=ActiveView}"/>
-        <Viewbox Visibility="Hidden">
-            <uc:RangeSelectorCalendar x:Name="TestCalendar"/>
-        </Viewbox>
+        <uc:BarChart Height="300" Width="1000" x:Name="TestChart" ValueSource="Value">
+            <uc:BarChart.BarTitleTemplate>
+                <DataTemplate>
+                    <TextBlock Text="{Binding Value}" Foreground="Black" HorizontalAlignment="Center" />
+                </DataTemplate>
+            </uc:BarChart.BarTitleTemplate>
+        </uc:BarChart>
     </Grid>
 </Window>

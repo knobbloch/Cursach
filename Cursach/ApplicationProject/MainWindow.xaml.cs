@@ -26,6 +26,12 @@ namespace ApplicationProject
         public IBaseView PresentedView { get; protected set; }
         public Overlay Overlay { get; }
 
+        class TestItem
+        {
+            public double Value { get; set; }
+            public override string ToString() => Value.ToString();
+        }
+
         public MainWindow()
         {
             InitializeComponent();
@@ -46,6 +52,11 @@ namespace ApplicationProject
             aview.DateRangeTypes.Add(new DateRangeType { DisplayName = "Год", Type = DateRangeType.RangeType.YEAR });
             _ = view.PageViewPresenter.Present(aview);
 
+            System.Collections.ObjectModel.ObservableCollection<TestItem> col = new();
+            col.Add(new TestItem { Value = 5 });
+            col.Add(new TestItem { Value = 7 });
+            col.Add(new TestItem { Value = -2 });
+            TestChart.BarsSource = col;
         }
 
         public void OnCultureChanged(CultureInfo culture)
