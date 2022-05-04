@@ -69,7 +69,7 @@ namespace ApplicationProject.UserControls {
                 return;
             }
             _contentLoaded = true;
-            System.Uri resourceLocater = new System.Uri("/ApplicationProject;component/usercontrols/barchart.xaml", System.UriKind.Relative);
+            System.Uri resourceLocater = new System.Uri("/ApplicationProject;V1.0.0.0;component/usercontrols/barchart.xaml", System.UriKind.Relative);
             
             #line 1 "..\..\..\..\UserControls\BarChart.xaml"
             System.Windows.Application.LoadComponent(this, resourceLocater);
