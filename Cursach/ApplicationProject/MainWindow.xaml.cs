@@ -53,9 +53,8 @@ namespace ApplicationProject
             _ = view.PageViewPresenter.Present(aview);
 
             System.Collections.ObjectModel.ObservableCollection<TestItem> col = new();
-            col.Add(new TestItem { Value = 5 });
-            col.Add(new TestItem { Value = 7 });
-            col.Add(new TestItem { Value = -2 });
+            for (int i = 0; i < 100; i++)
+                col.Add(new TestItem { Value = i * (i % 2 == 0 ? 1 : -1) });
             TestChart.BarsSource = col;
         }
 

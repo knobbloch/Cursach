@@ -34,10 +34,10 @@
             </Grid>
         </DataTemplate>
         <DataTemplate x:Key="DefaultTitleTemplate">
-            <TextBlock Text="{Binding Self}" Foreground="Black"/>
+            <TextBlock Text="{Binding RelativeSource={RelativeSource Self}, Path=DataContext}" Foreground="Black" HorizontalAlignment="Center" VerticalAlignment="Center"/>
         </DataTemplate>
     </UserControl.Resources>
-    <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
+    <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" Background="Transparent">
         <Grid Name="BarsGrid" Loaded="BarsGrid_Loaded">
             <Grid.RowDefinitions>
                 <RowDefinition Height="*" />
