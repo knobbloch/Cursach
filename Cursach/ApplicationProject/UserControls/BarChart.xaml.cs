@@ -272,7 +272,7 @@ namespace ApplicationProject.UserControls
                     throw new ArgumentOutOfRangeException(nameof(MaxValue));
 
                 m_MaxValue = value;
-                UpdateBars(BarsUpdateMode.Positive);
+                UpdateBars();
             }
         }
         private double m_MinValue;
@@ -285,13 +285,16 @@ namespace ApplicationProject.UserControls
                     throw new ArgumentOutOfRangeException(nameof(MinValue));
 
                 m_MinValue = value;
-                UpdateBars(BarsUpdateMode.Negative);
+                UpdateBars();
             }
         }
         private DataTemplate PositiveBarTemplate { get; }
         private DataTemplate NegativeBarTemplate { get; }
 
+        private int NegativeBars { get; set; }
+
         private const int PositiveBarRow = 0;
+        private const int SeparatorRow = 1;
         private const int NegativeBarRow = 2;
         private const int TitleBarRow = 3;
         #endregion
@@ -325,13 +328,16 @@ namespace ApplicationProject.UserControls
 
             bar.IsPositive = processedValue >= 0;
 
+            if (!bar.IsPositive)
+                NegativeBars++;
+
             _ = BarsGrid.Children.Add(bar.BarDisplay = (FrameworkElement)(bar.IsPositive ? PositiveBarTemplate.LoadContent() : NegativeBarTemplate.LoadContent()));
             bar.BarDisplay.Style = bar.IsPositive ? PositiveBarStyle : NegativeBarStyle;
             bar.BarRectangle.Width = BarWidth;
             bar.BarText.Text = string.Format(System.Threading.Thread.CurrentThread.CurrentUICulture, BarValueFormat, value);
             bar.BarDisplay.SetValue(Grid.RowProperty, bar.IsPositive ? PositiveBarRow : NegativeBarRow);
             bar.BarDisplay.SetValue(Grid.ColumnProperty, index);
-            bar.BarRectangle.Height = Math.Floor(Math.Abs(processedValue / Math.Max(MaxValue, MinValue) * (BarsGrid.RowDefinitions[bar.IsPositive ? PositiveBarRow : NegativeBarRow].ActualHeight - bar.BarText.ActualHeight)));
+            bar.BarRectangle.Height = Math.Floor(Math.Abs(processedValue) / Math.Max(MaxValue, Math.Abs(MinValue)) * (GetMaxBarHeight(bar.IsPositive) - bar.BarText.ActualHeight));
 
             _ = BarsGrid.Children.Add(bar.BarTitle = (FrameworkElement)BarTitleTemplate.LoadContent());
             bar.BarTitle.DataContext = item;
@@ -361,6 +367,10 @@ namespace ApplicationProject.UserControls
             HalvesSeparator.SetValue(Grid.ColumnSpanProperty, BarsGrid.ColumnDefinitions.Count);
 
             Bar bar = Bars[index];
+
+            if (!bar.IsPositive)
+                NegativeBars--;
+
             Bars.RemoveAt(index);
             _ = ItemToBarMapping.Remove(bar.Item);
 
@@ -375,7 +385,6 @@ namespace ApplicationProject.UserControls
                 _ = ItemToBarMapping.Remove(bar.Item);
                 ItemToBarMapping.Add(bar.Item, i);
             }
-
 
             if (bar.Value == MaxValue)
             {
@@ -437,6 +446,7 @@ namespace ApplicationProject.UserControls
                 throw new ArgumentOutOfRangeException(nameof(barIndex));
 
             Bar bar = Bars[barIndex];
+                        
             UpdateBar(barIndex, bar, ValueProcessor(bar.Value));
         }
 
@@ -450,6 +460,7 @@ namespace ApplicationProject.UserControls
             {
                 if (value >= 0 && !bar.IsPositive)
                 {
+                    NegativeBars--;
                     BarsGrid.Children.Remove(bar.BarDisplay);
                     _ = BarsGrid.Children.Add(bar.BarDisplay = (FrameworkElement)PositiveBarTemplate.LoadContent());
                     bar.BarDisplay.SetValue(Grid.RowProperty, PositiveBarRow);
@@ -459,6 +470,7 @@ namespace ApplicationProject.UserControls
                 }
                 else if (value < 0 && bar.IsPositive)
                 {
+                    NegativeBars++;
                     BarsGrid.Children.Remove(bar.BarDisplay);
                     _ = BarsGrid.Children.Add(bar.BarDisplay = (FrameworkElement)NegativeBarTemplate.LoadContent());
                     bar.BarDisplay.SetValue(Grid.RowProperty, NegativeBarRow);
@@ -467,7 +479,7 @@ namespace ApplicationProject.UserControls
                     bar.IsPositive = false;
                 }
                 bar.BarText.Text = string.Format(System.Threading.Thread.CurrentThread.CurrentUICulture, BarValueFormat, value);
-                bar.BarRectangle.Height = Math.Floor(Math.Abs(value / Math.Max(MaxValue, MinValue) * (BarsGrid.RowDefinitions[bar.IsPositive ? PositiveBarRow : NegativeBarRow].ActualHeight - bar.BarText.ActualHeight)));
+                bar.BarRectangle.Height = Math.Floor(Math.Abs(value) / Math.Max(MaxValue, Math.Abs(MinValue)) * (GetMaxBarHeight(bar.IsPositive) - bar.BarText.ActualHeight));
                 bar.BarTitle.UpdateLayout();
             }
         }
@@ -485,8 +497,11 @@ namespace ApplicationProject.UserControls
 
             Bars.Clear();
 
-            foreach (object item in BarsSource)
-                AddBar(item);
+            if (BarsSource != null)
+            {
+                foreach (object item in BarsSource)
+                    AddBar(item);
+            }
 
             UpdateLayout();
         }
@@ -496,34 +511,43 @@ namespace ApplicationProject.UserControls
         /// </summary>
         private void UpdateBars(BarsUpdateMode mode = BarsUpdateMode.All)
         {
-            double value;
-            Bar bar;
+            double[] values = new double[Bars.Count];
+
+            int negativeBars = 0;
+            for (int i = 0; i < values.Length; i++)
+            {
+                values[i] = ValueProcessor(Bars[i].Value);
+
+                if(values[i] < 0)
+                    negativeBars++;
+            }
+
+            NegativeBars = negativeBars;
+
             if (mode == BarsUpdateMode.Positive)
             {
                 for (int i = 0; i < Bars.Count; i++)
                 {
-                    bar = Bars[i];
-                    value = ValueProcessor(bar.Value);
-                    if (value >= 0)
-                        UpdateBar(i, bar, value);
+                    if (values[i] >= 0)
+                        UpdateBar(i, Bars[i], values[i]);
                 }
             }
             else if (mode == BarsUpdateMode.Negative)
             {
                 for (int i = 0; i < Bars.Count; i++)
                 {
-                    bar = Bars[i];
-                    value = ValueProcessor(bar.Value);
-                    if (value < 0)
-                        UpdateBar(i, bar, value);
+                    if (values[i] < 0)
+                        UpdateBar(i, Bars[i], values[i]);
                 }
             }
             else
             {
                 for (int i = 0; i < Bars.Count; i++)
-                    UpdateBar(i);
+                    UpdateBar(i, Bars[i], values[i]);
             }
         }
+
+        private double GetMaxBarHeight(bool positive) => (BarsGrid.ActualHeight - BarsGrid.RowDefinitions[TitleBarRow].ActualHeight - BarsGrid.RowDefinitions[SeparatorRow].ActualHeight) / ( (positive && NegativeBars == 0 || !positive && NegativeBars == BarsCount ) ? 1 : 2 );
         #endregion
 
         #region Handled events
@@ -541,11 +565,11 @@ namespace ApplicationProject.UserControls
                     Rebuild();
             }
         }
-        #endregion
 
         private void BarsGrid_Loaded(object sender, RoutedEventArgs e)
         {
             UpdateBars();
         }
+        #endregion
     }
 }

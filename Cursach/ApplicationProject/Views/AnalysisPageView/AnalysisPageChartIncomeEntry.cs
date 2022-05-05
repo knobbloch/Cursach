@@ -39,6 +39,7 @@ namespace ApplicationProject.Views.AnalysisPageView
         }
         private string m_PeriodTitle;
 
+        public AnalysisPageChartIncomeEntry() : this("", 0) { }
         public AnalysisPageChartIncomeEntry(string title, double value)
         {
             m_Value = value;

@@ -46,6 +46,7 @@ namespace ApplicationProject.Views.AnalysisPageView
         }
         private string m_Title;
 
+        public AnalysisPageIncomeEntry() : this("", "", 0) { }
         public AnalysisPageIncomeEntry(string title, string currencyIdentifier, double value)
         {
             m_Value = value;

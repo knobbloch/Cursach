@@ -8,8 +8,7 @@
         mc:Ignorable="d"
         Title="Dunno" SizeToContent="WidthAndHeight">
     <Grid>
-        <ContentControl Name="ActiveView" Visibility="Hidden"/>
+        <ContentControl Name="ActiveView" Visibility="Visible"/>
         <Canvas Name="OverlayLayer" Background="Transparent" Visibility="Hidden" Panel.ZIndex="1" Width="{Binding ActualWidth, ElementName=ActiveView}" Height="{Binding ActualHeight, ElementName=ActiveView}"/>
-        <uc:BarChart Height="300" Width="1000" x:Name="TestChart" ValueSource="Value" />
     </Grid>
 </Window>

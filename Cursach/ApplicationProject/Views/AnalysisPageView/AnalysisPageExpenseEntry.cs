@@ -57,6 +57,7 @@ namespace ApplicationProject.Views.AnalysisPageView
         }
         private string m_ImagePath;
 
+        public AnalysisPageExpenseEntry() : this("", "", "", 0) { }
         public AnalysisPageExpenseEntry(string title, string currencyIdentifier, string imagePath, double value)
         {
             m_Value = value;

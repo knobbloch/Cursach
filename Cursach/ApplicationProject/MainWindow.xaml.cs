@@ -26,12 +26,6 @@ namespace ApplicationProject
         public IBaseView PresentedView { get; protected set; }
         public Overlay Overlay { get; }
 
-        class TestItem
-        {
-            public double Value { get; set; }
-            public override string ToString() => Value.ToString();
-        }
-
         public MainWindow()
         {
             InitializeComponent();
@@ -39,23 +33,61 @@ namespace ApplicationProject
 
             UserControls.InterPageView.InterPageView view = new()
             {
-                AnalysisButtonName = "Анализ",
-                PlanButtonName = "План",
+                AnalysisButtonNameKey = "Анализ",
+                PlanButtonNameKey = "План",
                 AccountName = "Аккаунт"
             };
             _ = Present(view);
-            UserControls.DatedPageView.DatedPageView aview = new()
+            UserControls.DatedPageView.DatedPageView datedView = new()
             {
                 PageNameTextKey = "Анализ"
             };
-            aview.DateRangeTypes.Add(new DateRangeType { DisplayName = "Месяц", Type = DateRangeType.RangeType.MONTH });
-            aview.DateRangeTypes.Add(new DateRangeType { DisplayName = "Год", Type = DateRangeType.RangeType.YEAR });
-            _ = view.PageViewPresenter.Present(aview);
-
-            System.Collections.ObjectModel.ObservableCollection<TestItem> col = new();
-            for (int i = 0; i < 100; i++)
-                col.Add(new TestItem { Value = i * (i % 2 == 0 ? 1 : -1) });
-            TestChart.BarsSource = col;
+            datedView.DateRangeTypes.Add(new DateRangeType { DisplayName = "Месяц", Type = DateRangeType.RangeType.MONTH });
+            datedView.DateRangeTypes.Add(new DateRangeType { DisplayName = "Год", Type = DateRangeType.RangeType.YEAR });
+            _ = view.PageViewPresenter.Present(datedView);
+            UserControls.AnalysisPageView.AnalysisPageView analysisPage = new()
+            {
+                ExpensesTableNameHeaderKey = "Категория",
+                ExpensesTableValueHeaderKey = "Расход",
+                IncomeTableNameHeaderKey = "Источник",
+                IncomeTableValueHeaderKey = "Доход",
+                ExpensesTabNameKey = "Расходы",
+                IncomeTabNameKey = "Доходы",
+                AddExpenseTextKey = "Добавить расход",
+                AddExpenseCategoryTextKey = "Добавить категорию расходов",
+                CreateExpensesReportTextKey = "Создать файл-отчёт по расходам",
+                AddIncomeTextKey = "Добавить доход",
+                CreateIncomeReportTextKey = "Создать файл-отчёт по доходам"
+            };
+            analysisPage.ExpenesItems.Add(new Views.AnalysisPageView.AnalysisPageExpenseEntry
+            {
+                CurrencyIdentifier = "RUB",
+                Value = 100,
+                Title = "Тест",
+                ImagePath = "C:\\HSE\\Курсач\\Cursach\\ApplicationProject\\Resources\\profilePicture.png"
+            });
+            analysisPage.ExpensesChartItems.Add(new Views.AnalysisPageView.AnalysisPageChartExpenseEntry
+            {
+                PeriodTitle = "Day 1",
+                Value = 25
+            });
+            analysisPage.IncomeItems.Add(new Views.AnalysisPageView.AnalysisPageIncomeEntry
+            {
+                Title = "Стипа",
+                CurrencyIdentifier = "RUB",
+                Value = 100500
+            });
+            analysisPage.IncomeChartItems.Add(new Views.AnalysisPageView.AnalysisPageChartIncomeEntry
+            {
+                PeriodTitle = "Day -1",
+                Value = 25
+            });
+            analysisPage.IncomeChartItems.Add(new Views.AnalysisPageView.AnalysisPageChartIncomeEntry
+            {
+                PeriodTitle = "Day -1",
+                Value = 55
+            });
+            _ = datedView.PageViewPresenter.Present(analysisPage);
         }
 
         public void OnCultureChanged(CultureInfo culture)

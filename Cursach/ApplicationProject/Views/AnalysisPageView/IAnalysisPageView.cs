@@ -4,13 +4,58 @@ using ApplicationProject.Views.DatedPageView;
 
 namespace ApplicationProject.Views.AnalysisPageView
 {
-    public interface IAnalysisPageView : IDatedPageView
+    public interface IAnalysisPageView : IBaseView
     {
         enum AnalysisPageTab
         {
             Expenses,
             Income
         }
+
+        /// <summary>
+        /// Sets the key for the name of the expenses tab
+        /// </summary>
+        public string ExpensesTabNameKey { set; }
+        /// <summary>
+        /// Sets the key for the name of the income tab
+        /// </summary>
+        public string IncomeTabNameKey { set; }
+        /// <summary>
+        /// Sets the key for the name of the "Name" header in the expenes table
+        /// </summary>
+        public string ExpensesTableNameHeaderKey { set; }
+        /// <summary>
+        /// Sets the key for the name of the "Value" header in the expenes table
+        /// </summary>
+        public string ExpensesTableValueHeaderKey { set; }
+        /// <summary>
+        /// Sets the key for the name of the "Name" header in the income table
+        /// </summary>
+        public string IncomeTableNameHeaderKey { set; }
+        /// <summary>
+        /// Sets the key for the name of the "Value" header in the expenes table
+        /// </summary>
+        public string IncomeTableValueHeaderKey { set; }
+        /// <summary>
+        /// Sets the key for the text of the "add expense" tab
+        /// </summary>
+        public string AddExpenseTextKey { set; }
+        /// <summary>
+        /// Sets the key for the text of the "add expense category" tab
+        /// </summary>
+        public string AddExpenseCategoryTextKey { set; }
+        /// <summary>
+        /// Sets the key for the text of the "create expenses report" tab
+        /// </summary>
+        public string CreateExpensesReportTextKey { set; }
+        /// <summary>
+        /// Sets the key for the text of the "add income" tab
+        /// </summary>
+        public string AddIncomeTextKey { set; }
+        /// <summary>
+        /// Sets the key for the text of the "create income report" tab
+        /// </summary>
+        public string CreateIncomeReportTextKey { set; }
 
         /// <summary>
         /// Is called when the "add expense" button is clicked
@@ -32,7 +77,6 @@ namespace ApplicationProject.Views.AnalysisPageView
         /// Is called when the "Create income report" button is clicked
         /// </summary>
         event EventHandler CreateIncomeReportClicked;
-
         /// <summary>
         /// Is called when the active tab is changed
         /// </summary>

@@ -37,9 +37,7 @@
                     </DataTemplate>
                 </ComboBox.ItemTemplate>
             </ComboBox>
-            <Viewbox Grid.RowSpan="2" VerticalAlignment="Bottom" HorizontalAlignment="Left">
-                <TextBlock Text="{Binding PageNameText}" Foreground="Black" VerticalAlignment="Bottom" HorizontalAlignment="Left" LineStackingStrategy="BlockLineHeight"/>
-            </Viewbox>
+            <TextBlock Grid.Row="1" Text="{Binding PageNameText}" Foreground="Black" TextAlignment="Center" VerticalAlignment="Bottom" HorizontalAlignment="Stretch" FontSize="50" LineStackingStrategy="BlockLineHeight" LineHeight="10"/>
         </Grid>
         <Border Grid.Row="1" BorderThickness="2" BorderBrush="Black"/>
         <Grid Grid.Row="2">
@@ -53,7 +51,7 @@
                     <Polygon Points="-5,30 10,60 10,0" Stroke="Black" Fill="Black"/>
                 </Button.Content>
             </Button>
-            <ContentControl Name="ActiveView"/>
+            <ContentControl Name="ActiveView" Grid.Column="1"/>
             <Button Width="30" Height="200" Margin="10" Grid.Column="2" Click="ButtonNextDateRange_Click">
                 <Button.Content>
                     <Polygon Points="5,0 5,60 20,30" Stroke="Black" Fill="Black"/>

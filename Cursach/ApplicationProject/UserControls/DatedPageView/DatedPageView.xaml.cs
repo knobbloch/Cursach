@@ -1,27 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.ComponentModel;
-using System.Windows.Controls.Primitives;
 using System.Globalization;
 
 using ApplicationProject.Views.DatedPageView;
 using ApplicationProject.Views;
-
-using ApplicationProject.UserControls;
 
 namespace ApplicationProject.UserControls.DatedPageView
 {
@@ -77,7 +64,7 @@ namespace ApplicationProject.UserControls.DatedPageView
         {
             Hidden?.Invoke(this, EventArgs.Empty);
         }
-        public bool IsPresentable => DateRangeTypes.Count > 0;
+        public bool IsPresentable => DateRangeTypes.Count > 0 && PageNameText.Length > 0;
 
         public void OnCultureChanged(CultureInfo culture)
         {
@@ -94,13 +81,13 @@ namespace ApplicationProject.UserControls.DatedPageView
 
         public bool Present(IBaseView view)
         {
-            if(view == null)
+            if (view == null)
                 throw new ArgumentNullException(nameof(view));
-            else if(!view.IsPresentable || !(view is UserControl))
+            else if (!view.IsPresentable || !(view is UserControl))
                 return false;
 
             PresentedView?.Hide();
-            if(PresentedView is ISupportOverlay overlay)
+            if (PresentedView is ISupportOverlay overlay)
             {
                 overlay.ClearOverlay();
                 overlay.Overlay = null;
@@ -110,7 +97,7 @@ namespace ApplicationProject.UserControls.DatedPageView
             ActiveView.Content = view as UserControl;
 
             PresentedView?.Show();
-            if(PresentedView is ISupportOverlay overlay2)
+            if (PresentedView is ISupportOverlay overlay2)
                 overlay2.Overlay = Overlay;
 
             return true;
@@ -167,15 +154,12 @@ namespace ApplicationProject.UserControls.DatedPageView
             set
             {
                 m_SelectedRangeType = value;
-                switch(m_SelectedRangeType)
+                DateRangeSelectorCalendar.SelectionTarget = m_SelectedRangeType switch
                 {
-                    case DateRangeType.RangeType.MONTH:
-                        DateRangeSelectorCalendar.SelectionTarget = RangeSelectorCalendar.RangeSelectorCalendarMode.Month;
-                        break;
-                    case DateRangeType.RangeType.YEAR:
-                        DateRangeSelectorCalendar.SelectionTarget = RangeSelectorCalendar.RangeSelectorCalendarMode.Year;
-                        break;
-                }
+                    DateRangeType.RangeType.MONTH => RangeSelectorCalendar.RangeSelectorCalendarMode.Month,
+                    DateRangeType.RangeType.YEAR => RangeSelectorCalendar.RangeSelectorCalendarMode.Year,
+                    _ => throw new ArgumentOutOfRangeException(nameof(SelectedRangeType)),
+                };
             }
         }
         private DateRangeType.RangeType m_SelectedRangeType;
@@ -210,14 +194,12 @@ namespace ApplicationProject.UserControls.DatedPageView
         #region Methods
         protected string ConvertToDateRangeDisplay(DateRange range)
         {
-            switch(m_SelectedRangeType)
+            return m_SelectedRangeType switch
             {
-                case DateRangeType.RangeType.MONTH:
-                    return DisplayedDateRange.Start.ToString("MMMM yyyy", CurrentCulture);
-                case DateRangeType.RangeType.YEAR:
-                    return DisplayedDateRange.Start.ToString("yyyy", CurrentCulture);
-            }
-            return "ERROR";
+                DateRangeType.RangeType.MONTH => range.Start.ToString("MMMM yyyy", CurrentCulture),
+                DateRangeType.RangeType.YEAR => range.Start.ToString("yyyy", CurrentCulture),
+                _ => "ERROR"
+            };
         }
         #endregion
 
@@ -225,12 +207,10 @@ namespace ApplicationProject.UserControls.DatedPageView
 
         private void DateRangeSelector_Click(object sender, RoutedEventArgs e)
         {
-            if(e.OriginalSource == DateRangeSelector)
+            if (e.OriginalSource == DateRangeSelector)
             {
-                DateRangeSelectorRoot.Width = DateRangeSelector.ActualWidth;
-                DateRangeSelectorRoot.Height = DateRangeSelector.ActualWidth;
-                //A calendar has weird blank strips above and under it each approximately 0.047 of its height, so we have to move the calendar down a bit to avoid overlaying the button
-                Overlay.MoveElement(DateRangeSelectorRoot, DateRangeSelector, new Point(CalendarOffset.X, CalendarOffset.Y + DateRangeSelector.ActualHeight - 0.047*DateRangeSelector.ActualWidth));
+                DateRangeSelectorRoot.Height = DateRangeSelectorRoot.Width = DateRangeSelector.ActualWidth;
+                Overlay.MoveElement(DateRangeSelectorRoot, DateRangeSelector, new Point(CalendarOffset.X, CalendarOffset.Y + DateRangeSelector.ActualHeight));
                 Overlay.Visible = DateRangeSelector.IsChecked ?? false;
                 DateRangeSelectorRoot.Visibility = (DateRangeSelector.IsChecked ?? false) ? Visibility.Visible : Visibility.Hidden;
             }
@@ -254,12 +234,10 @@ namespace ApplicationProject.UserControls.DatedPageView
 
         private void CurrentPage_SizeChanged(object sender, SizeChangedEventArgs e)
         {
-            if(Overlay.Visible)
+            if (Overlay.Visible)
             {
-                DateRangeSelectorRoot.Width = DateRangeSelector.ActualWidth;
-                DateRangeSelectorRoot.Height = DateRangeSelector.ActualWidth;
-                //A calendar has weird blank strips above and under it each approximately 0.047 of its height, so we have to move the calendar down a bit to avoid overlaying the button
-                Overlay.MoveElement(DateRangeSelectorRoot, DateRangeSelector, new Point(CalendarOffset.X, CalendarOffset.Y + DateRangeSelector.ActualHeight - 0.047*DateRangeSelector.ActualWidth));
+                DateRangeSelectorRoot.Height = DateRangeSelectorRoot.Width = DateRangeSelector.ActualWidth;
+                Overlay.MoveElement(DateRangeSelectorRoot, DateRangeSelector, new Point(CalendarOffset.X, CalendarOffset.Y + DateRangeSelector.ActualHeight));
             }
         }
 
@@ -270,13 +248,13 @@ namespace ApplicationProject.UserControls.DatedPageView
 
         private void AnalysisPage_DateRangeTypesChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
-            if(DateRangeTypes.Count == 1)
+            if (DateRangeTypes.Count == 1)
                 DateRangeTypeSelector.SelectedIndex = 0;
         }
 
         private void DaterRangeSelector_SelectionChanged(object sender, EventArgs e)
         {
-            if(sender == DateRangeSelectorCalendar)
+            if (sender == DateRangeSelectorCalendar)
             {
                 foreach (RangeSelectorCalendar.DateRange range in DateRangeSelectorCalendar.SelectedRanges)
                     DateRangeSelected?.Invoke(this, new DateRangeSelectedEventArgs(new DateRange(range.Start, range.End)));

@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.ComponentModel;
 
 namespace ApplicationProject.Views.AnalysisPageView
@@ -39,6 +35,7 @@ namespace ApplicationProject.Views.AnalysisPageView
         }
         private string m_PeriodTitle;
 
+        public AnalysisPageChartExpenseEntry() : this("", 0) { }
         public AnalysisPageChartExpenseEntry(string title, double value)
         {
             m_Value = value;

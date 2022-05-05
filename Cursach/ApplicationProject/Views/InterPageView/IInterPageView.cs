@@ -30,17 +30,17 @@ namespace ApplicationProject.Views.InterPageView
         IViewPresenter PageViewPresenter { get; }
 
         /// <summary>
-        /// Updates the analysis button's undertext
+        /// Updates the analysis button's title's key
         /// </summary>
-        string AnalysisButtonName { set; }
+        string AnalysisButtonNameKey { set; }
 
         /// <summary>
-        /// Updates the plan button's undertext
+        /// Updates the plan button's title's key
         /// </summary>
-        string PlanButtonName { set; }
+        string PlanButtonNameKey { set; }
 
         /// <summary>
-        /// Updates the account button's undertext
+        /// Updates the account button's key
         /// </summary>
         string AccountName { set; }
     }
