@@ -19,6 +19,9 @@
     <Compile Update="UserControls\InterPageView\InterPageView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="UserControls\PlanPageView\PlanPageView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="UserControls\RangeSelectorCalendar.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -40,6 +43,9 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="UserControls\InterPageView\InterPageView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="UserControls\PlanPageView\PlanPageView.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="UserControls\RangeSelectorCalendar.xaml">

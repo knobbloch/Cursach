@@ -25,7 +25,7 @@ namespace ApplicationProject.UserControls
     public sealed partial class BarChart : UserControl
     {
         #region Nested Types
-        private enum BarsUpdateMode
+        public enum BarsUpdateMode
         {
             Positive,
             Negative,
@@ -331,6 +331,15 @@ namespace ApplicationProject.UserControls
             if (!bar.IsPositive)
                 NegativeBars++;
 
+            _ = BarsGrid.Children.Add(bar.BarTitle = (FrameworkElement)BarTitleTemplate.LoadContent());
+            bar.BarTitle.DataContext = item;
+            bar.BarTitle.UpdateLayout();
+            bar.BarTitle.SetValue(Grid.RowProperty, TitleBarRow);
+            bar.BarTitle.SetValue(Grid.ColumnProperty, index);
+
+            //A dirty but necessary fix to ensure that the grid updates its columns' actual sizes correctly for the bars to have correct height
+            BarsGrid.Measure(new Size(double.PositiveInfinity, double.PositiveInfinity));
+
             _ = BarsGrid.Children.Add(bar.BarDisplay = (FrameworkElement)(bar.IsPositive ? PositiveBarTemplate.LoadContent() : NegativeBarTemplate.LoadContent()));
             bar.BarDisplay.Style = bar.IsPositive ? PositiveBarStyle : NegativeBarStyle;
             bar.BarRectangle.Width = BarWidth;
@@ -338,12 +347,6 @@ namespace ApplicationProject.UserControls
             bar.BarDisplay.SetValue(Grid.RowProperty, bar.IsPositive ? PositiveBarRow : NegativeBarRow);
             bar.BarDisplay.SetValue(Grid.ColumnProperty, index);
             bar.BarRectangle.Height = Math.Floor(Math.Abs(processedValue) / Math.Max(MaxValue, Math.Abs(MinValue)) * (GetMaxBarHeight(bar.IsPositive) - bar.BarText.ActualHeight));
-
-            _ = BarsGrid.Children.Add(bar.BarTitle = (FrameworkElement)BarTitleTemplate.LoadContent());
-            bar.BarTitle.DataContext = item;
-            bar.BarTitle.UpdateLayout();
-            bar.BarTitle.SetValue(Grid.RowProperty, TitleBarRow);
-            bar.BarTitle.SetValue(Grid.ColumnProperty, index);
 
             UpdateLayout();
         }
@@ -458,6 +461,9 @@ namespace ApplicationProject.UserControls
                 MinValue = value;
             else
             {
+                bar.BarTitle.UpdateLayout();
+                //A dirty but necessary fix to ensure that the grid updates its columns' actual sizes correctly for the bars to have correct height
+                BarsGrid.Measure(new Size(double.PositiveInfinity, double.PositiveInfinity));
                 if (value >= 0 && !bar.IsPositive)
                 {
                     NegativeBars--;
@@ -480,7 +486,6 @@ namespace ApplicationProject.UserControls
                 }
                 bar.BarText.Text = string.Format(System.Threading.Thread.CurrentThread.CurrentUICulture, BarValueFormat, value);
                 bar.BarRectangle.Height = Math.Floor(Math.Abs(value) / Math.Max(MaxValue, Math.Abs(MinValue)) * (GetMaxBarHeight(bar.IsPositive) - bar.BarText.ActualHeight));
-                bar.BarTitle.UpdateLayout();
             }
         }
 
@@ -509,7 +514,7 @@ namespace ApplicationProject.UserControls
         /// <summary>
         /// Updates the height of the bars based on their values
         /// </summary>
-        private void UpdateBars(BarsUpdateMode mode = BarsUpdateMode.All)
+        public void UpdateBars(BarsUpdateMode mode = BarsUpdateMode.All)
         {
             double[] values = new double[Bars.Count];
 

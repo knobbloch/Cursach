@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using ApplicationProject.Views.DatedPageView;
 
 namespace ApplicationProject.Views.AnalysisPageView
 {
@@ -89,11 +88,11 @@ namespace ApplicationProject.Views.AnalysisPageView
         /// <summary>
         /// Stores items which are used to build the income chart
         /// </summary>
-        public ICollection<AnalysisPageChartIncomeEntry> IncomeChartItems { get; }
+        public ICollection<AnalysisPageIncomeChartEntry> IncomeChartItems { get; }
         /// <summary>
         /// Stores items which are used to build expenses chart
         /// </summary>
-        public ICollection<AnalysisPageChartExpenseEntry> ExpensesChartItems { get; }
+        public ICollection<AnalysisPageExpenseChartEntry> ExpensesChartItems { get; }
         /// <summary>
         /// Stores items which are used to build income table
         /// </summary>

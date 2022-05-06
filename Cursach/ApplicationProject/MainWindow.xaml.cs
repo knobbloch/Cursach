@@ -45,6 +45,7 @@ namespace ApplicationProject
             datedView.DateRangeTypes.Add(new DateRangeType { DisplayName = "Месяц", Type = DateRangeType.RangeType.MONTH });
             datedView.DateRangeTypes.Add(new DateRangeType { DisplayName = "Год", Type = DateRangeType.RangeType.YEAR });
             _ = view.PageViewPresenter.Present(datedView);
+            /*
             UserControls.AnalysisPageView.AnalysisPageView analysisPage = new()
             {
                 ExpensesTableNameHeaderKey = "Категория",
@@ -66,7 +67,7 @@ namespace ApplicationProject
                 Title = "Тест",
                 ImagePath = "C:\\HSE\\Курсач\\Cursach\\ApplicationProject\\Resources\\profilePicture.png"
             });
-            analysisPage.ExpensesChartItems.Add(new Views.AnalysisPageView.AnalysisPageChartExpenseEntry
+            analysisPage.ExpensesChartItems.Add(new Views.AnalysisPageView.AnalysisPageExpenseChartEntry
             {
                 PeriodTitle = "Day 1",
                 Value = 25
@@ -77,17 +78,63 @@ namespace ApplicationProject
                 CurrencyIdentifier = "RUB",
                 Value = 100500
             });
-            analysisPage.IncomeChartItems.Add(new Views.AnalysisPageView.AnalysisPageChartIncomeEntry
+            analysisPage.IncomeChartItems.Add(new Views.AnalysisPageView.AnalysisPageIncomeChartEntry
             {
                 PeriodTitle = "Day -1",
                 Value = 25
             });
-            analysisPage.IncomeChartItems.Add(new Views.AnalysisPageView.AnalysisPageChartIncomeEntry
+            analysisPage.IncomeChartItems.Add(new Views.AnalysisPageView.AnalysisPageIncomeChartEntry
             {
                 PeriodTitle = "Day -1",
                 Value = 55
             });
-            _ = datedView.PageViewPresenter.Present(analysisPage);
+            _ = datedView.PageViewPresenter.Present(analysisPage);*/
+            UserControls.PlanPageView.PlanPageView planPage = new UserControls.PlanPageView.PlanPageView()
+            {
+                ExpensesTableNameHeaderKey = "Категория",
+                ExpensesTableRealValueHeaderKey = "Факт",
+                ExpensesTablePlannedValueHeaderKey = "План",
+                IncomeTableNameHeaderKey = "Зачисления",
+                IncomeTableRealValueHeaderKey = "Факт",
+                IncomeTablePlannedValueHeaderKey = "План",
+                ExpensesTabNameKey = "Расходы",
+                IncomeTabNameKey = "Доходы",
+                AddExpenseCategoryTextKey = "Добавить категорию расходов",
+                CreateExpensesReportTextKey = "Создать файл-отчёт по расходам",
+                CreateIncomeReportTextKey = "Создать файл-отчёт по доходам"
+            };
+            planPage.ExpenesItems.Add(new Views.PlanPageView.PlanPageExpenseEntry
+            {
+                CurrencyIdentifier = "RUB",
+                PlannedValue = 100,
+                RealValue = 250,
+                Title = "Тест",
+                ImagePath = "C:\\HSE\\Курсач\\Cursach\\ApplicationProject\\Resources\\profilePicture.png"
+            });
+            planPage.ExpensesChartItems.Add(new Views.PlanPageView.PlanPageExpenseChartEntry
+            {
+                ImagePath = "C:\\HSE\\Курсач\\Cursach\\ApplicationProject\\Resources\\profilePicture.png",
+                Value = 25
+            });
+            planPage.IncomeItems.Add(new Views.PlanPageView.PlanPageIncomeEntry
+            {
+                Title = "Стипа",
+                CurrencyIdentifier = "RUB",
+                PlannedValue = 100500,
+                RealValue = 2
+            });
+            planPage.IncomeChartItems.Add(new Views.PlanPageView.PlanPageIncomeChartEntry
+            {
+                Title = "Day -1",
+                Value = 25
+            });
+            planPage.IncomeChartItems.Add(new Views.PlanPageView.PlanPageIncomeChartEntry
+            {
+                Title = "Day -1",
+                Value = 55
+            });
+            _ = datedView.PageViewPresenter.Present(planPage);
+            planPage.ExpensesBarChart.UpdateBars();
         }
 
         public void OnCultureChanged(CultureInfo culture)

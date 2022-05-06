@@ -1,9 +1,9 @@
 ﻿using System;
 using System.ComponentModel;
 
-namespace ApplicationProject.Views.AnalysisPageView
+namespace ApplicationProject.Views.PlanPageView
 {
-    public class AnalysisPageChartExpenseEntry : INotifyPropertyChanged
+    public class PlanPageIncomeChartEntry : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -24,22 +24,23 @@ namespace ApplicationProject.Views.AnalysisPageView
         /// <summary>
         /// The text to display as the chart entry's title
         /// </summary>
-        public string PeriodTitle
+        /// <exception cref="ArgumentNullException" />
+        public string Title
         {
-            get => m_PeriodTitle;
+            get => m_Title;
             set
             {
-                m_PeriodTitle = value;
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(PeriodTitle)));
+                m_Title = value ?? throw new ArgumentNullException(nameof(Title));
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Title)));
             }
         }
-        private string m_PeriodTitle;
+        private string m_Title;
 
-        public AnalysisPageChartExpenseEntry() : this("", 0) { }
-        public AnalysisPageChartExpenseEntry(string title, double value)
+        public PlanPageIncomeChartEntry() : this("", 0) { }
+        public PlanPageIncomeChartEntry(string title, double value)
         {
-            m_Value = value;
-            m_PeriodTitle = title ?? throw new ArgumentNullException(nameof(title));
+            Value = value;
+            Title = title;
         }
     }
 }

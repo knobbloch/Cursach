@@ -1,40 +1,50 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Data;
+using System.Windows.Documents;
+using System.Windows.Input;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
+using System.Windows.Shapes;
 
 using System.Globalization;
 using System.ComponentModel;
 using System.Collections.ObjectModel;
-using ApplicationProject.Views.AnalysisPageView;
+using ApplicationProject.Views.PlanPageView;
 
-namespace ApplicationProject.UserControls.AnalysisPageView
+namespace ApplicationProject.UserControls.PlanPageView
 {
     /// <summary>
-    /// Interaction logic for AnalysisPageView.xaml
+    /// Interaction logic for PlanPageView.xaml
     /// </summary>
-    public partial class AnalysisPageView : UserControl, IAnalysisPageView, INotifyPropertyChanged
+    public partial class PlanPageView : UserControl, IPlanPageView, INotifyPropertyChanged
     {
-        public AnalysisPageView()
+        public PlanPageView()
         {
             m_ExpensesTabNameKey = "";
             m_IncomeTabNameKey = "";
             m_ExpensesTableNameHeaderKey = "";
-            m_ExpensesTableValueHeaderKey = "";
+            m_ExpensesTableRealValueHeaderKey = "";
+            m_ExpensesTablePlannedValueHeaderKey = "";
             m_IncomeTableNameHeaderKey = "";
-            m_IncomeTableValueHeaderKey = "";
-            m_AddExpenseTextKey = "";
+            m_IncomeTableRealValueHeaderKey = "";
+            m_IncomeTablePlannedValueHeaderKey = "";
             m_AddExpenseCategoryTextKey = "";
             m_CreateExpensesReportTextKey = "";
-            m_AddIncomeTextKey = "";
             m_CreateIncomeReportTextKey = "";
 
             InitializeComponent();
 
-            IncomeBarChart.BarsSource = IncomeChartItems = new ObservableCollection<AnalysisPageIncomeChartEntry>();
-            ExpensesBarChart.BarsSource = ExpensesChartItems = new ObservableCollection<AnalysisPageExpenseChartEntry>();
-            IncomeList.ItemsSource = IncomeItems = new ObservableCollection<AnalysisPageIncomeEntry>();
-            ExpensesList.ItemsSource = ExpenesItems = new ObservableCollection<AnalysisPageExpenseEntry>();
+            IncomeBarChart.BarsSource = IncomeChartItems = new ObservableCollection<PlanPageIncomeChartEntry>();
+            ExpensesBarChart.BarsSource = ExpensesChartItems = new ObservableCollection<PlanPageExpenseChartEntry>();
+            IncomeList.ItemsSource = IncomeItems = new ObservableCollection<PlanPageIncomeEntry>();
+            ExpensesList.ItemsSource = ExpenesItems = new ObservableCollection<PlanPageExpenseEntry>();
         }
 
         protected CultureInfo CurrentCulture { get; set; }
@@ -49,15 +59,15 @@ namespace ApplicationProject.UserControls.AnalysisPageView
             Hidden?.Invoke(this, EventArgs.Empty);
         }
         public bool IsPresentable => ExpensesTableNameHeader.Length > 0 &&
-                                     ExpensesTableValueHeader.Length > 0 &&
+                                     ExpensesTableRealValueHeader.Length > 0 &&
+                                     ExpensesTablePlannedValueHeader.Length > 0 &&
                                      IncomeTableNameHeader.Length > 0 &&
-                                     IncomeTableValueHeader.Length > 0 &&
+                                     IncomeTableRealValueHeader.Length > 0 &&
+                                     IncomeTablePlannedValueHeader.Length > 0 &&
                                      ExpensesTabName.Length > 0 &&
                                      IncomeTabName.Length > 0 &&
-                                     AddExpenseText.Length > 0 &&
                                      AddExpenseCategoryText.Length > 0 &&
                                      CreateExpensesReportText.Length > 0 &&
-                                     AddIncomeText.Length > 0 &&
                                      CreateIncomeReportText.Length > 0;
 
         public void OnCultureChanged(CultureInfo culture)
@@ -73,7 +83,7 @@ namespace ApplicationProject.UserControls.AnalysisPageView
         public event PropertyChangedEventHandler PropertyChanged;
         #endregion
 
-        #region IAnalysisPageView
+        #region IPlanPageView
         public string ExpensesTabNameKey
         {
             get => m_ExpensesTabNameKey;
@@ -110,17 +120,29 @@ namespace ApplicationProject.UserControls.AnalysisPageView
         private string m_ExpensesTableNameHeaderKey;
         public string ExpensesTableNameHeader => ExpensesTableNameHeaderKey;
 
-        public string ExpensesTableValueHeaderKey
+        public string ExpensesTablePlannedValueHeaderKey
         {
-            get => m_ExpensesTableValueHeaderKey;
+            get => m_ExpensesTablePlannedValueHeaderKey;
             set
             {
-                m_ExpensesTableValueHeaderKey = value ?? throw new ArgumentNullException(nameof(ExpensesTableValueHeaderKey));
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(ExpensesTableValueHeader)));
+                m_ExpensesTablePlannedValueHeaderKey = value ?? throw new ArgumentNullException(nameof(ExpensesTablePlannedValueHeaderKey));
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(ExpensesTablePlannedValueHeader)));
             }
         }
-        private string m_ExpensesTableValueHeaderKey;
-        public string ExpensesTableValueHeader => ExpensesTableValueHeaderKey;
+        private string m_ExpensesTablePlannedValueHeaderKey;
+        public string ExpensesTablePlannedValueHeader => ExpensesTablePlannedValueHeaderKey;
+
+        public string ExpensesTableRealValueHeaderKey
+        {
+            get => m_ExpensesTableRealValueHeaderKey;
+            set
+            {
+                m_ExpensesTableRealValueHeaderKey = value ?? throw new ArgumentNullException(nameof(ExpensesTableRealValueHeaderKey));
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(ExpensesTableRealValueHeader)));
+            }
+        }
+        private string m_ExpensesTableRealValueHeaderKey;
+        public string ExpensesTableRealValueHeader => ExpensesTableRealValueHeaderKey;
 
         public string IncomeTableNameHeaderKey
         {
@@ -134,29 +156,29 @@ namespace ApplicationProject.UserControls.AnalysisPageView
         private string m_IncomeTableNameHeaderKey;
         public string IncomeTableNameHeader => IncomeTableNameHeaderKey;
 
-        public string IncomeTableValueHeaderKey
+        public string IncomeTablePlannedValueHeaderKey
         {
-            get => m_IncomeTableValueHeaderKey;
+            get => m_IncomeTablePlannedValueHeaderKey;
             set
             {
-                m_IncomeTableValueHeaderKey = value ?? throw new ArgumentNullException(nameof(IncomeTableValueHeaderKey));
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(IncomeTableValueHeader)));
+                m_IncomeTablePlannedValueHeaderKey = value ?? throw new ArgumentNullException(nameof(IncomeTablePlannedValueHeaderKey));
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(IncomeTablePlannedValueHeader)));
             }
         }
-        private string m_IncomeTableValueHeaderKey;
-        public string IncomeTableValueHeader => IncomeTableValueHeaderKey;
+        private string m_IncomeTablePlannedValueHeaderKey;
+        public string IncomeTablePlannedValueHeader => IncomeTablePlannedValueHeaderKey;
 
-        public string AddExpenseTextKey
+        public string IncomeTableRealValueHeaderKey
         {
-            get => m_AddExpenseTextKey;
+            get => m_IncomeTableRealValueHeaderKey;
             set
             {
-                m_AddExpenseTextKey = value ?? throw new ArgumentNullException(nameof(AddExpenseTextKey));
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(AddExpenseText)));
+                m_IncomeTableRealValueHeaderKey = value ?? throw new ArgumentNullException(nameof(IncomeTableRealValueHeaderKey));
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(IncomeTableRealValueHeader)));
             }
         }
-        private string m_AddExpenseTextKey;
-        public string AddExpenseText => AddExpenseTextKey;
+        private string m_IncomeTableRealValueHeaderKey;
+        public string IncomeTableRealValueHeader => IncomeTableRealValueHeaderKey;
 
         public string AddExpenseCategoryTextKey
         {
@@ -182,18 +204,6 @@ namespace ApplicationProject.UserControls.AnalysisPageView
         private string m_CreateExpensesReportTextKey;
         public string CreateExpensesReportText => CreateExpensesReportTextKey;
 
-        public string AddIncomeTextKey
-        {
-            get => m_AddIncomeTextKey;
-            set
-            {
-                m_AddIncomeTextKey = value ?? throw new ArgumentNullException(nameof(AddIncomeTextKey));
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(AddIncomeText)));
-            }
-        }
-        private string m_AddIncomeTextKey;
-        public string AddIncomeText => AddIncomeTextKey;
-
         public string CreateIncomeReportTextKey
         {
             get => m_CreateIncomeReportTextKey;
@@ -206,41 +216,34 @@ namespace ApplicationProject.UserControls.AnalysisPageView
         private string m_CreateIncomeReportTextKey;
         public string CreateIncomeReportText => CreateIncomeReportTextKey;
 
-        public event EventHandler AddExpenseClicked;
         public event EventHandler AddExpenseCategoryClicked;
         public event EventHandler CreateExpensesReportClicked;
-        public event EventHandler AddIncomeClicked;
         public event EventHandler CreateIncomeReportClicked;
-        public event EventHandler<AnalysisPageTabSelectedEventArgs> TabChanged;
+        public event EventHandler<PlanPageTabSelectedEventArgs> TabChanged;
 
-        public IAnalysisPageView.AnalysisPageTab ActiveTab
+        public IPlanPageView.PlanPageTab ActiveTab
         {
             get => m_ActiveTab;
             set
             {
                 TabsControl.SelectedIndex = value switch
                 {
-                    IAnalysisPageView.AnalysisPageTab.Expenses => 0,
-                    IAnalysisPageView.AnalysisPageTab.Income => 1,
+                    IPlanPageView.PlanPageTab.Expenses => 0,
+                    IPlanPageView.PlanPageTab.Income => 1,
                     _ => throw new ArgumentOutOfRangeException(nameof(ActiveTab))
                 };
 
                 m_ActiveTab = value;
             }
         }
-        private IAnalysisPageView.AnalysisPageTab m_ActiveTab;
-        public ICollection<AnalysisPageIncomeChartEntry> IncomeChartItems { get; }
-        public ICollection<AnalysisPageExpenseChartEntry> ExpensesChartItems { get; }
-        public ICollection<AnalysisPageIncomeEntry> IncomeItems { get; }
-        public ICollection<AnalysisPageExpenseEntry> ExpenesItems { get; }
+        private IPlanPageView.PlanPageTab m_ActiveTab;
+        public ICollection<PlanPageIncomeChartEntry> IncomeChartItems { get; }
+        public ICollection<PlanPageExpenseChartEntry> ExpensesChartItems { get; }
+        public ICollection<PlanPageIncomeEntry> IncomeItems { get; }
+        public ICollection<PlanPageExpenseEntry> ExpenesItems { get; }
         #endregion
 
         #region Handled events
-        private void AddExpenseButton_Click(object sender, RoutedEventArgs e)
-        {
-            AddExpenseClicked?.Invoke(this, EventArgs.Empty);
-        }
-
         private void AddExpenseCategoryButton_Click(object sender, RoutedEventArgs e)
         {
             AddExpenseCategoryClicked?.Invoke(this, EventArgs.Empty);
@@ -253,17 +256,12 @@ namespace ApplicationProject.UserControls.AnalysisPageView
 
         private void TabsControl_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            TabChanged?.Invoke(this, new AnalysisPageTabSelectedEventArgs(TabsControl.SelectedIndex switch
+            TabChanged?.Invoke(this, new PlanPageTabSelectedEventArgs(TabsControl.SelectedIndex switch
             {
-                0 => IAnalysisPageView.AnalysisPageTab.Expenses,
-                1 => IAnalysisPageView.AnalysisPageTab.Income,
+                0 => IPlanPageView.PlanPageTab.Expenses,
+                1 => IPlanPageView.PlanPageTab.Income,
                 _ => throw new InvalidOperationException("Invalid tab was selected")
             }));
-        }
-
-        private void AddIncomeButton_Click(object sender, RoutedEventArgs e)
-        {
-            AddIncomeClicked?.Invoke(this, EventArgs.Empty);
         }
 
         private void CreateIncomeReportButton_Click(object sender, RoutedEventArgs e)

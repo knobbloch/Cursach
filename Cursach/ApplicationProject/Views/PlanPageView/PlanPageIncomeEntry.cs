@@ -1,28 +1,42 @@
 ﻿using System;
 using System.ComponentModel;
 
-namespace ApplicationProject.Views.AnalysisPageView
+namespace ApplicationProject.Views.PlanPageView
 {
-    public class AnalysisPageIncomeEntry : INotifyPropertyChanged
+    public class PlanPageIncomeEntry : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
         /// <summary>
-        /// The displayed value of this entry
+        /// The displayed real value of this entry
         /// </summary>
-        public double Value
+        public double RealValue
         {
-            get => m_Value;
+            get => m_RealValue;
             set
             {
-                m_Value = value;
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Value)));
+                m_RealValue = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(RealValue)));
             }
         }
-        private double m_Value;
+        private double m_RealValue;
 
         /// <summary>
-        /// The currency identifier to append to the value
+        /// The displayed planned value of this entry
+        /// </summary>
+        public double PlannedValue
+        {
+            get => m_PlannedValue;
+            set
+            {
+                m_PlannedValue = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(PlannedValue)));
+            }
+        }
+        private double m_PlannedValue;
+
+        /// <summary>
+        /// The currency identifier to append to the values
         /// </summary>
         /// <exception cref="ArgumentNullException" />
         public string CurrencyIdentifier
@@ -37,7 +51,7 @@ namespace ApplicationProject.Views.AnalysisPageView
         private string m_CurrencyIdentifier;
 
         /// <summary>
-        /// The text to display as the chart entry's title
+        /// The text to display as the entry's title
         /// </summary>
         /// <exception cref="ArgumentNullException" />
         public string Title
@@ -51,10 +65,11 @@ namespace ApplicationProject.Views.AnalysisPageView
         }
         private string m_Title;
 
-        public AnalysisPageIncomeEntry() : this("", "", 0) { }
-        public AnalysisPageIncomeEntry(string title, string currencyIdentifier, double value)
+        public PlanPageIncomeEntry() : this("", "", 0, 0) { }
+        public PlanPageIncomeEntry(string title, string currencyIdentifier, double rValue, double pValue)
         {
-            Value = value;
+            RealValue = rValue;
+            PlannedValue = pValue;
             Title = title;
             CurrencyIdentifier = currencyIdentifier;
         }

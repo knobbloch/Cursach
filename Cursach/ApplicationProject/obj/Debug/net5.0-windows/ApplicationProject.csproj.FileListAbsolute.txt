@@ -34,3 +34,5 @@ C:\HSE\Курсач\Cursach\ApplicationProject\obj\Debug\net5.0-windows\UserCont
 C:\HSE\Курсач\Cursach\ApplicationProject\obj\Debug\net5.0-windows\UserControls\BarChart.baml
 C:\HSE\Курсач\Cursach\ApplicationProject\obj\Debug\net5.0-windows\UserControls\AnalysisPageView\AnalysisPageView.g.cs
 C:\HSE\Курсач\Cursach\ApplicationProject\obj\Debug\net5.0-windows\UserControls\AnalysisPageView\AnalysisPageView.baml
+C:\HSE\Курсач\Cursach\ApplicationProject\obj\Debug\net5.0-windows\UserControls\PlanPageView\PlanPageView.g.cs
+C:\HSE\Курсач\Cursach\ApplicationProject\obj\Debug\net5.0-windows\UserControls\PlanPageView\PlanPageView.baml

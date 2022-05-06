@@ -10,11 +10,11 @@ none
 false
 TRACE;DEBUG;NET;NET5_0;NETCOREAPP
 C:\HSE\Курсач\Cursach\ApplicationProject\App.xaml
-72102797209
+8443642719
 
-331864806988
+39124470496
 193-1891726104
-MainWindow.xaml;UserControls\AnalysisPageView\AnalysisPageView.xaml;UserControls\BarChart.xaml;UserControls\DatedPageView\DatedPageView.xaml;UserControls\InterPageView\InterPageView.xaml;UserControls\RangeSelectorCalendar.xaml;UserControls\RoundButton.xaml;
+MainWindow.xaml;UserControls\AnalysisPageView\AnalysisPageView.xaml;UserControls\BarChart.xaml;UserControls\DatedPageView\DatedPageView.xaml;UserControls\InterPageView\InterPageView.xaml;UserControls\PlanPageView\PlanPageView.xaml;UserControls\RangeSelectorCalendar.xaml;UserControls\RoundButton.xaml;
 
 False
 
