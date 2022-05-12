@@ -219,7 +219,9 @@ namespace ApplicationProject.UserControls.PlanPageView
         public event EventHandler AddExpenseCategoryClicked;
         public event EventHandler CreateExpensesReportClicked;
         public event EventHandler CreateIncomeReportClicked;
-        public event EventHandler<PlanPageTabSelectedEventArgs> TabChanged;
+        public event PlanPageTabSelectedEventHandler TabChanged;
+        public event PlanPageIncomeEntrySelectedEventHandler IncomeEntrySelected;
+        public event PlanPageExpenseEntrySelectedEventHandler ExpenseEntrySelected;
 
         public IPlanPageView.PlanPageTab ActiveTab
         {
@@ -267,6 +269,16 @@ namespace ApplicationProject.UserControls.PlanPageView
         private void CreateIncomeReportButton_Click(object sender, RoutedEventArgs e)
         {
             CreateIncomeReportClicked?.Invoke(this, EventArgs.Empty);
+        }
+
+        private void ExpensesList_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            ExpenseEntrySelected?.Invoke(this, new PlanPageExpenseEntrySelectedEventArgs((PlanPageExpenseEntry)ExpensesList.SelectedItem));
+        }
+
+        private void IncomeList_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            IncomeEntrySelected?.Invoke(this, new PlanPageIncomeEntrySelectedEventArgs((PlanPageIncomeEntry)IncomeList.SelectedItem));
         }
         #endregion
     }

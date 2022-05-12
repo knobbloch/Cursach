@@ -46,7 +46,7 @@
                             </DataTemplate>
                         </uc:BarChart.BarTitleTemplate>
                     </uc:BarChart>
-                    <ListView Name="ExpensesList" ScrollViewer.VerticalScrollBarVisibility="Auto" Grid.Row="3">
+                    <ListView Name="ExpensesList" ScrollViewer.VerticalScrollBarVisibility="Auto" Grid.Row="3" SelectionChanged="ExpensesList_SelectionChanged">
                         <ListView.ItemContainerStyle>
                             <Style TargetType="ListViewItem">
                                 <Setter Property="HorizontalContentAlignment" Value="Stretch" />
@@ -139,7 +139,7 @@
                             </DataTemplate>
                         </uc:BarChart.BarTitleTemplate>
                     </uc:BarChart>
-                    <ListView Name="IncomeList" ScrollViewer.VerticalScrollBarVisibility="Auto" Grid.Row="3">
+                    <ListView Name="IncomeList" ScrollViewer.VerticalScrollBarVisibility="Auto" Grid.Row="3" SelectionChanged="IncomeList_SelectionChanged">
                         <ListView.ItemContainerStyle>
                             <Style TargetType="ListViewItem">
                                 <Setter Property="HorizontalContentAlignment" Value="Stretch" />

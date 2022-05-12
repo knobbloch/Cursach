@@ -9,7 +9,7 @@ namespace ApplicationProject.Views.InterPageView
         /// <summary>
         /// Is called when one of the category buttons is clicked on
         /// </summary>
-        event EventHandler<CategorySelectedEventArgs> CategorySelected;
+        event CategorySelectedEventHandler CategorySelected;
         /// <summary>
         /// Is called when the profile button is clicked on
         /// </summary>
@@ -17,7 +17,7 @@ namespace ApplicationProject.Views.InterPageView
         /// <summary>
         /// Is called when a bank account is clicked on
         /// </summary>
-        event EventHandler<BankAccountSelectedEventArgs> BankAccountSelected;
+        event BankAccountSelectedSelectedEventHandler BankAccountSelected;
 
         /// <summary>
         /// Stores instance of bank accounts

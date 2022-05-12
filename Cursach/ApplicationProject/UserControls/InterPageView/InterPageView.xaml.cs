@@ -118,9 +118,9 @@ namespace ApplicationProject.UserControls.InterPageView
         #endregion
 
         #region IInterPageView
-        public event EventHandler<CategorySelectedEventArgs> CategorySelected;
+        public event CategorySelectedEventHandler CategorySelected;
         public event EventHandler ProfileSelected;
-        public event EventHandler<BankAccountSelectedEventArgs> BankAccountSelected;
+        public event BankAccountSelectedSelectedEventHandler BankAccountSelected;
 
         public IList<BankAccountInfo> BankAccounts { get; }
 

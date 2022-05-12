@@ -211,7 +211,9 @@ namespace ApplicationProject.UserControls.AnalysisPageView
         public event EventHandler CreateExpensesReportClicked;
         public event EventHandler AddIncomeClicked;
         public event EventHandler CreateIncomeReportClicked;
-        public event EventHandler<AnalysisPageTabSelectedEventArgs> TabChanged;
+        public event AnalysisPageTabSelectedEventHandler TabChanged;
+        public event AnalysisPageIncomeEntrySelectedEventHandler IncomeEntrySelected;
+        public event AnalysisPageExpenseEntrySelectedEventHandler ExpenseEntrySelected;
 
         public IAnalysisPageView.AnalysisPageTab ActiveTab
         {
@@ -269,6 +271,16 @@ namespace ApplicationProject.UserControls.AnalysisPageView
         private void CreateIncomeReportButton_Click(object sender, RoutedEventArgs e)
         {
             CreateIncomeReportClicked?.Invoke(this, EventArgs.Empty);
+        }
+
+        private void ExpensesList_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            ExpenseEntrySelected?.Invoke(this, new AnalysisPageExpenseEntrySelectedEventArgs((AnalysisPageExpenseEntry)ExpensesList.SelectedItem));
+        }
+
+        private void IncomeList_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            IncomeEntrySelected?.Invoke(this, new AnalysisPageIncomeEntrySelectedEventArgs((AnalysisPageIncomeEntry)IncomeList.SelectedItem));
         }
         #endregion
     }

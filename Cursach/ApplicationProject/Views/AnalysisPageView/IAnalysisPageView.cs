@@ -79,7 +79,15 @@ namespace ApplicationProject.Views.AnalysisPageView
         /// <summary>
         /// Is called when the active tab is changed
         /// </summary>
-        event EventHandler<AnalysisPageTabSelectedEventArgs> TabChanged;
+        event AnalysisPageTabSelectedEventHandler TabChanged;
+        /// <summary>
+        /// Is called when an income entry is selected (clicked on)
+        /// </summary>
+        event AnalysisPageIncomeEntrySelectedEventHandler IncomeEntrySelected;
+        /// <summary>
+        /// Is called when an expense entry is selected (clicked on)
+        /// </summary>
+        event AnalysisPageExpenseEntrySelectedEventHandler ExpenseEntrySelected;
 
         /// <summary>
         /// Manages the currently selected tab of the page

@@ -2,9 +2,11 @@
 
 namespace ApplicationProject.Views.InterPageView
 {
+    public delegate void BankAccountSelectedSelectedEventHandler(object source, BankAccountSelectedEventArgs e);
+
     public class BankAccountSelectedEventArgs : EventArgs
     {
-        public BankAccountSelectedEventArgs(BankAccountInfo account, int index)
+        public BankAccountSelectedEventArgs(BankAccountInfo account, int index) : base()
         {
             BankAccount = account;
             IndexInCollection = index;

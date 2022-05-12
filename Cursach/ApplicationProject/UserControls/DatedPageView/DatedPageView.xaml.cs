@@ -106,8 +106,8 @@ namespace ApplicationProject.UserControls.DatedPageView
         #endregion
 
         #region IDatedPageView
-        public event EventHandler<DateRangeTypeSelectedEventArgs> DateRangeTypeSelected;
-        public event EventHandler<DateRangeSelectedEventArgs> DateRangeSelected;
+        public event DateRangeTypeSelectedEventHandler DateRangeTypeSelected;
+        public event DateRangeSelectedEventHandler DateRangeSelected;
         public event EventHandler NextDateRangeSelected;
         public event EventHandler PreviousDateRangeSelected;
 
