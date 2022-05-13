@@ -10,8 +10,5 @@
     <Grid>
         <ContentControl Name="ActiveView" Visibility="Visible"/>
         <Canvas Name="OverlayLayer" Background="Transparent" Visibility="Hidden" Panel.ZIndex="1" Width="{Binding ActualWidth, ElementName=ActiveView}" Height="{Binding ActualHeight, ElementName=ActiveView}"/>
-        <Viewbox Visibility="Hidden">
-            <uc:RangeSelectorCalendar x:Name="TestCalendar"/>
-        </Viewbox>
     </Grid>
 </Window>

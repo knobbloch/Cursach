@@ -7,6 +7,8 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Resources\plusSign.png" />
+    <None Remove="Resources\plusSignWhite.png" />
     <None Remove="Resources\profilePicture.png" />
   </ItemGroup>
 
@@ -15,10 +17,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="UserControls\AnalysisPageView\" />
-  </ItemGroup>
-
-  <ItemGroup>
+    <Resource Include="Resources\plusSign.png" />
+    <Resource Include="Resources\plusSignWhite.png" />
     <Resource Include="Resources\profilePicture.png" />
   </ItemGroup>
 

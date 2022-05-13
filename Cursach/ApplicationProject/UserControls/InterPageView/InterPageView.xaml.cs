@@ -1,17 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Globalization;
@@ -28,6 +19,9 @@ namespace ApplicationProject.UserControls.InterPageView
     {
         public InterPageView()
         {
+            m_AnalysisButtonNameKey = "";
+            m_PlanButtonNameKey = "";
+
             InitializeComponent();
 
             BankAccounts = new ObservableCollection<BankAccountInfo>();
@@ -37,38 +31,34 @@ namespace ApplicationProject.UserControls.InterPageView
             BankAccounts.Add(new BankAccountInfo("ВТБ: 1234 5678 9123 4567", "40", "EUR"));
         }
 
-        void Click_ProfileButton(object sender, RoutedEventArgs e)
+        private void Click_ProfileButton(object sender, RoutedEventArgs e)
         {
-            if(!e.Handled)
+            if (!e.Handled)
             {
                 ProfileSelected?.Invoke(this, EventArgs.Empty);
                 e.Handled = true;
             }
         }
 
-        void Click_CategoryButton(object sender, RoutedEventArgs e)
+        private void Click_CategoryButton(object sender, RoutedEventArgs e)
         {
-            if(!e.Handled)
+            if (!e.Handled)
             {
-                if(sender == AnalysisButton)
-                    CategorySelected?.Invoke(this, new CategorySelectedEventArgs(CategorySelectedEventArgs.CategoryType.Analysis)); 
-                else if(sender == PlanButton)
+                if (sender == AnalysisButton)
+                    CategorySelected?.Invoke(this, new CategorySelectedEventArgs(CategorySelectedEventArgs.CategoryType.Analysis));
+                else if (sender == PlanButton)
                     CategorySelected?.Invoke(this, new CategorySelectedEventArgs(CategorySelectedEventArgs.CategoryType.Plan));
-                if(sender == NewEntryButton)
+                else if (sender == NewEntryButton)
                     CategorySelected?.Invoke(this, new CategorySelectedEventArgs(CategorySelectedEventArgs.CategoryType.NewEntry));
 
                 e.Handled = true;
             }
         }
 
-        void Selected_BankAccount(object sender, MouseButtonEventArgs e)
+        private void Selected_BankAccount(object sender, MouseButtonEventArgs e)
         {
-            if(BankAccountsDisplayer.SelectedIndex >= 0 && BankAccountsDisplayer.SelectedIndex < BankAccounts.Count)
-            {
-                MessageBox.Show(BankAccounts[BankAccountsDisplayer.SelectedIndex].AccountName);
-
+            if (BankAccountsDisplayer.SelectedIndex >= 0 && BankAccountsDisplayer.SelectedIndex < BankAccounts.Count)
                 BankAccountSelected?.Invoke(this, new BankAccountSelectedEventArgs(BankAccounts[BankAccountsDisplayer.SelectedIndex], BankAccountsDisplayer.SelectedIndex));
-            }
         }
 
         #region IViewPresenter
@@ -76,13 +66,13 @@ namespace ApplicationProject.UserControls.InterPageView
 
         public bool Present(IBaseView view)
         {
-            if(view == null)
+            if (view == null)
                 throw new ArgumentNullException(nameof(view));
-            else if(!view.IsPresentable || !(view is UserControl))
+            else if (!view.IsPresentable || !(view is UserControl))
                 return false;
 
             PresentedView?.Hide();
-            if(PresentedView is ISupportOverlay overlay)
+            if (PresentedView is ISupportOverlay overlay)
             {
                 overlay.ClearOverlay();
                 overlay.Overlay = null;
@@ -92,7 +82,7 @@ namespace ApplicationProject.UserControls.InterPageView
             ActivePageView.Content = view as UserControl;
 
             PresentedView?.Show();
-            if(PresentedView is ISupportOverlay overlay2)
+            if (PresentedView is ISupportOverlay overlay2)
                 overlay2.Overlay = Overlay;
 
             return true;
@@ -111,19 +101,12 @@ namespace ApplicationProject.UserControls.InterPageView
 
         public void OnCultureChanged(CultureInfo culture)
         {
-
             PresentedView?.OnCultureChanged(culture);
         }
 
-        public bool IsPresentable
-        {
-            get
-            {
-                return AnalysisButtonName != null &&
-                       PlanButtonName != null &&
-                       AccountName != null;
-            }
-        }
+        public bool IsPresentable => AnalysisButtonName.Length > 0 &&
+                                     PlanButtonName.Length > 0 &&
+                                     AccountName.Length > 0;
 
         public event EventHandler Shown;
         public event EventHandler Hidden;
@@ -135,43 +118,39 @@ namespace ApplicationProject.UserControls.InterPageView
         #endregion
 
         #region IInterPageView
-        public event EventHandler<CategorySelectedEventArgs> CategorySelected;
+        public event CategorySelectedEventHandler CategorySelected;
         public event EventHandler ProfileSelected;
-        public event EventHandler<BankAccountSelectedEventArgs> BankAccountSelected;
+        public event BankAccountSelectedSelectedEventHandler BankAccountSelected;
 
         public IList<BankAccountInfo> BankAccounts { get; }
 
-        public IViewPresenter PageViewPresenter { get => this; }
+        public IViewPresenter PageViewPresenter => this;
 
-        private string m_AnalysisButtonName;
-        public string AnalysisButtonName
+        private string m_AnalysisButtonNameKey;
+        public string AnalysisButtonNameKey
         {
-            get => m_AnalysisButtonName;
+            get => m_AnalysisButtonNameKey;
             set
             {
-                m_AnalysisButtonName = value ?? "";
+                m_AnalysisButtonNameKey = value ?? throw new ArgumentNullException(nameof(AnalysisButtonNameKey));
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(AnalysisButtonName)));
             }
         }
-        public string AnalysisButtonSymbol
-        {
-            get => m_AnalysisButtonName.Substring(0, 1);
-        }
+        public string AnalysisButtonName => AnalysisButtonNameKey;
+        public string AnalysisButtonSymbol => AnalysisButtonName.Substring(0, 1);
 
-        private string m_PlanButtonName;
-        public string PlanButtonName
+        private string m_PlanButtonNameKey;
+        public string PlanButtonNameKey
         {
-            get => m_PlanButtonName;
+            get => m_PlanButtonNameKey;
             set
             {
-                m_PlanButtonName = value ?? "";
+                m_PlanButtonNameKey = value ?? throw new ArgumentNullException(nameof(PlanButtonNameKey));
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(PlanButtonName)));
             }
         }
-        public string PlanButtonSymbol
-        {
-            get => m_PlanButtonName.Substring(0, 1);
-        }
+        public string PlanButtonName => PlanButtonNameKey;
+        public string PlanButtonSymbol => PlanButtonName.Substring(0, 1);
 
         private string m_AccountName;
         public string AccountName
@@ -187,7 +166,7 @@ namespace ApplicationProject.UserControls.InterPageView
 
         #region ISupportOverlay
         public Overlay Overlay { get; set; }
-        
+
         public void ClearOverlay() { }
         #endregion
     }

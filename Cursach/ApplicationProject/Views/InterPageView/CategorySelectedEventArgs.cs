@@ -2,6 +2,8 @@
 
 namespace ApplicationProject.Views.InterPageView
 {
+    public delegate void CategorySelectedEventHandler(object source, CategorySelectedEventArgs e);
+
     public class CategorySelectedEventArgs : EventArgs
     {
         public enum CategoryType
@@ -11,7 +13,7 @@ namespace ApplicationProject.Views.InterPageView
             NewEntry
         }
 
-        public CategorySelectedEventArgs(CategoryType category)
+        public CategorySelectedEventArgs(CategoryType category) : base()
         {
             Category = category;
         }

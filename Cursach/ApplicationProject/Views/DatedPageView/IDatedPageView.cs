@@ -8,12 +8,12 @@ namespace ApplicationProject.Views.DatedPageView
         /// <summary>
         /// Is called when the date range type is changed for this page
         /// </summary>
-        event EventHandler<DateRangeTypeSelectedEventArgs> DateRangeTypeSelected;
+        event DateRangeTypeSelectedEventHandler DateRangeTypeSelected;
 
         /// <summary>
         /// Is called when a date range is selected for this page
         /// </summary>
-        event EventHandler<DateRangeSelectedEventArgs> DateRangeSelected;
+        event DateRangeSelectedEventHandler DateRangeSelected;
 
         /// <summary>
         /// Is called when the button for the next date range is pressed

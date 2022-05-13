@@ -65,9 +65,7 @@
                     </uc:RoundButton>
                     <uc:RoundButton Width="150" Height="120" ButtonColor="Black" x:Name="NewEntryButton" Margin="0, 50, 0, 10" Click="Click_CategoryButton">
                         <uc:RoundButton.ButtonContent>
-                            <Viewbox>
-                                <TextBlock Text="+" Foreground="White" />
-                            </Viewbox>
+                            <Image Source="/Resources/plusSignWhite.png" />
                         </uc:RoundButton.ButtonContent>
                     </uc:RoundButton>
                 </StackPanel>
