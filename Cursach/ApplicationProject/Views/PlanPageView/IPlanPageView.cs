@@ -1,99 +1,48 @@
 ﻿using System;
 using System.Collections.Generic;
 
+using ApplicationProject.Views.DatedPageView;
+
 namespace ApplicationProject.Views.PlanPageView
 {
-    public interface IPlanPageView : IBaseView
+    public interface IPlanPageView : IDatedPageView
     {
-        enum PlanPageTab
+        enum PlanPageMode
         {
             Expenses,
             Income
         }
 
         /// <summary>
-        /// Sets the key for the name of the expenses tab
+        /// Is called when the "add expense category" action should be executed
         /// </summary>
-        public string ExpensesTabNameKey { set; }
+        event EventHandler AddExpenseCategoryAction;
         /// <summary>
-        /// Sets the key for the name of the income tab
+        /// Is called when the "create expenses report" action should be executed
         /// </summary>
-        public string IncomeTabNameKey { set; }
+        event EventHandler CreateExpensesReportAction;
         /// <summary>
-        /// Sets the key for the name of the "Name" header in the expenes table
+        /// Is called when the "Create income report" action should be executed
         /// </summary>
-        public string ExpensesTableNameHeaderKey { set; }
+        event EventHandler CreateIncomeReportAction;
         /// <summary>
-        /// Sets the key for the name of the "planned value" header in the expenes table
+        /// Is called when the active mode is changed
         /// </summary>
-        public string ExpensesTablePlannedValueHeaderKey { set; }
+        event PlanPageTabSelectedEventHandler ModeChanged;
         /// <summary>
-        /// Sets the key for the name of the "real value" header in the expenes table
-        /// </summary>
-        public string ExpensesTableRealValueHeaderKey { set; }
-        /// <summary>
-        /// Sets the key for the name of the "Name" header in the income table
-        /// </summary>
-        public string IncomeTableNameHeaderKey { set; }
-        /// <summary>
-        /// Sets the key for the name of the "planned value" header in the expenes table
-        /// </summary>
-        public string IncomeTablePlannedValueHeaderKey { set; }
-        /// <summary>
-        /// Sets the key for the name of the "real value" header in the expenes table
-        /// </summary>
-        public string IncomeTableRealValueHeaderKey { set; }
-        /// <summary>
-        /// Sets the key for the text of the "add expense category" tab
-        /// </summary>
-        public string AddExpenseCategoryTextKey { set; }
-        /// <summary>
-        /// Sets the key for the text of the "create expenses report" tab
-        /// </summary>
-        public string CreateExpensesReportTextKey { set; }
-        /// <summary>
-        /// Sets the key for the text of the "create income report" tab
-        /// </summary>
-        public string CreateIncomeReportTextKey { set; }
-
-        /// <summary>
-        /// Is called when the "add expense category" button is clicked
-        /// </summary>
-        event EventHandler AddExpenseCategoryClicked;
-        /// <summary>
-        /// Is called when the "create expenses report" button is clicked
-        /// </summary>
-        event EventHandler CreateExpensesReportClicked;
-        /// <summary>
-        /// Is called when the "Create income report" button is clicked
-        /// </summary>
-        event EventHandler CreateIncomeReportClicked;
-        /// <summary>
-        /// Is called when the active tab is changed
-        /// </summary>
-        event PlanPageTabSelectedEventHandler TabChanged;
-        /// <summary>
-        /// Is called when an income entry is selected (clicked on)
+        /// Is called when an income entry is selected
         /// </summary>
         event PlanPageIncomeEntrySelectedEventHandler IncomeEntrySelected;
         /// <summary>
-        /// Is called when an expense entry is selected (clicked on)
+        /// Is called when an expense entry is selected
         /// </summary>
         event PlanPageExpenseEntrySelectedEventHandler ExpenseEntrySelected;
 
 
         /// <summary>
-        /// Manages the currently selected tab of the page
+        /// Manages the currently selected mode of the page
         /// </summary>
-        public PlanPageTab ActiveTab { get; set; }
-        /// <summary>
-        /// Stores items which are used to build the income chart
-        /// </summary>
-        public ICollection<PlanPageIncomeChartEntry> IncomeChartItems { get; }
-        /// <summary>
-        /// Stores items which are used to build expenses chart
-        /// </summary>
-        public ICollection<PlanPageExpenseChartEntry> ExpensesChartItems { get; }
+        public PlanPageMode CurrentMode { get; set; }
         /// <summary>
         /// Stores items which are used to build income table
         /// </summary>

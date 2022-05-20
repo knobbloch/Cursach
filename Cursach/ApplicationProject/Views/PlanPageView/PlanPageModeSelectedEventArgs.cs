@@ -6,11 +6,11 @@ namespace ApplicationProject.Views.PlanPageView
 
     public class PlanPageTabSelectedEventArgs : EventArgs
     {
-        public IPlanPageView.PlanPageTab Tab { get; }
+        public IPlanPageView.PlanPageMode Mode { get; }
 
-        public PlanPageTabSelectedEventArgs(IPlanPageView.PlanPageTab tab) : base()
+        public PlanPageTabSelectedEventArgs(IPlanPageView.PlanPageMode mode) : base()
         {
-            Tab = tab;
+            Mode = mode;
         }
     }
 }

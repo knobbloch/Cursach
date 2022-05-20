@@ -7,7 +7,9 @@ using System.Threading.Tasks;
 using System.Windows;
 
 using ApplicationProject.Views;
-using ApplicationProject.Views.DatedPageView;
+using ApplicationProject.Views.AnalysisPageView;
+
+using ApplicationProject.UserControls.AnalysisPageView;
 
 namespace ApplicationProject
 {
@@ -21,109 +23,38 @@ namespace ApplicationProject
             IViewPresenter viewRoot = (IViewPresenter)(MainWindow = new MainWindow());
             MainWindow.Show();
 
-            UserControls.InterPageView.InterPageView view = new()
+            IAnalysisPageView aview = new AnalysisPageView();
+            aview.AccountName = "Temp";
+            aview.BankAccounts.Add(new BankAccountInfo("Test", "15", "RUB"));
+            aview.DateRangeTypes.Add(new Views.DatedPageView.DateRangeType()
             {
-                AnalysisButtonNameKey = "Анализ",
-                PlanButtonNameKey = "План",
-                AccountName = "Аккаунт"
-            };
-            _ = viewRoot.Present(view);
-            UserControls.DatedPageView.DatedPageView datedView = new()
-            {
-                PageNameTextKey = "Анализ"
-            };
-            datedView.DateRangeTypes.Add(new DateRangeType { DisplayName = "Месяц", Type = DateRangeType.RangeType.MONTH });
-            datedView.DateRangeTypes.Add(new DateRangeType { DisplayName = "Год", Type = DateRangeType.RangeType.YEAR });
-            _ = view.PageViewPresenter.Present(datedView);
-            /*
-            UserControls.AnalysisPageView.AnalysisPageView analysisPage = new()
-            {
-                ExpensesTableNameHeaderKey = "Категория",
-                ExpensesTableValueHeaderKey = "Расход",
-                IncomeTableNameHeaderKey = "Источник",
-                IncomeTableValueHeaderKey = "Доход",
-                ExpensesTabNameKey = "Расходы",
-                IncomeTabNameKey = "Доходы",
-                AddExpenseTextKey = "Добавить расход",
-                AddExpenseCategoryTextKey = "Добавить категорию расходов",
-                CreateExpensesReportTextKey = "Создать файл-отчёт по расходам",
-                AddIncomeTextKey = "Добавить доход",
-                CreateIncomeReportTextKey = "Создать файл-отчёт по доходам"
-            };
-            analysisPage.ExpenesItems.Add(new Views.AnalysisPageView.AnalysisPageExpenseEntry
-            {
-                CurrencyIdentifier = "RUB",
-                Value = 100,
-                Title = "Тест",
-                ImagePath = "C:\\HSE\\Курсач\\Cursach\\ApplicationProject\\Resources\\profilePicture.png"
+                Type = Views.DatedPageView.DateRangeType.RangeType.MONTH
             });
-            analysisPage.ExpensesChartItems.Add(new Views.AnalysisPageView.AnalysisPageExpenseChartEntry
+            aview.ExpenesItems.Add(new AnalysisPageExpenseEntry()
             {
-                PeriodTitle = "Day 1",
-                Value = 25
+                Title = "Автобус",
+                Value = 33,
+                CurrencyIdentifier = "RUB"
             });
-            analysisPage.IncomeItems.Add(new Views.AnalysisPageView.AnalysisPageIncomeEntry
+            aview.ExpensesDays.Add(new AnalysisPageExpenseDayEntry()
             {
-                Title = "Стипа",
-                CurrencyIdentifier = "RUB",
-                Value = 100500
+                PeriodTitle = "Вчера",
+                Value = 33
             });
-            analysisPage.IncomeChartItems.Add(new Views.AnalysisPageView.AnalysisPageIncomeChartEntry
+            aview.IncomeDays.Add(new AnalysisPageIncomeDayEntry()
             {
-                PeriodTitle = "Day -1",
-                Value = 25
+                PeriodTitle = "Сегодня",
+                Value = 2000
             });
-            analysisPage.IncomeChartItems.Add(new Views.AnalysisPageView.AnalysisPageIncomeChartEntry
+            aview.IncomeItems.Add(new AnalysisPageIncomeEntry()
             {
-                PeriodTitle = "Day -1",
-                Value = 55
+                Title = "Стипендия",
+                Value = 2000,
+                CurrencyIdentifier = "RUB"
             });
-            _ = datedView.PageViewPresenter.Present(analysisPage);*/
-            UserControls.PlanPageView.PlanPageView planPage = new UserControls.PlanPageView.PlanPageView()
-            {
-                ExpensesTableNameHeaderKey = "Категория",
-                ExpensesTableRealValueHeaderKey = "Факт",
-                ExpensesTablePlannedValueHeaderKey = "План",
-                IncomeTableNameHeaderKey = "Зачисления",
-                IncomeTableRealValueHeaderKey = "Факт",
-                IncomeTablePlannedValueHeaderKey = "План",
-                ExpensesTabNameKey = "Расходы",
-                IncomeTabNameKey = "Доходы",
-                AddExpenseCategoryTextKey = "Добавить категорию расходов",
-                CreateExpensesReportTextKey = "Создать файл-отчёт по расходам",
-                CreateIncomeReportTextKey = "Создать файл-отчёт по доходам"
-            };
-            planPage.ExpenesItems.Add(new Views.PlanPageView.PlanPageExpenseEntry
-            {
-                CurrencyIdentifier = "RUB",
-                PlannedValue = 100,
-                RealValue = 250,
-                Title = "Тест",
-                ImagePath = "C:\\HSE\\Курсач\\Cursach\\ApplicationProject\\Resources\\profilePicture.png"
-            });
-            planPage.ExpensesChartItems.Add(new Views.PlanPageView.PlanPageExpenseChartEntry
-            {
-                ImagePath = "C:\\HSE\\Курсач\\Cursach\\ApplicationProject\\Resources\\profilePicture.png",
-                Value = 25
-            });
-            planPage.IncomeItems.Add(new Views.PlanPageView.PlanPageIncomeEntry
-            {
-                Title = "Стипа",
-                CurrencyIdentifier = "RUB",
-                PlannedValue = 100500,
-                RealValue = 2
-            });
-            planPage.IncomeChartItems.Add(new Views.PlanPageView.PlanPageIncomeChartEntry
-            {
-                Title = "Day -1",
-                Value = 25
-            });
-            planPage.IncomeChartItems.Add(new Views.PlanPageView.PlanPageIncomeChartEntry
-            {
-                Title = "Day -1",
-                Value = 55
-            });
-            _ = datedView.PageViewPresenter.Present(planPage);
+            aview.SelectedRangeType = Views.DatedPageView.DateRangeType.RangeType.MONTH;
+
+            _ = viewRoot.Present(aview);
         }
     }
 }

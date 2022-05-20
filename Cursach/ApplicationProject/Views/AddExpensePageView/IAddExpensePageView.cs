@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace ApplicationProject.Views.AddExpenseView
+namespace ApplicationProject.Views.AddExpensePageView
 {
     public interface IAddExpensePageView : IBaseView
     {

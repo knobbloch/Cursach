@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 
+using ApplicationProject.Views.InterPageView;
+
 namespace ApplicationProject.Views.DatedPageView
 {
-    public interface IDatedPageView : IBaseView
+    public interface IDatedPageView : IInterPageView
     {
         /// <summary>
         /// Is called when the date range type is changed for this page
@@ -16,23 +18,19 @@ namespace ApplicationProject.Views.DatedPageView
         event DateRangeSelectedEventHandler DateRangeSelected;
 
         /// <summary>
-        /// Is called when the button for the next date range is pressed
+        /// Is called when the next date range should be set as active
         /// </summary>
         event EventHandler NextDateRangeSelected;
 
         /// <summary>
-        /// Is called when the button for the previous date range is pressed
+        /// Is called when the previous date range should be set as active
         /// </summary>
         event EventHandler PreviousDateRangeSelected;
 
         /// <summary>
-        /// Updates the text displayed as current date range
+        /// Updates the displayed date range
         /// </summary>
         DateRange DisplayedDateRange { set; }
-        /// <summary>
-        /// Updates the text displayed as current page's name
-        /// </summary>
-        string PageNameTextKey { set; }
 
         /// <summary>
         /// Sets the allowed bounds for DateRange
@@ -41,18 +39,13 @@ namespace ApplicationProject.Views.DatedPageView
         DateRange? DateRangeBounds { set; }
 
         /// <summary>
-        /// Stores all available date range types
+        /// All available date range for the user to select from
         /// </summary>
         ICollection<DateRangeType> DateRangeTypes { get; }
 
         /// <summary>
-        /// Sets the range type to be used by the calendar
+        /// Sets the range type to be used
         /// </summary>
         DateRangeType.RangeType SelectedRangeType { set; }
-
-        /// <summary>
-        /// Used to present active page
-        /// </summary>
-        IViewPresenter PageViewPresenter { get; }
     }
 }

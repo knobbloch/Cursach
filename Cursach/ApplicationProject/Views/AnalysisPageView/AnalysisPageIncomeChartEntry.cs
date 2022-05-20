@@ -7,7 +7,7 @@ using System.ComponentModel;
 
 namespace ApplicationProject.Views.AnalysisPageView
 {
-    public class AnalysisPageIncomeChartEntry : INotifyPropertyChanged
+    public class AnalysisPageIncomeDayEntry : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -40,8 +40,8 @@ namespace ApplicationProject.Views.AnalysisPageView
         }
         private string m_PeriodTitle;
 
-        public AnalysisPageIncomeChartEntry() : this("", 0) { }
-        public AnalysisPageIncomeChartEntry(string title, double value)
+        public AnalysisPageIncomeDayEntry() : this("", 0) { }
+        public AnalysisPageIncomeDayEntry(string title, double value)
         {
             Value = value;
             PeriodTitle = title;

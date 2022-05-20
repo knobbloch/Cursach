@@ -1,21 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 
 namespace ApplicationProject.Views.InterPageView
 {
     public interface IInterPageView : IBaseView
     {
         /// <summary>
-        /// Is called when one of the category buttons is clicked on
+        /// Is called when one of the categories is selected
         /// </summary>
-        event CategorySelectedEventHandler CategorySelected;
+        event CategorySelectedEventHandler CategorySelectedAction;
         /// <summary>
-        /// Is called when the profile button is clicked on
+        /// Is called when the "profile selected" action should be executed
         /// </summary>
-        event EventHandler ProfileSelected;
+        event EventHandler ProfileSelectedAction;
         /// <summary>
-        /// Is called when a bank account is clicked on
+        /// Is called when a bank account is seleced
         /// </summary>
         event BankAccountSelectedSelectedEventHandler BankAccountSelected;
 
@@ -23,21 +22,6 @@ namespace ApplicationProject.Views.InterPageView
         /// Stores instance of bank accounts
         /// </summary>
         IList<BankAccountInfo> BankAccounts { get; }
-
-        /// <summary>
-        /// Used to present active page
-        /// </summary>
-        IViewPresenter PageViewPresenter { get; }
-
-        /// <summary>
-        /// Updates the analysis button's title's key
-        /// </summary>
-        string AnalysisButtonNameKey { set; }
-
-        /// <summary>
-        /// Updates the plan button's title's key
-        /// </summary>
-        string PlanButtonNameKey { set; }
 
         /// <summary>
         /// Updates the account button's key

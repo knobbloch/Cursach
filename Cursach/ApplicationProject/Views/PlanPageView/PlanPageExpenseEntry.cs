@@ -17,6 +17,7 @@ namespace ApplicationProject.Views.PlanPageView
             {
                 m_RealValue = value;
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(RealValue)));
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Difference)));
             }
         }
         private double m_RealValue;
@@ -31,9 +32,15 @@ namespace ApplicationProject.Views.PlanPageView
             {
                 m_PlannedValue = value;
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(PlannedValue)));
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Difference)));
             }
         }
         private double m_PlannedValue;
+
+        /// <summary>
+        /// The difference between real and planned values
+        /// </summary>
+        public double Difference => RealValue - PlannedValue;
 
         /// <summary>
         /// The currency identifier to append to the values
