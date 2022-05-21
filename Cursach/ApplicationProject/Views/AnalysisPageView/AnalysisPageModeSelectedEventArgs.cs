@@ -2,7 +2,7 @@
 
 namespace ApplicationProject.Views.AnalysisPageView
 {
-    public delegate void AnalysisPageTabSelectedEventHandler(object source, AnalysisPageModeSelectedEventArgs e);
+    public delegate void AnalysisPageModeSelectedEventHandler(object source, AnalysisPageModeSelectedEventArgs e);
 
     public class AnalysisPageModeSelectedEventArgs : EventArgs
     {

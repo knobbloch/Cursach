@@ -1,4 +1,4 @@
-﻿using System.Globalization;
+﻿using System;
 
 namespace ApplicationProject.Views
 {
@@ -12,24 +12,19 @@ namespace ApplicationProject.Views
     public interface IBaseView : ICultureDependentData
     {
         /// <summary>
-        /// Should be called right after the view is displayed by a IViewPresenter.
+        /// Should be called right before the view is displayed by a IViewPresenter to determine whether the view is ready to be presented.
         /// </summary>
-        void Show();
-
-        /// <summary>
-        /// Should be called right before the view stops being displayed by a IViewPresenter.
-        /// </summary>
-        void Hide();
-
-        /// <summary>
-        /// Returns true if this view is ready to be presented, false otherwise.
-        /// </summary>
-        bool IsPresentable { get; }
+        bool Show();
 
         /// <summary>
         /// Dispatch a thread-safe UI update
         /// </summary>
         /// <param name="action">The update to dispatch. </param>
         void DispatchUpdate(ViewUpdate action);
+
+        /// <summary>
+        /// Should be called right before the view's presentability is determined
+        /// </summary>
+        event EventHandler ShowPreview;
     }
 }

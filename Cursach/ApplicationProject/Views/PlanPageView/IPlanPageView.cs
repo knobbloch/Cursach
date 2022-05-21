@@ -5,7 +5,7 @@ using ApplicationProject.Views.DatedPageView;
 
 namespace ApplicationProject.Views.PlanPageView
 {
-    public interface IPlanPageView : IDatedPageView
+    public interface IPlanPageView : IBaseView
     {
         enum PlanPageMode
         {
@@ -28,7 +28,7 @@ namespace ApplicationProject.Views.PlanPageView
         /// <summary>
         /// Is called when the active mode is changed
         /// </summary>
-        event PlanPageTabSelectedEventHandler ModeChanged;
+        event PlanPageModeSelectedEventHandler ModeChanged;
         /// <summary>
         /// Is called when an income entry is selected
         /// </summary>

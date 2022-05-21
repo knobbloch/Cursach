@@ -2,13 +2,13 @@
 
 namespace ApplicationProject.Views.PlanPageView
 {
-    public delegate void PlanPageTabSelectedEventHandler(object source, PlanPageTabSelectedEventArgs e);
+    public delegate void PlanPageModeSelectedEventHandler(object source, PlanPageModeSelectedEventArgs e);
 
-    public class PlanPageTabSelectedEventArgs : EventArgs
+    public class PlanPageModeSelectedEventArgs : EventArgs
     {
         public IPlanPageView.PlanPageMode Mode { get; }
 
-        public PlanPageTabSelectedEventArgs(IPlanPageView.PlanPageMode mode) : base()
+        public PlanPageModeSelectedEventArgs(IPlanPageView.PlanPageMode mode) : base()
         {
             Mode = mode;
         }

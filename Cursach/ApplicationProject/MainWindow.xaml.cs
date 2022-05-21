@@ -32,10 +32,9 @@ namespace ApplicationProject
         {
             if(view == null)
                 throw new ArgumentNullException(nameof(view));
-            else if(!view.IsPresentable || !(view is UserControl))
+            else if(!(view is UserControl && view.Show()))
                 return false;
 
-            PresentedView?.Hide();
             if(PresentedView is ISupportOverlay overlay)
             {
                 overlay.ClearOverlay();
@@ -46,7 +45,6 @@ namespace ApplicationProject
             ActiveView.Content = view as UserControl;
 
             PresentedView?.OnCultureChanged(CurrentCulture);
-            PresentedView?.Show();
             if(PresentedView is ISupportOverlay overlay2)
                 overlay2.Overlay = Overlay;
 

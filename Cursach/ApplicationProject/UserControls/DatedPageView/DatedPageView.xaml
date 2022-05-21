@@ -7,73 +7,13 @@
              xmlns:local="clr-namespace:ApplicationProject.UserControls.DatedPageView"
              mc:Ignorable="d" 
              d:DesignHeight="800" d:DesignWidth="800" DataContext="{Binding RelativeSource={RelativeSource Self}}" SizeChanged="CurrentPage_SizeChanged">
-    <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="Auto"/>
-            <ColumnDefinition Width="Auto"/>
-            <ColumnDefinition Width="*" />
-            <ColumnDefinition Width="Auto"/>
-            <ColumnDefinition Width="Auto" />
-        </Grid.ColumnDefinitions>
+    <Grid Background="Transparent">
         <Grid.RowDefinitions>
             <RowDefinition Height="150" />
-            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
-
-        <Border Grid.Row="1" Grid.ColumnSpan="5" BorderThickness="2" BorderBrush="Black"/>
-        <Border Grid.Column="1" Grid.RowSpan="3" BorderThickness="2" BorderBrush="Black"/>
-        <Border Grid.Column="3" Grid.RowSpan="3" BorderThickness="2" BorderBrush="Black"/>
-
-        <uc:RoundButton Width="120" Height="120" ButtonColor="Transparent" Margin="0, 15, 0, 15" x:Name="ProfileButton" Click="Click_ProfileButton">
-            <uc:RoundButton.ButtonContent>
-                <Image Source="/Resources/profilePicture.png"/>
-            </uc:RoundButton.ButtonContent>
-            <uc:RoundButton.UnderContent>
-                <Viewbox Height="40">
-                    <TextBlock Text="{Binding AccountName}" Foreground="Black"/>
-                </Viewbox>
-            </uc:RoundButton.UnderContent>
-        </uc:RoundButton>
-        <Grid Grid.Row="2">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="*" />
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="*"/>
-            </Grid.RowDefinitions>
-            <StackPanel Orientation="Vertical" Grid.Row="1">
-                <uc:RoundButton Width="150" Height="150" ButtonColor="Black"  x:Name="AnalysisButton" Margin="0, 10, 0, 0" Click="Click_CategoryButton">
-                    <uc:RoundButton.ButtonContent>
-                        <Viewbox>
-                            <TextBlock Text="{Binding AnalysisButtonSymbol}" Foreground="White" />
-                        </Viewbox>
-                    </uc:RoundButton.ButtonContent>
-                    <uc:RoundButton.UnderContent>
-                        <Viewbox Height="40">
-                            <TextBlock Text="{Binding AnalysisButtonName}" Foreground="Black"/>
-                        </Viewbox>
-                    </uc:RoundButton.UnderContent>
-                </uc:RoundButton>
-                <uc:RoundButton Width="150" Height="150" ButtonColor="Black"  x:Name="PlanButton" Margin="0, 50, 0, 0" Click="Click_CategoryButton">
-                    <uc:RoundButton.ButtonContent>
-                        <Viewbox>
-                            <TextBlock Text="{Binding PlanButtonSymbol}" Foreground="White" />
-                        </Viewbox>
-                    </uc:RoundButton.ButtonContent>
-                    <uc:RoundButton.UnderContent>
-                        <Viewbox Height="40">
-                            <TextBlock Text="{Binding PlanButtonName}" Foreground="Black"/>
-                        </Viewbox>
-                    </uc:RoundButton.UnderContent>
-                </uc:RoundButton>
-                <uc:RoundButton Width="150" Height="120" ButtonColor="Black" x:Name="NewEntryButton" Margin="0, 50, 0, 10" Click="Click_CategoryButton">
-                    <uc:RoundButton.ButtonContent>
-                        <Image Source="/Resources/plusSignWhite.png" />
-                    </uc:RoundButton.ButtonContent>
-                </uc:RoundButton>
-            </StackPanel>
-        </Grid>
-        <Grid Grid.Column="2">
+        <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="2*" />
                 <RowDefinition Height="*" />
@@ -88,18 +28,21 @@
                     <TextBlock Text="{Binding DateRangeText}" Foreground="Black" VerticalAlignment="Center" HorizontalAlignment="Center" />
                 </Viewbox>
             </ToggleButton>
-            <ComboBox Grid.Row="1" Grid.Column="2" x:Name="DateRangeTypeSelector" SelectionChanged="DateRangeTypeSelector_SelectionChanged">
-                <ComboBox.ItemTemplate>
+            <ComboBox Grid.Row="1" Grid.Column="2" x:Name="DateRangeTypeSelector" SelectionChanged="DateRangeTypeSelector_SelectionChanged" VerticalContentAlignment="Center" HorizontalAlignment="Center">
+               <ComboBox.ItemTemplate>
                     <DataTemplate>
                         <Viewbox>
-                            <TextBlock Text="{Binding DisplayName}" Foreground="Black" />
+                            <TextBlock Text="{Binding DisplayName}" Foreground="Black"/>
                         </Viewbox>
                     </DataTemplate>
                 </ComboBox.ItemTemplate>
             </ComboBox>
-            <TextBlock Grid.Row="1" Text="{Binding PageNameText}" Foreground="Black" TextAlignment="Center" VerticalAlignment="Bottom" HorizontalAlignment="Stretch" FontSize="50" LineStackingStrategy="BlockLineHeight" LineHeight="10"/>
+            <Viewbox Grid.Row="1" StretchDirection="DownOnly" VerticalAlignment="Bottom" HorizontalAlignment="Stretch">
+                <TextBlock Text="{Binding PageNameText}" Foreground="Black" TextAlignment="Center" VerticalAlignment="Bottom" HorizontalAlignment="Stretch" FontSize="50" LineStackingStrategy="BlockLineHeight" LineHeight="10"/>
+            </Viewbox>
         </Grid>
-        <Grid Grid.Row="2" Grid.Column="2">
+        <Border Grid.Row="1" BorderThickness="2" BorderBrush="Black"/>
+        <Grid Grid.Row="2">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="*"/>
@@ -117,35 +60,5 @@
                 </Button.Content>
             </Button>
         </Grid>
-
-        <ListView Grid.Column="4" Grid.Row="2" x:Name="BankAccountsDisplayer" Background="Azure" Margin="0" Padding="0" BorderThickness="0" ScrollViewer.VerticalScrollBarVisibility="Auto">
-            <ListView.ItemContainerStyle>
-                <Style TargetType="ListViewItem">
-                    <Setter Property="BorderThickness" Value="0" />
-                    <Setter Property="Margin" Value="0" />
-                    <Setter Property="Padding" Value="0" />
-                    <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
-                    <Setter Property="VerticalContentAlignment" Value="Stretch"/>
-                    <EventSetter Event="PreviewMouseLeftButtonUp" Handler="Selected_BankAccount" />
-                </Style>
-            </ListView.ItemContainerStyle>
-            <ListView.ItemTemplate>
-                <DataTemplate>
-                    <Grid Background="Azure" Margin="0">
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="Auto"/>
-                        </Grid.RowDefinitions>
-                        <TextBlock Text="{Binding AccountName}" FontWeight="Bold"/>
-                        <TextBlock Grid.Row="1">
-                                <Run Text="{Binding AccountBalance}" FontWeight="Bold" />
-                                <Run Text="{Binding CurrencyIdentifier}" FontWeight="Bold" />
-                        </TextBlock>
-                        <Border Grid.Row="2" BorderThickness="2" BorderBrush="Black"/>
-                    </Grid>
-                </DataTemplate>
-            </ListView.ItemTemplate>
-        </ListView>
     </Grid>
 </UserControl>

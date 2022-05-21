@@ -7,7 +7,7 @@
              xmlns:uc="clr-namespace:ApplicationProject.UserControls"
              xmlns:core="clr-namespace:System;assembly=mscorlib"
              mc:Ignorable="d" 
-             d:DesignHeight="800" d:DesignWidth="1200" DataContext="{Binding RelativeSource={RelativeSource Self}}" SizeChanged="CurrentPage_SizeChanged" Background="Wheat">
+             d:DesignHeight="450" d:DesignWidth="800" DataContext="{Binding RelativeSource={RelativeSource Self}}">
     <UserControl.Resources>
         <uc:FractionConverter x:Key="FractionConverter" />
         <uc:UniformTabSizeConverter x:Key="TabSizeConverter" />
@@ -23,312 +23,171 @@
         </Style>
         <core:Double x:Key="TableFontSize">35</core:Double>
     </UserControl.Resources>
-
-    <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="Auto"/>
-            <ColumnDefinition Width="Auto"/>
-            <ColumnDefinition Width="*" />
-            <ColumnDefinition Width="Auto"/>
-            <ColumnDefinition Width="Auto" />
-        </Grid.ColumnDefinitions>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="150" />
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="*" />
-        </Grid.RowDefinitions>
-
-        <Border Grid.Row="1" Grid.ColumnSpan="5" BorderThickness="2" BorderBrush="Black"/>
-        <Border Grid.Column="1" Grid.RowSpan="3" BorderThickness="2" BorderBrush="Black"/>
-        <Border Grid.Column="3" Grid.RowSpan="3" BorderThickness="2" BorderBrush="Black"/>
-
-        <uc:RoundButton Width="120" Height="120" ButtonColor="Transparent" Margin="0, 15, 0, 15" x:Name="ProfileButton" Click="Click_ProfileButton">
-            <uc:RoundButton.ButtonContent>
-                <Image Source="/Resources/profilePicture.png"/>
-            </uc:RoundButton.ButtonContent>
-            <uc:RoundButton.UnderContent>
-                <Viewbox Height="40">
-                    <TextBlock Text="{Binding AccountName}" Foreground="Black"/>
-                </Viewbox>
-            </uc:RoundButton.UnderContent>
-        </uc:RoundButton>
-        <Grid Grid.Row="2">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="*" />
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="*"/>
-            </Grid.RowDefinitions>
-            <StackPanel Orientation="Vertical" Grid.Row="1">
-                <uc:RoundButton Width="150" Height="150" ButtonColor="Black"  x:Name="AnalysisButton" Margin="0, 10, 0, 0" Click="Click_CategoryButton">
-                    <uc:RoundButton.ButtonContent>
-                        <Viewbox>
-                            <TextBlock Text="{Binding AnalysisButtonSymbol}" Foreground="White" />
-                        </Viewbox>
-                    </uc:RoundButton.ButtonContent>
-                    <uc:RoundButton.UnderContent>
-                        <Viewbox Height="40">
-                            <TextBlock Text="{Binding AnalysisButtonName}" Foreground="Black"/>
-                        </Viewbox>
-                    </uc:RoundButton.UnderContent>
-                </uc:RoundButton>
-                <uc:RoundButton Width="150" Height="150" ButtonColor="Black"  x:Name="PlanButton" Margin="0, 50, 0, 0" Click="Click_CategoryButton">
-                    <uc:RoundButton.ButtonContent>
-                        <Viewbox>
-                            <TextBlock Text="{Binding PlanButtonSymbol}" Foreground="White" />
-                        </Viewbox>
-                    </uc:RoundButton.ButtonContent>
-                    <uc:RoundButton.UnderContent>
-                        <Viewbox Height="40">
-                            <TextBlock Text="{Binding PlanButtonName}" Foreground="Black"/>
-                        </Viewbox>
-                    </uc:RoundButton.UnderContent>
-                </uc:RoundButton>
-                <uc:RoundButton Width="150" Height="120" ButtonColor="Black" x:Name="NewEntryButton" Margin="0, 50, 0, 10" Click="Click_CategoryButton">
-                    <uc:RoundButton.ButtonContent>
-                        <Image Source="/Resources/plusSignWhite.png" />
-                    </uc:RoundButton.ButtonContent>
-                </uc:RoundButton>
-            </StackPanel>
-        </Grid>
-        <Grid Grid.Column="2">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="2*" />
-                <RowDefinition Height="*" />
-            </Grid.RowDefinitions>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="*" />
-            </Grid.ColumnDefinitions>
-            <ToggleButton Grid.Column="1" Grid.Row="1" Name="DateRangeSelector" Foreground="Black" Click="DateRangeSelector_Click">
-                <Viewbox>
-                    <TextBlock Text="{Binding DateRangeText}" Foreground="Black" VerticalAlignment="Center" HorizontalAlignment="Center" />
-                </Viewbox>
-            </ToggleButton>
-            <ComboBox Grid.Row="1" Grid.Column="2" x:Name="DateRangeTypeSelector" SelectionChanged="DateRangeTypeSelector_SelectionChanged">
-                <ComboBox.ItemTemplate>
-                    <DataTemplate>
-                        <Viewbox>
-                            <TextBlock Text="{Binding DisplayName}" Foreground="Black" />
-                        </Viewbox>
-                    </DataTemplate>
-                </ComboBox.ItemTemplate>
-            </ComboBox>
-            <TextBlock Grid.Row="1" Text="{Binding PageNameText}" Foreground="Black" TextAlignment="Center" VerticalAlignment="Bottom" HorizontalAlignment="Stretch" FontSize="50" LineStackingStrategy="BlockLineHeight" LineHeight="10"/>
-        </Grid>
-        <Grid Grid.Row="2" Grid.Column="2">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="Auto"/>
-            </Grid.ColumnDefinitions>
-            <Button Width="30" Height="200" Margin="10" Click="ButtonPreviousDateRange_Click">
-                <Button.Content>
-                    <Polygon Points="-5,30 10,60 10,0" Stroke="Black" Fill="Black"/>
-                </Button.Content>
-            </Button>
-            <TabControl Name="TabsControl" SelectionChanged="TabsControl_SelectionChanged" Height="{Binding ActualHeight}" Grid.Column="1">
-                <TabItem Header="{Binding ExpensesTabName}" Style="{StaticResource UniformTabStyle}" Name="ExpensesRoot">
-                    <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" Padding="0">
-                        <Grid Width="{Binding ViewportWidth, RelativeSource={RelativeSource AncestorType=ScrollViewer}}">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="*" />
-                            </Grid.ColumnDefinitions>
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="10" />
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="30" />
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="30" />
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="Auto" />
-                            </Grid.RowDefinitions>
-                            <uc:BarChart x:Name="ExpensesBarChart" ValueSource="Difference" Height="300" Grid.Row="1">
-                                <uc:BarChart.BarTitleTemplate>
-                                    <DataTemplate>
-                                        <Image Source="{Binding ImagePath}" MaxWidth="50" MaxHeight="50" Stretch="Uniform"/>
-                                    </DataTemplate>
-                                </uc:BarChart.BarTitleTemplate>
-                            </uc:BarChart>
-                            <ListView Name="ExpensesList" ScrollViewer.VerticalScrollBarVisibility="Auto" Grid.Row="3" SelectionChanged="ExpensesList_SelectionChanged">
-                                <ListView.ItemContainerStyle>
-                                    <Style TargetType="ListViewItem">
-                                        <Setter Property="HorizontalContentAlignment" Value="Stretch" />
-                                        <Setter Property="VerticalContentAlignment" Value="Center" />
-                                    </Style>
-                                </ListView.ItemContainerStyle>
-                                <ListView.View>
-                                    <GridView>
-                                        <GridViewColumn Header="{Binding ExpensesTableNameHeader}" Width="600">
-                                            <GridViewColumn.CellTemplate>
-                                                <DataTemplate>
-                                                    <Grid>
-                                                        <Grid.ColumnDefinitions>
-                                                            <ColumnDefinition Width="Auto"/>
-                                                            <ColumnDefinition Width="20"/>
-                                                            <ColumnDefinition Width="*" />
-                                                        </Grid.ColumnDefinitions>
-                                                        <Image Source="{Binding ImagePath}" Stretch="Uniform" StretchDirection="DownOnly" MaxHeight="40"/>
-                                                        <TextBlock VerticalAlignment="Center" Text="{Binding Title}" Foreground="Black" Grid.Column="2" FontSize="{StaticResource TableFontSize}"/>
-                                                    </Grid>
-                                                </DataTemplate>
-                                            </GridViewColumn.CellTemplate>
-                                        </GridViewColumn>
-                                        <GridViewColumn Header="{Binding ExpensesTablePlannedValueHeader}" Width="200">
-                                            <GridViewColumn.CellTemplate>
-                                                <DataTemplate>
-                                                    <Grid>
-                                                        <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" TextAlignment="Center">
+    <TabControl Name="TabsControl" SelectionChanged="TabsControl_SelectionChanged" Height="{Binding ActualHeight}">
+        <TabItem Header="{Binding ExpensesTabName}" Style="{StaticResource UniformTabStyle}" Name="ExpensesRoot">
+            <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" Padding="0">
+                <Grid Width="{Binding ViewportWidth, RelativeSource={RelativeSource AncestorType=ScrollViewer}}">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="10" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="30" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="30" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <uc:BarChart x:Name="ExpensesBarChart" ValueSource="Value" Height="300" Grid.Row="1">
+                        <uc:BarChart.BarTitleTemplate>
+                            <DataTemplate>
+                                <Image Source="{Binding ImagePath}" MaxWidth="50" MaxHeight="50" Stretch="Uniform"/>
+                            </DataTemplate>
+                        </uc:BarChart.BarTitleTemplate>
+                    </uc:BarChart>
+                    <ListView Name="ExpensesList" ScrollViewer.VerticalScrollBarVisibility="Auto" Grid.Row="3" SelectionChanged="ExpensesList_SelectionChanged">
+                        <ListView.ItemContainerStyle>
+                            <Style TargetType="ListViewItem">
+                                <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                                <Setter Property="VerticalContentAlignment" Value="Center" />
+                            </Style>
+                        </ListView.ItemContainerStyle>
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn Header="{Binding ExpensesTableNameHeader}" Width="600">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <Grid>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="Auto"/>
+                                                    <ColumnDefinition Width="20"/>
+                                                    <ColumnDefinition Width="*" />
+                                                </Grid.ColumnDefinitions>
+                                                <Image Source="{Binding ImagePath}" Stretch="Uniform" StretchDirection="DownOnly" MaxHeight="40"/>
+                                                <TextBlock VerticalAlignment="Center" Text="{Binding Title}" Foreground="Black" Grid.Column="2" FontSize="{StaticResource TableFontSize}"/>
+                                            </Grid>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <GridViewColumn Header="{Binding ExpensesTablePlannedValueHeader}" Width="200">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <Grid>
+                                                <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" TextAlignment="Center">
                                                     <Run Text="{Binding PlannedValue}" Foreground="Black" FontSize="{StaticResource TableFontSize}"/>
                                                     <Run Text="{Binding CurrencyIdentifier}" Foreground="Black" FontSize="{StaticResource TableFontSize}"/>
-                                                        </TextBlock>
-                                                    </Grid>
-                                                </DataTemplate>
-                                            </GridViewColumn.CellTemplate>
-                                        </GridViewColumn>
-                                        <GridViewColumn Header="{Binding ExpensesTableRealValueHeader}" Width="200">
-                                            <GridViewColumn.CellTemplate>
-                                                <DataTemplate>
-                                                    <Grid>
-                                                        <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" TextAlignment="Center">
+                                                </TextBlock>
+                                            </Grid>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <GridViewColumn Header="{Binding ExpensesTableRealValueHeader}" Width="200">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <Grid>
+                                                <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" TextAlignment="Center">
                                                     <Run Text="{Binding RealValue}" Foreground="Black" FontSize="{StaticResource TableFontSize}"/>
                                                     <Run Text="{Binding CurrencyIdentifier}" Foreground="Black" FontSize="{StaticResource TableFontSize}"/>
-                                                        </TextBlock>
-                                                    </Grid>
-                                                </DataTemplate>
-                                            </GridViewColumn.CellTemplate>
-                                        </GridViewColumn>
-                                    </GridView>
-                                </ListView.View>
-                            </ListView>
-                            <Button Grid.Row="5" BorderThickness="0" Name="AddExpenseCategoryButton" Click="AddExpenseCategoryButton_Click" HorizontalContentAlignment="Left" Width="{Binding RelativeSource={RelativeSource AncestorType=ScrollViewer}, Path=ViewportWidth}" Background="Transparent">
-                                <Button.Content>
-                                    <StackPanel Orientation="Horizontal">
-                                        <Image Source="/Resources/plusSign.png"/>
-                                        <TextBlock Text="{Binding AddExpenseCategoryText}" Margin="10" FontSize="60" VerticalAlignment="Center"/>
-                                    </StackPanel>
-                                </Button.Content>
-                            </Button>
-                            <Button Grid.Row="6" BorderThickness="0" Name="CreateExpensesReportButton" Click="CreateExpensesReportButton_Click" HorizontalContentAlignment="Left" Width="{Binding RelativeSource={RelativeSource AncestorType=ScrollViewer}, Path=ViewportWidth}" Background="Transparent">
-                                <Button.Content>
-                                    <StackPanel Orientation="Horizontal">
-                                        <Image Source="/Resources/plusSign.png"/>
-                                        <TextBlock Text="{Binding CreateExpensesReportText}" Margin="10" FontSize="60" VerticalAlignment="Center"/>
-                                    </StackPanel>
-                                </Button.Content>
-                            </Button>
-                        </Grid>
-                    </ScrollViewer>
-                </TabItem>
-                <TabItem Header="{Binding IncomeTabName}" Style="{StaticResource UniformTabStyle}" Name="IncomeRoot">
-                    <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" Padding="0">
-                        <Grid Width="{Binding ViewportWidth, RelativeSource={RelativeSource AncestorType=ScrollViewer}}">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="*" />
-                            </Grid.ColumnDefinitions>
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="10" />
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="30" />
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="30" />
-                                <RowDefinition Height="Auto" />
-                            </Grid.RowDefinitions>
-                            <uc:BarChart x:Name="IncomeBarChart" ValueSource="Difference" Height="300" Grid.Row="1">
-                                <uc:BarChart.BarTitleTemplate>
-                                    <DataTemplate>
-                                        <Viewbox>
-                                            <TextBlock Text="{Binding Title}" Foreground="Black" HorizontalAlignment="Center" />
-                                        </Viewbox>
-                                    </DataTemplate>
-                                </uc:BarChart.BarTitleTemplate>
-                            </uc:BarChart>
-                            <ListView Name="IncomeList" ScrollViewer.VerticalScrollBarVisibility="Auto" Grid.Row="3" SelectionChanged="IncomeList_SelectionChanged">
-                                <ListView.ItemContainerStyle>
-                                    <Style TargetType="ListViewItem">
-                                        <Setter Property="HorizontalContentAlignment" Value="Stretch" />
-                                        <Setter Property="VerticalContentAlignment" Value="Center" />
-                                    </Style>
-                                </ListView.ItemContainerStyle>
-                                <ListView.View>
-                                    <GridView>
-                                        <GridViewColumn Header="{Binding IncomeTableNameHeader}" Width="600">
-                                            <GridViewColumn.CellTemplate>
-                                                <DataTemplate>
-                                                    <TextBlock VerticalAlignment="Center" Text="{Binding Title}" Foreground="Black" Grid.Column="2" FontSize="{StaticResource TableFontSize}"/>
-                                                </DataTemplate>
-                                            </GridViewColumn.CellTemplate>
-                                        </GridViewColumn>
-                                        <GridViewColumn Header="{Binding IncomeTablePlannedValueHeader}" Width="200">
-                                            <GridViewColumn.CellTemplate>
-                                                <DataTemplate>
-                                                    <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" TextAlignment="Center">
+                                                </TextBlock>
+                                            </Grid>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+                    <Button Grid.Row="5" BorderThickness="0" Name="AddExpenseCategoryButton" Click="AddExpenseCategoryButton_Click" HorizontalContentAlignment="Left" Width="{Binding RelativeSource={RelativeSource AncestorType=ScrollViewer}, Path=ViewportWidth}" Background="Transparent">
+                        <Button.Content>
+                            <StackPanel Orientation="Horizontal">
+                                <Image Source="/Resources/plusSign.png"/>
+                                <TextBlock Text="{Binding AddExpenseCategoryText}" Margin="10" FontSize="60" VerticalAlignment="Center"/>
+                            </StackPanel>
+                        </Button.Content>
+                    </Button>
+                    <Button Grid.Row="6" BorderThickness="0" Name="CreateExpensesReportButton" Click="CreateExpensesReportButton_Click" HorizontalContentAlignment="Left" Width="{Binding RelativeSource={RelativeSource AncestorType=ScrollViewer}, Path=ViewportWidth}" Background="Transparent">
+                        <Button.Content>
+                            <StackPanel Orientation="Horizontal">
+                                <Image Source="/Resources/plusSign.png"/>
+                                <TextBlock Text="{Binding CreateExpensesReportText}" Margin="10" FontSize="60" VerticalAlignment="Center"/>
+                            </StackPanel>
+                        </Button.Content>
+                    </Button>
+                </Grid>
+            </ScrollViewer>
+        </TabItem>
+        <TabItem Header="{Binding IncomeTabName}" Style="{StaticResource UniformTabStyle}" Name="IncomeRoot">
+            <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" Padding="0">
+                <Grid Width="{Binding ViewportWidth, RelativeSource={RelativeSource AncestorType=ScrollViewer}}">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="10" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="30" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="30" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <uc:BarChart x:Name="IncomeBarChart" ValueSource="Value" Height="300" Grid.Row="1">
+                        <uc:BarChart.BarTitleTemplate>
+                            <DataTemplate>
+                                <Viewbox>
+                                    <TextBlock Text="{Binding Title}" Foreground="Black" HorizontalAlignment="Center" />
+                                </Viewbox>
+                            </DataTemplate>
+                        </uc:BarChart.BarTitleTemplate>
+                    </uc:BarChart>
+                    <ListView Name="IncomeList" ScrollViewer.VerticalScrollBarVisibility="Auto" Grid.Row="3" SelectionChanged="IncomeList_SelectionChanged">
+                        <ListView.ItemContainerStyle>
+                            <Style TargetType="ListViewItem">
+                                <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                                <Setter Property="VerticalContentAlignment" Value="Center" />
+                            </Style>
+                        </ListView.ItemContainerStyle>
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn Header="{Binding IncomeTableNameHeader}" Width="600">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBlock VerticalAlignment="Center" Text="{Binding Title}" Foreground="Black" Grid.Column="2" FontSize="{StaticResource TableFontSize}"/>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <GridViewColumn Header="{Binding IncomeTablePlannedValueHeader}" Width="200">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" TextAlignment="Center">
                                                 <Run Text="{Binding PlannedValue}" Foreground="Black" FontSize="{StaticResource TableFontSize}"/>
                                                 <Run Text="{Binding CurrencyIdentifier}" Foreground="Black" FontSize="{StaticResource TableFontSize}"/>
-                                                    </TextBlock>
-                                                </DataTemplate>
-                                            </GridViewColumn.CellTemplate>
-                                        </GridViewColumn>
-                                        <GridViewColumn Header="{Binding IncomeTableRealValueHeader}" Width="200">
-                                            <GridViewColumn.CellTemplate>
-                                                <DataTemplate>
-                                                    <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" TextAlignment="Center">
+                                            </TextBlock>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <GridViewColumn Header="{Binding IncomeTableRealValueHeader}" Width="200">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" TextAlignment="Center">
                                                 <Run Text="{Binding RealValue}" Foreground="Black" FontSize="{StaticResource TableFontSize}"/>
                                                 <Run Text="{Binding CurrencyIdentifier}" Foreground="Black" FontSize="{StaticResource TableFontSize}"/>
-                                                    </TextBlock>
-                                                </DataTemplate>
-                                            </GridViewColumn.CellTemplate>
-                                        </GridViewColumn>
-                                    </GridView>
-                                </ListView.View>
-                            </ListView>
-                            <Button Grid.Row="5" BorderThickness="0" Name="CreateIncomeReportButton" Click="CreateIncomeReportButton_Click" HorizontalContentAlignment="Left" Width="{Binding RelativeSource={RelativeSource AncestorType=ScrollViewer}, Path=ViewportWidth}" Background="Transparent">
-                                <Button.Content>
-                                    <StackPanel Orientation="Horizontal">
-                                        <Image Source="/Resources/plusSign.png"/>
-                                        <TextBlock Text="{Binding CreateIncomeReportText}" Margin="10" FontSize="60" VerticalAlignment="Center"/>
-                                    </StackPanel>
-                                </Button.Content>
-                            </Button>
-                        </Grid>
-                    </ScrollViewer>
-                </TabItem>
-            </TabControl>
-            <Button Width="30" Height="200" Margin="10" Grid.Column="2" Click="ButtonNextDateRange_Click">
-                <Button.Content>
-                    <Polygon Points="5,0 5,60 20,30" Stroke="Black" Fill="Black"/>
-                </Button.Content>
-            </Button>
-        </Grid>
-
-        <ListView Grid.Column="4" Grid.Row="2" x:Name="BankAccountsDisplayer" Background="Azure" Margin="0" Padding="0" BorderThickness="0" ScrollViewer.VerticalScrollBarVisibility="Auto">
-            <ListView.ItemContainerStyle>
-                <Style TargetType="ListViewItem">
-                    <Setter Property="BorderThickness" Value="0" />
-                    <Setter Property="Margin" Value="0" />
-                    <Setter Property="Padding" Value="0" />
-                    <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
-                    <Setter Property="VerticalContentAlignment" Value="Stretch"/>
-                    <EventSetter Event="PreviewMouseLeftButtonUp" Handler="Selected_BankAccount" />
-                </Style>
-            </ListView.ItemContainerStyle>
-            <ListView.ItemTemplate>
-                <DataTemplate>
-                    <Grid Background="Azure" Margin="0">
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="Auto"/>
-                        </Grid.RowDefinitions>
-                        <TextBlock Text="{Binding AccountName}" FontWeight="Bold"/>
-                        <TextBlock Grid.Row="1">
-                                <Run Text="{Binding AccountBalance}" FontWeight="Bold" />
-                                <Run Text="{Binding CurrencyIdentifier}" FontWeight="Bold" />
-                        </TextBlock>
-                        <Border Grid.Row="2" BorderThickness="2" BorderBrush="Black"/>
-                    </Grid>
-                </DataTemplate>
-            </ListView.ItemTemplate>
-        </ListView>
-    </Grid>
+                                            </TextBlock>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+                    <Button Grid.Row="5" BorderThickness="0" Name="CreateIncomeReportButton" Click="CreateIncomeReportButton_Click" HorizontalContentAlignment="Left" Width="{Binding RelativeSource={RelativeSource AncestorType=ScrollViewer}, Path=ViewportWidth}" Background="Transparent">
+                        <Button.Content>
+                            <StackPanel Orientation="Horizontal">
+                                <Image Source="/Resources/plusSign.png"/>
+                                <TextBlock Text="{Binding CreateIncomeReportText}" Margin="10" FontSize="60" VerticalAlignment="Center"/>
+                            </StackPanel>
+                        </Button.Content>
+                    </Button>
+                </Grid>
+            </ScrollViewer>
+        </TabItem>
+    </TabControl>
 </UserControl>

@@ -5,7 +5,7 @@ using ApplicationProject.Views.DatedPageView;
 
 namespace ApplicationProject.Views.AnalysisPageView
 {
-    public interface IAnalysisPageView : IDatedPageView
+    public interface IAnalysisPageView : IBaseView
     {
         enum AnalysisPageMode
         {
@@ -36,7 +36,7 @@ namespace ApplicationProject.Views.AnalysisPageView
         /// <summary>
         /// Is called when the active mode is changed
         /// </summary>
-        event AnalysisPageTabSelectedEventHandler ModeChanged;
+        event AnalysisPageModeSelectedEventHandler ModeChanged;
         /// <summary>
         /// Is called when an income entry is selected
         /// </summary>

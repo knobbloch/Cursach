@@ -67,7 +67,7 @@ namespace ApplicationProject.Views
             set
             {
                 m_ErrorInfo = value ?? "";
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(ErrorInfo));
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(ErrorInfo)));
             }
         }
         private string m_ErrorInfo;

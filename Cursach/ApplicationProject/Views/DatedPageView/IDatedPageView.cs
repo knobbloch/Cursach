@@ -1,11 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 
-using ApplicationProject.Views.InterPageView;
-
 namespace ApplicationProject.Views.DatedPageView
 {
-    public interface IDatedPageView : IInterPageView
+    public interface IDatedPageView : IBaseView
     {
         /// <summary>
         /// Is called when the date range type is changed for this page

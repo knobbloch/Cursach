@@ -15,9 +15,8 @@ namespace ApplicationProject.UserControls.InterPageView
     /// <summary>
     /// Interaction logic for InterPageView.xaml
     /// </summary>
-    public partial class InterPageView : UserControl, IInterPageView, INotifyPropertyChanged, ISupportOverlay
+    public partial class InterPageView : UserControl, IInterPageView, INotifyPropertyChanged, ISupportOverlay, IViewPresenter
     {
-        protected const string PageNameTextKey = "PAGE_ANALYSIS_NAME";
         protected const string AnalysisButtonNameKey = "PAGE_ANALYSIS_BUTTON_ANALYSIS";
         protected const string PlanButtonNameKey = "PAGE_ANALYSIS_BUTTON_PLAN";
 
@@ -41,23 +40,55 @@ namespace ApplicationProject.UserControls.InterPageView
             }
         }
 
-        #region IBaseView
-        public void Show() { }
-        public void Hide() { }
+        #region IViewPresenter
+        public IBaseView PresentedView { get; private set; }
 
-        public void OnCultureChanged(CultureInfo culture)
+        public bool Present(IBaseView view)
         {
-            CurrentCulture = culture;
+            if (view == null)
+                throw new ArgumentNullException(nameof(view));
+            else if (!(view is UserControl && view.Show()))
+                return false;
+
+            if (PresentedView is ISupportOverlay overlay)
+            {
+                overlay.ClearOverlay();
+                overlay.Overlay = null;
+            }
+
+            PresentedView = view;
+            ActivePageView.Content = view as UserControl;
+
+            PresentedView?.OnCultureChanged(CurrentCulture);
+            if (PresentedView is ISupportOverlay overlay2)
+                overlay2.Overlay = Overlay;
+
+            return true;
+        }
+        #endregion
+
+        #region IBaseView
+        public bool Show()
+        {
+            ShowPreview?.Invoke(this, EventArgs.Empty);
+
+            return AnalysisButtonName.Length > 0 &&
+                   PlanButtonName.Length > 0 &&
+                   AccountName?.Length > 0;
         }
 
-        public bool IsPresentable => AnalysisButtonName.Length > 0 &&
-                                     PlanButtonName.Length > 0 &&
-                                     AccountName.Length > 0;
+        public void OnCultureChanged(CultureInfo newCulture)
+        {
+            CurrentCulture = newCulture;
+            PresentedView?.OnCultureChanged(newCulture);
+        }
 
         public void DispatchUpdate(ViewUpdate action)
         {
             Dispatcher.Invoke(() => action(this));
         }
+
+        public event EventHandler ShowPreview;
         #endregion
 
         #region INotifyPropertyChanged
