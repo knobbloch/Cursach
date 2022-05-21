@@ -17,5 +17,16 @@ namespace ApplicationProject.Views
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(DisplayName)));
             }
         }
+
+        private string m_ImagePath;
+        public string ImagePath
+        {
+            get => m_ImagePath;
+            set
+            {
+                m_ImagePath = value ?? throw new ArgumentNullException(nameof(ImagePath));
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(ImagePath)));
+            }
+        }
     }
 }

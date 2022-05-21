@@ -1,43 +1,55 @@
 ﻿using System;
 using System.Collections.Generic;
 
+using ApplicationProject.Views.InterPageView;
+
 namespace ApplicationProject.Views.AddExpensePageView
 {
-    public interface IAddExpensePageView : IBaseView
+    public interface IAddExpensePageView : IInterPageView
     {
         /// <summary>
-        /// Is called when the "add" button is clicked
+        /// Is called when the "add" action should be executed
         /// </summary>
-        event EventHandler AddButtonClicked;
+        event EventHandler AddAction;
 
         /// <summary>
         /// The name of the expense currently entered
         /// </summary>
-        string ExpenseName { get; }
+        string ExpenseName { get; set; }
+
+        /// <summary>
+        /// The ValueInputError for ExpenseName
+        /// </summary>
+        ValueInputError ExpenseNameError { get; }
 
         /// <summary>
         /// The currently selected category
         /// </summary>
-        CategoryDescriptor SelectedCategory { get; }
+        CategoryDescriptor SelectedExpenseCategory { get; set; }
 
         /// <summary>
         /// The currently selected bank account
         /// </summary>
-        BankAccountInfo SelectedBankAccount { get; }
+        BankAccountInfo SelectedExpenseBankAccount { get; set; }
 
         /// <summary>
         /// The currently entered amount of money
         /// </summary>
-        int MoneyAmount { get; }
+        int MoneyAmount { get; set; }
 
         /// <summary>
-        /// The categories to display
+        /// TheValueInputError for MoneyAmount
         /// </summary>
-        ICollection<CategoryDescriptor> Categories { get; }
+        ValueInputError MoneyAmountError { get; }
 
         /// <summary>
-        /// The bank accounts to display
+        /// The categories to display to select from
         /// </summary>
-        ICollection<BankAccountInfo> BankAccounts { get; }
+        ICollection<CategoryDescriptor> ExpenseCategories { get; }
+
+        /// <summary>
+        /// The bank accounts to display to select from
+        /// </summary>
+        ICollection<BankAccountInfo> ExpenseBankAccounts { get; }
     }
 }
