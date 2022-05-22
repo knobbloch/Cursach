@@ -1,14 +1,18 @@
 ﻿using System;
+using System.Globalization;
+using System.ComponentModel;
+
 using System.Collections.Generic;
+using System.Collections.Specialized;
+using System.Collections.ObjectModel;
+
 using System.Windows;
 using System.Windows.Controls;
-using System.Collections.ObjectModel;
-using System.Collections.Specialized;
-using System.ComponentModel;
-using System.Globalization;
+using System.Windows.Input;
 
-using ApplicationProject.Views.DatedPageView;
 using ApplicationProject.Views;
+using ApplicationProject.Views.InterPageView;
+using ApplicationProject.Views.DatedPageView;
 
 namespace ApplicationProject.UserControls.DatedPageView
 {
@@ -21,8 +25,6 @@ namespace ApplicationProject.UserControls.DatedPageView
 
         public DatedPageView()
         {
-            m_PageNameTextKey = "";
-
             InitializeComponent();
 
             DateRangeTypes = new ObservableCollection<DateRangeType>();
@@ -48,45 +50,23 @@ namespace ApplicationProject.UserControls.DatedPageView
             get => m_CurrentCulture;
             set
             {
-                m_CurrentCulture = value ?? System.Threading.Thread.CurrentThread.CurrentUICulture ?? CultureInfo.CurrentUICulture;
+                m_CurrentCulture = value ?? System.Threading.Thread.CurrentThread.CurrentUICulture ?? CultureInfo.CurrentUICulture ?? CultureInfo.InvariantCulture;
                 DateRangeSelectorCalendar.CurrentCulture = m_CurrentCulture;
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(PageNameText)));
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(DateRangeText)));
+                RefreshLocalization();
             }
         }
 
-        #region IBaseView
-        public void Show()
-        {
-            Shown?.Invoke(this, EventArgs.Empty);
-        }
-        public void Hide()
-        {
-            Hidden?.Invoke(this, EventArgs.Empty);
-        }
-        public bool IsPresentable => DateRangeTypes.Count > 0 && PageNameText.Length > 0;
-
-        public void OnCultureChanged(CultureInfo culture)
-        {
-            CurrentCulture = culture;
-            PresentedView?.OnCultureChanged(culture);
-        }
-
-        public event EventHandler Shown;
-        public event EventHandler Hidden;
-        #endregion
 
         #region IViewPresenter
-        public IBaseView PresentedView { get; protected set; }
+        public IBaseView PresentedView { get; private set; }
 
         public bool Present(IBaseView view)
         {
             if (view == null)
                 throw new ArgumentNullException(nameof(view));
-            else if (!view.IsPresentable || !(view is UserControl))
+            else if (!(view is UserControl && view.Show()))
                 return false;
 
-            PresentedView?.Hide();
             if (PresentedView is ISupportOverlay overlay)
             {
                 overlay.ClearOverlay();
@@ -96,16 +76,54 @@ namespace ApplicationProject.UserControls.DatedPageView
             PresentedView = view;
             ActiveView.Content = view as UserControl;
 
-            PresentedView?.Show();
+            PresentedView?.OnCultureChanged(CurrentCulture);
             if (PresentedView is ISupportOverlay overlay2)
                 overlay2.Overlay = Overlay;
 
             return true;
         }
+        #endregion
 
+        #region IBaseView
+        public bool Show()
+        {
+            ShowPreview?.Invoke(this, EventArgs.Empty);
+
+            return DateRangeTypes.Count > 0 &&
+                   PageNameText?.Length > 0;
+        }
+
+        public void OnCultureChanged(CultureInfo newCulture)
+        {
+            CurrentCulture = newCulture;
+
+            foreach (DateRangeType type in DateRangeTypes)
+                type.OnCultureChanged(newCulture);
+        }
+
+        public void DispatchUpdate(ViewUpdate action)
+        {
+            Dispatcher.Invoke(() => action(this));
+        }
+
+        public event EventHandler ShowPreview;
         #endregion
 
         #region IDatedPageView
+        public string DateRangeText => ConvertToDateRangeDisplay(DisplayedDateRange);
+
+        public string PageNameTextKey
+        {
+            get => m_PageNameTextKey;
+            set
+            {
+                m_PageNameTextKey = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(PageNameText)));
+            }
+        }
+        private string m_PageNameTextKey;
+        public string PageNameText => PageNameTextKey;
+
         public event DateRangeTypeSelectedEventHandler DateRangeTypeSelected;
         public event DateRangeSelectedEventHandler DateRangeSelected;
         public event EventHandler NextDateRangeSelected;
@@ -121,20 +139,6 @@ namespace ApplicationProject.UserControls.DatedPageView
             }
         }
         private DateRange m_DisplayedDateRange;
-
-        public string DateRangeText => ConvertToDateRangeDisplay(DisplayedDateRange);
-
-        public string PageNameText => PageNameTextKey.ToString();
-        public string PageNameTextKey
-        {
-            get => m_PageNameTextKey;
-            set
-            {
-                m_PageNameTextKey = value ?? throw new ArgumentNullException(nameof(PageNameTextKey));
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(PageNameText)));
-            }
-        }
-        private string m_PageNameTextKey;
 
         public ICollection<DateRangeType> DateRangeTypes { get; }
 
@@ -163,8 +167,6 @@ namespace ApplicationProject.UserControls.DatedPageView
             }
         }
         private DateRangeType.RangeType m_SelectedRangeType;
-
-        public IViewPresenter PageViewPresenter => this;
         #endregion
 
         #region ISupportOverlay
@@ -174,8 +176,7 @@ namespace ApplicationProject.UserControls.DatedPageView
             get => m_Overlay;
             set
             {
-                m_Overlay = value ?? throw new ArgumentNullException(nameof(value));
-                m_Overlay.AddElement(DateRangeSelectorRoot);
+                m_Overlay = value ?? throw new ArgumentNullException(nameof(Overlay));
                 m_Overlay.BackgroundClick += Overlay_Click;
             }
         }
@@ -192,6 +193,12 @@ namespace ApplicationProject.UserControls.DatedPageView
         #endregion
 
         #region Methods
+        public void RefreshLocalization()
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(PageNameText)));
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(DateRangeText)));
+        }
+
         protected string ConvertToDateRangeDisplay(DateRange range)
         {
             return m_SelectedRangeType switch
@@ -204,7 +211,6 @@ namespace ApplicationProject.UserControls.DatedPageView
         #endregion
 
         #region Handled events
-
         private void DateRangeSelector_Click(object sender, RoutedEventArgs e)
         {
             if (e.OriginalSource == DateRangeSelector)
@@ -230,12 +236,14 @@ namespace ApplicationProject.UserControls.DatedPageView
         {
             Overlay.Visible = false;
             DateRangeSelector.IsChecked = false;
+            m_Overlay.RemoveElement(DateRangeSelectorRoot);
         }
 
         private void CurrentPage_SizeChanged(object sender, SizeChangedEventArgs e)
         {
             if (Overlay.Visible)
             {
+                m_Overlay.AddElement(DateRangeSelectorRoot);
                 DateRangeSelectorRoot.Height = DateRangeSelectorRoot.Width = DateRangeSelector.ActualWidth;
                 Overlay.MoveElement(DateRangeSelectorRoot, DateRangeSelector, new Point(CalendarOffset.X, CalendarOffset.Y + DateRangeSelector.ActualHeight));
             }
@@ -260,7 +268,6 @@ namespace ApplicationProject.UserControls.DatedPageView
                     DateRangeSelected?.Invoke(this, new DateRangeSelectedEventArgs(new DateRange(range.Start, range.End)));
             }
         }
-
         #endregion
     }
 }

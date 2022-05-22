@@ -1,39 +1,30 @@
 ﻿using System;
-using System.Globalization;
 
 namespace ApplicationProject.Views
 {
-    public interface IBaseView
+    /// <summary>
+    /// A type for a thread-safe view update action
+    /// </summary>
+    /// <param name="targetView">The view of which the update is performed.
+    /// Must be castable to the type of the view on which the update is executed.</param>
+    public delegate void ViewUpdate(IBaseView targetView);
+
+    public interface IBaseView : ICultureDependentData
     {
         /// <summary>
-        /// Called right after the view is displayed.
+        /// Should be called right before the view is displayed by a IViewPresenter to determine whether the view is ready to be presented.
         /// </summary>
-        void Show();
+        bool Show();
 
         /// <summary>
-        /// Called right before the view stops being displayed.
+        /// Dispatch a thread-safe UI update
         /// </summary>
-        void Hide();
+        /// <param name="action">The update to dispatch. </param>
+        void DispatchUpdate(ViewUpdate action);
 
         /// <summary>
-        /// Called when current culture (localization) changes
+        /// Should be called right before the view's presentability is determined
         /// </summary>
-        /// <param name="culture">The new UI culture</param>
-        void OnCultureChanged(CultureInfo culture);
-
-        /// <summary>
-        /// Returns true if this view is ready to be presented, false otherwise.
-        /// </summary>
-        bool IsPresentable { get; }
-
-        /// <summary>
-        /// Called when this view is shown
-        /// </summary>
-        event EventHandler Shown;
-
-        /// <summary>
-        /// Called when this view is no longer shown
-        /// </summary>
-        event EventHandler Hidden;
+        event EventHandler ShowPreview;
     }
 }

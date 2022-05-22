@@ -28,16 +28,18 @@
                     <TextBlock Text="{Binding DateRangeText}" Foreground="Black" VerticalAlignment="Center" HorizontalAlignment="Center" />
                 </Viewbox>
             </ToggleButton>
-            <ComboBox Grid.Row="1" Grid.Column="2" x:Name="DateRangeTypeSelector" SelectionChanged="DateRangeTypeSelector_SelectionChanged">
-                <ComboBox.ItemTemplate>
+            <ComboBox Grid.Row="1" Grid.Column="2" x:Name="DateRangeTypeSelector" SelectionChanged="DateRangeTypeSelector_SelectionChanged" VerticalContentAlignment="Center" HorizontalAlignment="Center">
+               <ComboBox.ItemTemplate>
                     <DataTemplate>
                         <Viewbox>
-                            <TextBlock Text="{Binding DisplayName}" Foreground="Black" />
+                            <TextBlock Text="{Binding DisplayName}" Foreground="Black"/>
                         </Viewbox>
                     </DataTemplate>
                 </ComboBox.ItemTemplate>
             </ComboBox>
-            <TextBlock Grid.Row="1" Text="{Binding PageNameText}" Foreground="Black" TextAlignment="Center" VerticalAlignment="Bottom" HorizontalAlignment="Stretch" FontSize="50" LineStackingStrategy="BlockLineHeight" LineHeight="10"/>
+            <Viewbox Grid.Row="1" StretchDirection="DownOnly" VerticalAlignment="Bottom" HorizontalAlignment="Stretch">
+                <TextBlock Text="{Binding PageNameText}" Foreground="Black" TextAlignment="Center" VerticalAlignment="Bottom" HorizontalAlignment="Stretch" FontSize="50" LineStackingStrategy="BlockLineHeight" LineHeight="10"/>
+            </Viewbox>
         </Grid>
         <Border Grid.Row="1" BorderThickness="2" BorderBrush="Black"/>
         <Grid Grid.Row="2">

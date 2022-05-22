@@ -1,19 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using ApplicationProject.Views;
-using ApplicationProject.Views.DatedPageView;
 using System.Globalization;
 
 namespace ApplicationProject
@@ -26,6 +14,8 @@ namespace ApplicationProject
         public IBaseView PresentedView { get; protected set; }
         public Overlay Overlay { get; }
 
+        protected CultureInfo CurrentCulture { get; set; }
+
         public MainWindow()
         {
             InitializeComponent();
@@ -34,6 +24,7 @@ namespace ApplicationProject
 
         public void OnCultureChanged(CultureInfo culture)
         {
+            CurrentCulture = culture;
             PresentedView?.OnCultureChanged(culture);
         }
 
@@ -41,10 +32,9 @@ namespace ApplicationProject
         {
             if(view == null)
                 throw new ArgumentNullException(nameof(view));
-            else if(!view.IsPresentable || !(view is UserControl))
+            else if(!(view is UserControl && view.Show()))
                 return false;
 
-            PresentedView?.Hide();
             if(PresentedView is ISupportOverlay overlay)
             {
                 overlay.ClearOverlay();
@@ -54,7 +44,7 @@ namespace ApplicationProject
             PresentedView = view;
             ActiveView.Content = view as UserControl;
 
-            PresentedView?.Show();
+            PresentedView?.OnCultureChanged(CurrentCulture);
             if(PresentedView is ISupportOverlay overlay2)
                 overlay2.Overlay = Overlay;
 

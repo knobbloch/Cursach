@@ -1,9 +1,9 @@
 ﻿using System;
 using System.ComponentModel;
 
-namespace ApplicationProject.Views.PlanPageView
+namespace ApplicationProject.Views.AnalysisPageView
 {
-    public class PlanPageExpenseChartEntry : INotifyPropertyChanged
+    public class AnalysisPageExpenseDayEntry : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -22,25 +22,25 @@ namespace ApplicationProject.Views.PlanPageView
         private double m_Value;
 
         /// <summary>
-        /// The path to the image displayed by the text
+        /// The text to display as the chart entry's title
         /// </summary>
         /// <exception cref="ArgumentNullException" />
-        public string ImagePath
+        public string PeriodTitle
         {
-            get => m_ImagePath;
+            get => m_PeriodTitle;
             set
             {
-                m_ImagePath = value ?? throw new ArgumentNullException(nameof(ImagePath));
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(ImagePath)));
+                m_PeriodTitle = value ?? throw new ArgumentNullException(nameof(PeriodTitle));
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(PeriodTitle)));
             }
         }
-        private string m_ImagePath;
+        private string m_PeriodTitle;
 
-        public PlanPageExpenseChartEntry() : this("", 0) { }
-        public PlanPageExpenseChartEntry(string path, double value)
+        public AnalysisPageExpenseDayEntry() : this("", 0) { }
+        public AnalysisPageExpenseDayEntry(string title, double value)
         {
             Value = value;
-            ImagePath = path;
+            PeriodTitle = title;
         }
     }
 }
