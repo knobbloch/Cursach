@@ -23,13 +23,11 @@ namespace ApplicationProject.UserControls.AnalysisPageView
         protected const string IncomeTabNameKey = "PAGE_ANALYSIS_TAB_INCOME_NAME";
         protected const string ExpensesTableNameHeaderKey = "PAGE_ANALYSIS_TAB_EXPENSES_TABLE_HEADER_NAME";
         protected const string ExpensesTableValueHeaderKey = "PAGE_ANALYSIS_TAB_EXPENSES_TABLE_HEADER_VALUE";
-        protected const string IncomeTableNameHeaderKey = "PAGE_ANALYSIS_TAB_EXPENSES_TABLE_HEADER_NAME";
-        protected const string IncomeTableValueHeaderKey = "PAGE_ANALYSIS_TAB_EXPENSES_TABLE_HEADER_VALUE";
+        protected const string IncomeTableNameHeaderKey = "PAGE_ANALYSIS_TAB_INCOME_TABLE_HEADER_NAME";
+        protected const string IncomeTableValueHeaderKey = "PAGE_ANALYSIS_TAB_INCOME_TABLE_HEADER_VALUE";
         protected const string AddExpenseTextKey = "PAGE_ANALYSIS_TAB_EXPENSES_BUTTON_ADD";
         protected const string AddExpenseCategoryTextKey = "PAGE_ANALYSIS_TAB_EXPENSES_BUTTON_ADDCATEGORY";
-        protected const string CreateExpensesReportTextKey = "PAGE_ANALYSIS_TAB_EXPENSES_BUTTON_CREATEREPORT";
         protected const string AddIncomeTextKey = "PAGE_ANALYSIS_TAB_INCOME_BUTTON_ADD";
-        protected const string CreateIncomeReportTextKey = "PAGE_ANALYSIS_TAB_INCOME_CREATEREPORT";
 
         public AnalysisPageView()
         {
@@ -48,7 +46,7 @@ namespace ApplicationProject.UserControls.AnalysisPageView
             get => m_CurrentCulture;
             set
             {
-                m_CurrentCulture = value ?? System.Threading.Thread.CurrentThread.CurrentUICulture ?? CultureInfo.CurrentUICulture ?? CultureInfo.InvariantCulture;
+                m_CurrentCulture = value ?? System.Threading.Thread.CurrentThread.CurrentUICulture ?? CultureInfo.CurrentUICulture ?? CultureInfo.CurrentCulture ?? CultureInfo.InvariantCulture;
 
                 RefreshLocalization();
             }
@@ -68,9 +66,7 @@ namespace ApplicationProject.UserControls.AnalysisPageView
                     IncomeTabName.Length > 0 &&
                     AddExpenseText.Length > 0 &&
                     AddExpenseCategoryText.Length > 0 &&
-                    CreateExpensesReportText.Length > 0 &&
-                    AddIncomeText.Length > 0 &&
-                    CreateIncomeReportText.Length > 0;
+                    AddIncomeText.Length > 0;
         }
 
 
@@ -92,23 +88,19 @@ namespace ApplicationProject.UserControls.AnalysisPageView
         #endregion
 
         #region IAnalysisPageView
-        public string ExpensesTabName => ExpensesTabNameKey;
-        public string IncomeTabName => IncomeTabNameKey;
-        public string ExpensesTableNameHeader => ExpensesTableNameHeaderKey;
-        public string ExpensesTableValueHeader => ExpensesTableValueHeaderKey;
-        public string IncomeTableNameHeader => IncomeTableNameHeaderKey;
-        public string IncomeTableValueHeader => IncomeTableValueHeaderKey;
-        public string AddExpenseText => AddExpenseTextKey;
-        public string AddExpenseCategoryText => AddExpenseCategoryTextKey;
-        public string CreateExpensesReportText => CreateExpensesReportTextKey;
-        public string AddIncomeText => AddIncomeTextKey;
-        public string CreateIncomeReportText => CreateIncomeReportTextKey;
+        public string ExpensesTabName => GetLocalizedString(ExpensesTabNameKey);
+        public string IncomeTabName => GetLocalizedString(IncomeTabNameKey);
+        public string ExpensesTableNameHeader => GetLocalizedString(ExpensesTableNameHeaderKey);
+        public string ExpensesTableValueHeader => GetLocalizedString(ExpensesTableValueHeaderKey);
+        public string IncomeTableNameHeader => GetLocalizedString(IncomeTableNameHeaderKey);
+        public string IncomeTableValueHeader => GetLocalizedString(IncomeTableValueHeaderKey);
+        public string AddExpenseText => GetLocalizedString(AddExpenseTextKey);
+        public string AddExpenseCategoryText => GetLocalizedString(AddExpenseCategoryTextKey);
+        public string AddIncomeText => GetLocalizedString(AddIncomeTextKey);
 
         public event EventHandler AddExpenseAction;
         public event EventHandler AddExpenseCategoryAction;
-        public event EventHandler CreateExpensesReportAction;
         public event EventHandler AddIncomeAction;
-        public event EventHandler CreateIncomeReportAction;
         public event AnalysisPageModeSelectedEventHandler ModeChanged;
         public event AnalysisPageIncomeEntrySelectedEventHandler IncomeEntrySelected;
         public event AnalysisPageExpenseEntrySelectedEventHandler ExpenseEntrySelected;
@@ -149,10 +141,13 @@ namespace ApplicationProject.UserControls.AnalysisPageView
 
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(AddExpenseText)));
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(AddExpenseCategoryText)));
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(CreateExpensesReportText)));
 
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(AddIncomeText)));
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(CreateIncomeReportText)));
+        }
+
+        private string GetLocalizedString(string key)
+        {
+            return ApplicationProject.Resources.Locale.ResourceManager.GetString(key, CurrentCulture);
         }
         #endregion
 
@@ -166,12 +161,6 @@ namespace ApplicationProject.UserControls.AnalysisPageView
         {
             AddExpenseCategoryAction?.Invoke(this, EventArgs.Empty);
         }
-
-        private void CreateExpensesReportButton_Click(object sender, RoutedEventArgs e)
-        {
-            CreateExpensesReportAction?.Invoke(this, EventArgs.Empty);
-        }
-
         private void TabsControl_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             ModeChanged?.Invoke(this, new AnalysisPageModeSelectedEventArgs(TabsControl.SelectedIndex switch
@@ -185,11 +174,6 @@ namespace ApplicationProject.UserControls.AnalysisPageView
         private void AddIncomeButton_Click(object sender, RoutedEventArgs e)
         {
             AddIncomeAction?.Invoke(this, EventArgs.Empty);
-        }
-
-        private void CreateIncomeReportButton_Click(object sender, RoutedEventArgs e)
-        {
-            CreateIncomeReportAction?.Invoke(this, EventArgs.Empty);
         }
 
         private void ExpensesList_SelectionChanged(object sender, SelectionChangedEventArgs e)

@@ -4,7 +4,7 @@ using ApplicationProject.Views.InterPageView;
 
 namespace ApplicationProject.Views.AddRealExpenseCategoryPageView
 {
-    public interface IAddRealExpenseCategoryPageView : IInterPageView
+    public interface IAddPlannedExpenseCategoryPageView : IInterPageView
     {
         /// <summary>
         /// Is called when the "add" action should be executed
@@ -35,5 +35,15 @@ namespace ApplicationProject.Views.AddRealExpenseCategoryPageView
         /// ValueInputError for CategoryImagePath
         /// </summary>
         ValueInputError CategoryImagePathError { get; }
+
+        /// <summary>
+        /// The planned amount of money
+        /// </summary>
+        decimal CurrencyAmount { get; set; }
+
+        /// <summary>
+        /// ValueInputError for CurrencyAmount
+        /// </summary>
+        ValueInputError CurrencyAmountError { get; }
     }
 }

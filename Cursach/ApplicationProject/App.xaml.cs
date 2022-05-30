@@ -22,6 +22,8 @@ namespace ApplicationProject
 
         public App()
         {
+            System.Threading.Thread.CurrentThread.CurrentUICulture = System.Threading.Thread.CurrentThread.CurrentCulture = System.Globalization.CultureInfo.CurrentUICulture;
+
             ViewsFlowController = new ViewsFlowController((IViewPresenter)(MainWindow = new MainWindow()));
 
             ViewsFlowController.IInterPageViewInstance.AccountName = "Тест";

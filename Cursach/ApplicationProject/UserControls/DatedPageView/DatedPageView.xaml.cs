@@ -50,7 +50,7 @@ namespace ApplicationProject.UserControls.DatedPageView
             get => m_CurrentCulture;
             set
             {
-                m_CurrentCulture = value ?? System.Threading.Thread.CurrentThread.CurrentUICulture ?? CultureInfo.CurrentUICulture ?? CultureInfo.InvariantCulture;
+                m_CurrentCulture = value ?? System.Threading.Thread.CurrentThread.CurrentUICulture ?? CultureInfo.CurrentUICulture ?? CultureInfo.CurrentCulture ?? CultureInfo.InvariantCulture;
                 DateRangeSelectorCalendar.CurrentCulture = m_CurrentCulture;
                 RefreshLocalization();
             }
@@ -122,7 +122,7 @@ namespace ApplicationProject.UserControls.DatedPageView
             }
         }
         private string m_PageNameTextKey;
-        public string PageNameText => PageNameTextKey;
+        public string PageNameText => GetLocalizedString(PageNameTextKey);
 
         public event DateRangeTypeSelectedEventHandler DateRangeTypeSelected;
         public event DateRangeSelectedEventHandler DateRangeSelected;
@@ -197,6 +197,11 @@ namespace ApplicationProject.UserControls.DatedPageView
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(PageNameText)));
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(DateRangeText)));
+        }
+
+        private string GetLocalizedString(string key)
+        {
+            return ApplicationProject.Resources.Locale.ResourceManager.GetString(key, CurrentCulture);
         }
 
         protected string ConvertToDateRangeDisplay(DateRange range)

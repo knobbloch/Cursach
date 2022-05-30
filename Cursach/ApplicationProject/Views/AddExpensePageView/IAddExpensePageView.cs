@@ -5,12 +5,17 @@ using ApplicationProject.Views.InterPageView;
 
 namespace ApplicationProject.Views.AddExpensePageView
 {
-    public interface IAddExpensePageView : IInterPageView
+    public interface IAddExpensePageView : IBaseView
     {
         /// <summary>
         /// Is called when the "add" action should be executed
         /// </summary>
         event EventHandler AddAction;
+
+        /// <summary>
+        /// Is called when the user wants to stop adding a new category
+        /// </summary>
+        event EventHandler ExitAction;
 
         /// <summary>
         /// The name of the expense currently entered
@@ -20,27 +25,17 @@ namespace ApplicationProject.Views.AddExpensePageView
         /// <summary>
         /// The ValueInputError for ExpenseName
         /// </summary>
-        ValueInputError ExpenseNameError { get; }
+        ValueInputError ExpenseNameError { set; }
 
         /// <summary>
-        /// The currently selected category
+        /// The planned amount of money
         /// </summary>
-        CategoryDescriptor SelectedExpenseCategory { get; set; }
+        decimal CurrencyAmount { get; set; }
 
         /// <summary>
-        /// The currently selected bank account
+        /// TheValueInputError for CurrencyAmount
         /// </summary>
-        BankAccountInfo SelectedExpenseBankAccount { get; set; }
-
-        /// <summary>
-        /// The currently entered amount of money
-        /// </summary>
-        int MoneyAmount { get; set; }
-
-        /// <summary>
-        /// TheValueInputError for MoneyAmount
-        /// </summary>
-        ValueInputError MoneyAmountError { get; }
+        ValueInputError CurrencyAmountError { set; }
 
         /// <summary>
         /// The categories to display to select from
@@ -48,8 +43,18 @@ namespace ApplicationProject.Views.AddExpensePageView
         ICollection<CategoryDescriptor> ExpenseCategories { get; }
 
         /// <summary>
+        /// The currently selected category
+        /// </summary>
+        CategoryDescriptor SelectedExpenseCategory { get; set; }
+
+        /// <summary>
         /// The bank accounts to display to select from
         /// </summary>
         ICollection<BankAccountInfo> ExpenseBankAccounts { get; }
+
+        /// <summary>
+        /// The currently selected bank account
+        /// </summary>
+        BankAccountInfo SelectedExpenseBankAccount { get; set; }
     }
 }
