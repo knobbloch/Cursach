@@ -18,8 +18,23 @@ namespace ApplicationProject.UserControls.AddExpensePageView
     /// </summary>
     public partial class AddExpensePageView : UserControl, IAddExpensePageView, INotifyPropertyChanged
     {
+        protected const string ExpenseNameFieldTextKey = "PAGE_ADDEXPENSE_NAMEFIELD_NAME";
+        protected const string CurrencyAmountFieldTextKey = "PAGE_ADDEXPENSE_CURRENCYAMOUNTFIELD_NAME";
+        protected const string ExpenseCategoryFieldTextKey = "PAGE_ADDEXPENSE_EXPENSECATEGORYFIELD_NAME";
+        protected const string BankAccountFieldTextKey = "PAGE_ADDEXPENSE_BANKACCOUNTFIELD_NAME";
+        protected const string ButtonAddTextKey = "PAGE_ADDEXPENSE_BUTTONADD_NAME";
+        protected const string ButtonExitTextKey = "PAGE_ADDEXPENSE_BUTTONEXIT_NAME";
+
         public AddExpensePageView()
         {
+            m_ExpenseName = "";
+            m_CurrencyAmount = 0;
+            CurrentCulture = null;
+
+
+            ExpenseCategories = new ObservableCollection<CategoryDescriptor>();
+            ExpenseBankAccounts = new ObservableCollection<BankAccountInfo>();
+
             InitializeComponent();
         }
 
@@ -34,6 +49,13 @@ namespace ApplicationProject.UserControls.AddExpensePageView
             }
         }
         private CultureInfo m_CurrentCulture;
+
+        public string ExpenseNameFieldText => GetLocalizedString(ExpenseNameFieldTextKey);
+        public string CurrencyAmountFieldText => GetLocalizedString(CurrencyAmountFieldTextKey);
+        public string ExpenseCategoryFieldText => GetLocalizedString(ExpenseCategoryFieldTextKey);
+        public string BankAccountFieldText => GetLocalizedString(BankAccountFieldTextKey);
+        public string ButtonAddText => GetLocalizedString(ButtonAddTextKey);
+        public string ButtonExitText => GetLocalizedString(ButtonExitTextKey);
 
         #region IBaseView
         public bool Show()
@@ -63,6 +85,7 @@ namespace ApplicationProject.UserControls.AddExpensePageView
 
         #region IAddExpensePageView
         public event EventHandler AddAction;
+        public event EventHandler AddActionPost;
         public event EventHandler ExitAction;
 
         public string ExpenseName
@@ -78,11 +101,15 @@ namespace ApplicationProject.UserControls.AddExpensePageView
 
         public ValueInputError ExpenseNameError
         {
+            get => m_ExpenseNameError;
             set
             {
-            
+                m_ExpenseNameError = value;
+                ExpenseNameErrorText.Visibility = value != null ? Visibility.Visible : Visibility.Hidden;
+                ExpenseNameErrorText.Text = value?.ToString() ?? "";
             }
         }
+        private ValueInputError m_ExpenseNameError;
 
         public decimal CurrencyAmount
         {
@@ -99,9 +126,13 @@ namespace ApplicationProject.UserControls.AddExpensePageView
         {
             set
             {
-
+                m_CurrencyAmountError = value;
+                CurrencyAmountErrorText.Visibility = value != null ? Visibility.Visible : Visibility.Hidden;
+                CurrencyAmountErrorText.Text = value?.ToString() ?? "";
             }
+            get => m_CurrencyAmountError;
         }
+        private ValueInputError m_CurrencyAmountError;
 
         public ICollection<CategoryDescriptor> ExpenseCategories { get; }
 
@@ -133,8 +164,29 @@ namespace ApplicationProject.UserControls.AddExpensePageView
         #region Methods
         public void RefreshLocalization()
         {
-            
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(ExpenseNameFieldText)));
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(CurrencyAmountFieldText)));
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(ExpenseCategoryFieldText)));
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(BankAccountFieldText)));
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(ButtonAddText)));
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(ButtonExitText)));
+        }
+
+        private string GetLocalizedString(string key)
+        {
+            return ApplicationProject.Resources.Locale.ResourceManager.GetString(key, CurrentCulture);
         }
         #endregion
+
+        private void ButtonAdd_Click(object sender, RoutedEventArgs e)
+        {
+            AddAction?.Invoke(this, EventArgs.Empty);
+            AddActionPost?.Invoke(this, EventArgs.Empty);
+        }
+
+        private void ButtonExit_Click(object sender, RoutedEventArgs e)
+        {
+            ExitAction?.Invoke(this, EventArgs.Empty);
+        }
     }
 }

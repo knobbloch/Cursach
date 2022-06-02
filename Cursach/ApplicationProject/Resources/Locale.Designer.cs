@@ -79,6 +79,69 @@ namespace ApplicationProject.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Bank account:.
+        /// </summary>
+        internal static string PAGE_ADDEXPENSE_BANKACCOUNTFIELD_NAME {
+            get {
+                return ResourceManager.GetString("PAGE_ADDEXPENSE_BANKACCOUNTFIELD_NAME", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Add.
+        /// </summary>
+        internal static string PAGE_ADDEXPENSE_BUTTONADD_NAME {
+            get {
+                return ResourceManager.GetString("PAGE_ADDEXPENSE_BUTTONADD_NAME", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Back.
+        /// </summary>
+        internal static string PAGE_ADDEXPENSE_BUTTONEXIT_NAME {
+            get {
+                return ResourceManager.GetString("PAGE_ADDEXPENSE_BUTTONEXIT_NAME", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Currency amount:.
+        /// </summary>
+        internal static string PAGE_ADDEXPENSE_CURRENCYAMOUNTFIELD_NAME {
+            get {
+                return ResourceManager.GetString("PAGE_ADDEXPENSE_CURRENCYAMOUNTFIELD_NAME", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Expenses category:.
+        /// </summary>
+        internal static string PAGE_ADDEXPENSE_EXPENSECATEGORYFIELD_NAME {
+            get {
+                return ResourceManager.GetString("PAGE_ADDEXPENSE_EXPENSECATEGORYFIELD_NAME", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Add expense.
+        /// </summary>
+        internal static string PAGE_ADDEXPENSE_NAME {
+            get {
+                return ResourceManager.GetString("PAGE_ADDEXPENSE_NAME", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Expense name:.
+        /// </summary>
+        internal static string PAGE_ADDEXPENSE_NAMEFIELD_NAME {
+            get {
+                return ResourceManager.GetString("PAGE_ADDEXPENSE_NAMEFIELD_NAME", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Analysis.
         /// </summary>
         internal static string PAGE_ANALYSIS_BUTTON_ANALYSIS {
@@ -183,6 +246,15 @@ namespace ApplicationProject.Resources {
         internal static string PAGE_ANALYSIS_TAB_INCOME_TABLE_HEADER_VALUE {
             get {
                 return ResourceManager.GetString("PAGE_ANALYSIS_TAB_INCOME_TABLE_HEADER_VALUE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Bank Accounts:.
+        /// </summary>
+        internal static string PAGE_INTER_BANKACCOUNTS_NAME {
+            get {
+                return ResourceManager.GetString("PAGE_INTER_BANKACCOUNTS_NAME", resourceCulture);
             }
         }
         

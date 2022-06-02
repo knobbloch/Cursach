@@ -17,6 +17,10 @@ namespace ApplicationProject.Views.InterPageView
         /// Is called when a bank account is seleced
         /// </summary>
         event BankAccountSelectedSelectedEventHandler BankAccountSelected;
+        /// <summary>
+        /// Is called when "add bank account" action should be executed
+        /// </summary>
+        event EventHandler AddBankAccountAction;
 
         /// <summary>
         /// Stores instance of bank accounts

@@ -19,6 +19,7 @@ namespace ApplicationProject.UserControls.InterPageView
     {
         protected const string AnalysisButtonNameKey = "PAGE_ANALYSIS_BUTTON_ANALYSIS";
         protected const string PlanButtonNameKey = "PAGE_ANALYSIS_BUTTON_PLAN";
+        protected const string BankAccountsTextKey = "PAGE_INTER_BANKACCOUNTS_NAME";
 
         public InterPageView()
         {
@@ -102,6 +103,8 @@ namespace ApplicationProject.UserControls.InterPageView
         public string PlanButtonName => GetLocalizedString(PlanButtonNameKey);
         public string PlanButtonSymbol => PlanButtonName.Substring(0, 1);
 
+        public string BankAccountsText => GetLocalizedString(BankAccountsTextKey);
+
         private string m_AccountName;
         public string AccountName
         {
@@ -116,6 +119,7 @@ namespace ApplicationProject.UserControls.InterPageView
         public event CategorySelectedEventHandler CategorySelectedAction;
         public event EventHandler ProfileSelectedAction;
         public event BankAccountSelectedSelectedEventHandler BankAccountSelected;
+        public event EventHandler AddBankAccountAction;
 
         public IList<BankAccountInfo> BankAccounts { get; }
         #endregion
@@ -134,6 +138,8 @@ namespace ApplicationProject.UserControls.InterPageView
 
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(PlanButtonName)));
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(PlanButtonSymbol)));
+
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(BankAccountsText)));
         }
 
         private string GetLocalizedString(string key)
@@ -173,5 +179,10 @@ namespace ApplicationProject.UserControls.InterPageView
                 BankAccountSelected?.Invoke(this, new BankAccountSelectedEventArgs(BankAccounts[BankAccountsDisplayer.SelectedIndex], BankAccountsDisplayer.SelectedIndex));
         }
         #endregion
+
+        private void AddBankAccountButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }
