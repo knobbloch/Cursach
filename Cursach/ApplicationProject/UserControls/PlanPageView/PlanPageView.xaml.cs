@@ -24,12 +24,10 @@ namespace ApplicationProject.UserControls.PlanPageView
         protected const string ExpensesTableNameHeaderKey = "PAGE_PLAN_TAB_EXPENSES_TABLE_HEADER_NAME";
         protected const string ExpensesTableRealValueHeaderKey = "PAGE_PLAN_TAB_EXPENSES_TABLE_HEADER_REALVALUE";
         protected const string ExpensesTablePlannedValueHeaderKey = "PAGE_PLAN_TAB_EXPENSES_TABLE_HEADER_PLANNEDVALUE";
-        protected const string IncomeTableNameHeaderKey = "PAGE_PLAN_TAB_EXPENSES_TABLE_HEADER_NAME";
-        protected const string IncomeTableRealValueHeaderKey = "PAGE_PLAN_TAB_EXPENSES_TABLE_HEADER_REALVALUE";
-        protected const string IncomeTablePlannedValueHeaderKey = "PAGE_PLAN_TAB_EXPENSES_TABLE_HEADER_PLANNEDVALUE";
+        protected const string IncomeTableNameHeaderKey = "PAGE_PLAN_TAB_INCOME_TABLE_HEADER_NAME";
+        protected const string IncomeTableRealValueHeaderKey = "PAGE_PLAN_TAB_INCOME_TABLE_HEADER_REALVALUE";
+        protected const string IncomeTablePlannedValueHeaderKey = "PAGE_PLAN_TAB_INCOME_TABLE_HEADER_PLANNEDVALUE";
         protected const string AddExpenseCategoryTextKey = "PAGE_PLAN_TAB_EXPENSES_BUTTON_ADDCATEGORY";
-        protected const string CreateExpensesReportTextKey = "PAGE_PLAN_TAB_EXPENSES_BUTTON_CREATEREPORT";
-        protected const string CreateIncomeReportTextKey = "PAGE_PLAN_TAB_INCOME_CREATEREPORT";
 
         public PlanPageView()
         {
@@ -47,7 +45,7 @@ namespace ApplicationProject.UserControls.PlanPageView
             get => m_CurrentCulture;
             set
             {
-                m_CurrentCulture = value ?? System.Threading.Thread.CurrentThread.CurrentUICulture ?? CultureInfo.CurrentUICulture ?? CultureInfo.InvariantCulture;
+                m_CurrentCulture = value ?? System.Threading.Thread.CurrentThread.CurrentUICulture ?? CultureInfo.CurrentUICulture ?? CultureInfo.CurrentCulture ?? CultureInfo.InvariantCulture;
                 RefreshLocalization();
             }
         }
@@ -65,9 +63,7 @@ namespace ApplicationProject.UserControls.PlanPageView
                    IncomeTablePlannedValueHeader.Length > 0 &&
                    ExpensesTabName.Length > 0 &&
                    IncomeTabName.Length > 0 &&
-                   AddExpenseCategoryText.Length > 0 &&
-                   CreateExpensesReportText.Length > 0 &&
-                   CreateIncomeReportText.Length > 0;
+                   AddExpenseCategoryText.Length > 0;
         }
 
         public void OnCultureChanged(CultureInfo newCulture)
@@ -88,31 +84,26 @@ namespace ApplicationProject.UserControls.PlanPageView
         #endregion
 
         #region IPlanPageView
-        public string ExpensesTabName => ExpensesTabNameKey;
+        public string ExpensesTabName => GetLocalizedString(ExpensesTabNameKey);
 
-        public string IncomeTabName => IncomeTabNameKey;
+        public string IncomeTabName => GetLocalizedString(IncomeTabNameKey);
 
-        public string ExpensesTableNameHeader => ExpensesTableNameHeaderKey;
+        public string ExpensesTableNameHeader => GetLocalizedString(ExpensesTableNameHeaderKey);
 
-        public string ExpensesTablePlannedValueHeader => ExpensesTablePlannedValueHeaderKey;
+        public string ExpensesTablePlannedValueHeader => GetLocalizedString(ExpensesTablePlannedValueHeaderKey);
 
-        public string ExpensesTableRealValueHeader => ExpensesTableRealValueHeaderKey;
+        public string ExpensesTableRealValueHeader => GetLocalizedString(ExpensesTableRealValueHeaderKey);
 
-        public string IncomeTableNameHeader => IncomeTableNameHeaderKey;
+        public string IncomeTableNameHeader => GetLocalizedString(IncomeTableNameHeaderKey);
 
-        public string IncomeTablePlannedValueHeader => IncomeTablePlannedValueHeaderKey;
+        public string IncomeTablePlannedValueHeader => GetLocalizedString(IncomeTablePlannedValueHeaderKey);
 
-        public string IncomeTableRealValueHeader => IncomeTableRealValueHeaderKey;
+        public string IncomeTableRealValueHeader => GetLocalizedString(IncomeTableRealValueHeaderKey);
 
-        public string AddExpenseCategoryText => AddExpenseCategoryTextKey;
+        public string AddExpenseCategoryText => GetLocalizedString(AddExpenseCategoryTextKey);
 
-        public string CreateExpensesReportText => CreateExpensesReportTextKey;
-
-        public string CreateIncomeReportText => CreateIncomeReportTextKey;
 
         public event EventHandler AddExpenseCategoryAction;
-        public event EventHandler CreateExpensesReportAction;
-        public event EventHandler CreateIncomeReportAction;
         public event PlanPageModeSelectedEventHandler ModeChanged;
         public event PlanPageIncomeEntrySelectedEventHandler IncomeEntrySelected;
         public event PlanPageExpenseEntrySelectedEventHandler ExpenseEntrySelected;
@@ -152,9 +143,11 @@ namespace ApplicationProject.UserControls.PlanPageView
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(IncomeTablePlannedValueHeader)));
 
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(AddExpenseCategoryText)));
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(CreateExpensesReportText)));
+        }
 
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(CreateIncomeReportText)));
+        private string GetLocalizedString(string key)
+        {
+            return ApplicationProject.Resources.Locale.ResourceManager.GetString(key, CurrentCulture);
         }
         #endregion
 
@@ -162,11 +155,6 @@ namespace ApplicationProject.UserControls.PlanPageView
         private void AddExpenseCategoryButton_Click(object sender, RoutedEventArgs e)
         {
             AddExpenseCategoryAction?.Invoke(this, EventArgs.Empty);
-        }
-
-        private void CreateExpensesReportButton_Click(object sender, RoutedEventArgs e)
-        {
-            CreateExpensesReportAction?.Invoke(this, EventArgs.Empty);
         }
 
         private void TabsControl_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -177,11 +165,6 @@ namespace ApplicationProject.UserControls.PlanPageView
                 1 => IPlanPageView.PlanPageMode.Income,
                 _ => throw new InvalidOperationException("Invalid tab was selected")
             }));
-        }
-
-        private void CreateIncomeReportButton_Click(object sender, RoutedEventArgs e)
-        {
-            CreateIncomeReportAction?.Invoke(this, EventArgs.Empty);
         }
 
         private void ExpensesList_SelectionChanged(object sender, SelectionChangedEventArgs e)

@@ -17,12 +17,12 @@ namespace ApplicationProject.Views.DatedPageView
 
         public string DisplayName
         {
-            get => Type switch
+            get => ApplicationProject.Resources.Locale.ResourceManager.GetString(Type switch
             {
                 RangeType.MONTH => DisplayNameMonthKey,
                 RangeType.YEAR => DisplayNameYearKey,
                 _ => throw new ArgumentOutOfRangeException(nameof(Type))
-            };
+            }, CurrentCulture);
         }
 
         public RangeType Type { get; set; }

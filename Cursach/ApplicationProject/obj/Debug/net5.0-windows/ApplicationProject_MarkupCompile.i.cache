@@ -10,11 +10,11 @@ none
 false
 TRACE;DEBUG;NET;NET5_0;NETCOREAPP
 C:\HSE\Курсач\Cursach\ApplicationProject\App.xaml
-8443642719
+9-899871066
 
-48763804523
+52-633662822
 193-1891726104
-MainWindow.xaml;UserControls\AnalysisPageView\AnalysisPageView.xaml;UserControls\BarChart.xaml;UserControls\DatedPageView\DatedPageView.xaml;UserControls\InterPageView\InterPageView.xaml;UserControls\PlanPageView\PlanPageView.xaml;UserControls\RangeSelectorCalendar.xaml;UserControls\RoundButton.xaml;
+MainWindow.xaml;UserControls\AddExpensePageView\AddExpensePageView.xaml;UserControls\AnalysisPageView\AnalysisPageView.xaml;UserControls\BarChart.xaml;UserControls\DatedPageView\DatedPageView.xaml;UserControls\InterPageView\InterPageView.xaml;UserControls\PlanPageView\PlanPageView.xaml;UserControls\RangeSelectorCalendar.xaml;UserControls\RoundButton.xaml;
 
 False
 

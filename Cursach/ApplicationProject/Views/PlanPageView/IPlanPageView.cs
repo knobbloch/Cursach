@@ -18,14 +18,6 @@ namespace ApplicationProject.Views.PlanPageView
         /// </summary>
         event EventHandler AddExpenseCategoryAction;
         /// <summary>
-        /// Is called when the "create expenses report" action should be executed
-        /// </summary>
-        event EventHandler CreateExpensesReportAction;
-        /// <summary>
-        /// Is called when the "Create income report" action should be executed
-        /// </summary>
-        event EventHandler CreateIncomeReportAction;
-        /// <summary>
         /// Is called when the active mode is changed
         /// </summary>
         event PlanPageModeSelectedEventHandler ModeChanged;

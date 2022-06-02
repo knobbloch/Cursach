@@ -35,7 +35,7 @@ namespace ApplicationProject.UserControls.InterPageView
             get => m_CurrentCulture;
             set
             {
-                m_CurrentCulture = value ?? System.Threading.Thread.CurrentThread.CurrentUICulture ?? CultureInfo.CurrentUICulture ?? CultureInfo.InvariantCulture;
+                m_CurrentCulture = value ?? System.Threading.Thread.CurrentThread.CurrentUICulture ?? CultureInfo.CurrentUICulture ?? CultureInfo.CurrentCulture ?? CultureInfo.InvariantCulture;
                 RefreshLocalization();
             }
         }
@@ -94,12 +94,12 @@ namespace ApplicationProject.UserControls.InterPageView
         #region INotifyPropertyChanged
         public event PropertyChangedEventHandler PropertyChanged;
         #endregion
-        
+
         #region IInterPageView
-        public string AnalysisButtonName => AnalysisButtonNameKey;
+        public string AnalysisButtonName => GetLocalizedString(AnalysisButtonNameKey);
         public string AnalysisButtonSymbol => AnalysisButtonName.Substring(0, 1);
 
-        public string PlanButtonName => PlanButtonNameKey;
+        public string PlanButtonName => GetLocalizedString(PlanButtonNameKey);
         public string PlanButtonSymbol => PlanButtonName.Substring(0, 1);
 
         private string m_AccountName;
@@ -134,6 +134,11 @@ namespace ApplicationProject.UserControls.InterPageView
 
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(PlanButtonName)));
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(PlanButtonSymbol)));
+        }
+
+        private string GetLocalizedString(string key)
+        {
+            return ApplicationProject.Resources.Locale.ResourceManager.GetString(key, CurrentCulture);
         }
         #endregion
 
