@@ -8,15 +8,15 @@ using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Controls;
 
-using ApplicationProject.Views;
-using ApplicationProject.Views.PlanPageView;
+using ApplicationProjectViews;
+using ApplicationProjectViews.PlanPageView;
 
 namespace ApplicationProject.UserControls.PlanPageView
 {
     /// <summary>
     /// Interaction logic for PlanPageView.xaml
     /// </summary>
-    public partial class PlanPageView : UserControl, IPlanPageView, INotifyPropertyChanged
+    public partial class PlanPageView : UserControl, IPlanPageView, INotifyPropertyChanged, ICultureDependentData
     {
         protected static readonly Point CalendarOffset = new(0, 0);
         protected const string ExpensesTabNameKey = "PAGE_PLAN_TAB_EXPENSES_NAME";
@@ -50,6 +50,13 @@ namespace ApplicationProject.UserControls.PlanPageView
             }
         }
 
+        #region ICultureDependentData
+        public void OnCultureChanged(CultureInfo newCulture)
+        {
+            CurrentCulture = newCulture;
+        }
+        #endregion
+
         #region IBaseView
         public bool Show()
         {
@@ -64,11 +71,6 @@ namespace ApplicationProject.UserControls.PlanPageView
                    ExpensesTabName.Length > 0 &&
                    IncomeTabName.Length > 0 &&
                    AddExpenseCategoryText.Length > 0;
-        }
-
-        public void OnCultureChanged(CultureInfo newCulture)
-        {
-            CurrentCulture = newCulture;
         }
 
         public void DispatchUpdate(ViewUpdate action)

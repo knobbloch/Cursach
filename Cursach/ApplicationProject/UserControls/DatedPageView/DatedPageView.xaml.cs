@@ -8,18 +8,16 @@ using System.Collections.ObjectModel;
 
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Input;
 
-using ApplicationProject.Views;
-using ApplicationProject.Views.InterPageView;
-using ApplicationProject.Views.DatedPageView;
+using ApplicationProjectViews;
+using ApplicationProjectViews.DatedPageView;
 
 namespace ApplicationProject.UserControls.DatedPageView
 {
     /// <summary>
     /// Interaction logic for AnalysisPageView.xaml
     /// </summary>
-    public partial class DatedPageView : UserControl, IDatedPageView, ISupportOverlay, INotifyPropertyChanged, IViewPresenter
+    public partial class DatedPageView : UserControl, IDatedPageView, ISupportOverlay, INotifyPropertyChanged, IViewPresenter, ICultureDependentData
     {
         protected static readonly Point CalendarOffset = new(0, 0);
 
@@ -78,11 +76,19 @@ namespace ApplicationProject.UserControls.DatedPageView
             PresentedView = view;
             ActiveView.Content = view as UserControl;
 
-            PresentedView?.OnCultureChanged(CurrentCulture);
             if (PresentedView is ISupportOverlay overlay2)
                 overlay2.Overlay = Overlay;
+            if (PresentedView is ICultureDependentData cultureDependent)
+                cultureDependent.OnCultureChanged(CurrentCulture);
 
             return true;
+        }
+        #endregion
+
+        #region ICultureDependentData
+        public void OnCultureChanged(CultureInfo newCulture)
+        {
+            CurrentCulture = newCulture;
         }
         #endregion
 
@@ -93,14 +99,6 @@ namespace ApplicationProject.UserControls.DatedPageView
 
             return DateRangeTypes.Count > 0 &&
                    PageNameText?.Length > 0;
-        }
-
-        public void OnCultureChanged(CultureInfo newCulture)
-        {
-            CurrentCulture = newCulture;
-
-            foreach (DateRangeType type in DateRangeTypes)
-                type.OnCultureChanged(newCulture);
         }
 
         public void DispatchUpdate(ViewUpdate action)
@@ -154,7 +152,7 @@ namespace ApplicationProject.UserControls.DatedPageView
             }
         }
 
-        public DateRangeType.RangeType SelectedRangeType
+        public DateRangeType SelectedRangeType
         {
             get => m_SelectedRangeType;
             set
@@ -162,13 +160,13 @@ namespace ApplicationProject.UserControls.DatedPageView
                 m_SelectedRangeType = value;
                 DateRangeSelectorCalendar.SelectionTarget = m_SelectedRangeType switch
                 {
-                    DateRangeType.RangeType.MONTH => RangeSelectorCalendar.RangeSelectorCalendarMode.Month,
-                    DateRangeType.RangeType.YEAR => RangeSelectorCalendar.RangeSelectorCalendarMode.Year,
+                    DateRangeType.MONTH => RangeSelectorCalendar.RangeSelectorCalendarMode.Month,
+                    DateRangeType.YEAR => RangeSelectorCalendar.RangeSelectorCalendarMode.Year,
                     _ => throw new ArgumentOutOfRangeException(nameof(SelectedRangeType)),
                 };
             }
         }
-        private DateRangeType.RangeType m_SelectedRangeType;
+        private DateRangeType m_SelectedRangeType;
         #endregion
 
         #region ISupportOverlay
@@ -210,8 +208,8 @@ namespace ApplicationProject.UserControls.DatedPageView
         {
             return m_SelectedRangeType switch
             {
-                DateRangeType.RangeType.MONTH => range.Start.ToString("MMMM yyyy", CurrentCulture),
-                DateRangeType.RangeType.YEAR => range.Start.ToString("yyyy", CurrentCulture),
+                DateRangeType.MONTH => range.Start.ToString("MMMM yyyy", CurrentCulture),
+                DateRangeType.YEAR => range.Start.ToString("yyyy", CurrentCulture),
                 _ => "ERROR"
             };
         }
@@ -222,6 +220,7 @@ namespace ApplicationProject.UserControls.DatedPageView
         {
             if (e.OriginalSource == DateRangeSelector)
             {
+                Overlay.AddElement(DateRangeSelectorRoot);
                 DateRangeSelectorRoot.Height = DateRangeSelectorRoot.Width = DateRangeSelector.ActualWidth;
                 Overlay.MoveElement(DateRangeSelectorRoot, DateRangeSelector, new Point(CalendarOffset.X, CalendarOffset.Y + DateRangeSelector.ActualHeight));
                 Overlay.Visible = DateRangeSelector.IsChecked ?? false;

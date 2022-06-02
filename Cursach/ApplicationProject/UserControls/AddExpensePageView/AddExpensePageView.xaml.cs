@@ -8,15 +8,15 @@ using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Controls;
 
-using ApplicationProject.Views;
-using ApplicationProject.Views.AddExpensePageView;
+using ApplicationProjectViews;
+using ApplicationProjectViews.AddExpensePageView;
 
 namespace ApplicationProject.UserControls.AddExpensePageView
 {
     /// <summary>
     /// Interaction logic for AddExpensePageView.xaml
     /// </summary>
-    public partial class AddExpensePageView : UserControl, IAddExpensePageView, INotifyPropertyChanged
+    public partial class AddExpensePageView : UserControl, IAddExpensePageView, INotifyPropertyChanged, ICultureDependentData
     {
         protected const string ExpenseNameFieldTextKey = "PAGE_ADDEXPENSE_NAMEFIELD_NAME";
         protected const string CurrencyAmountFieldTextKey = "PAGE_ADDEXPENSE_CURRENCYAMOUNTFIELD_NAME";
@@ -105,8 +105,7 @@ namespace ApplicationProject.UserControls.AddExpensePageView
             set
             {
                 m_ExpenseNameError = value;
-                ExpenseNameErrorText.Visibility = value != null ? Visibility.Visible : Visibility.Hidden;
-                ExpenseNameErrorText.Text = value?.ToString() ?? "";
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(ExpenseNameError)));
             }
         }
         private ValueInputError m_ExpenseNameError;
@@ -127,8 +126,7 @@ namespace ApplicationProject.UserControls.AddExpensePageView
             set
             {
                 m_CurrencyAmountError = value;
-                CurrencyAmountErrorText.Visibility = value != null ? Visibility.Visible : Visibility.Hidden;
-                CurrencyAmountErrorText.Text = value?.ToString() ?? "";
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(CurrencyAmountError)));
             }
             get => m_CurrencyAmountError;
         }

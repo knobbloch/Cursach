@@ -1,11 +1,30 @@
 {
   "version": 3,
   "targets": {
-    "net5.0-windows7.0": {}
+    "net5.0-windows7.0": {
+      "ApplicationProjectViews/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v5.0",
+        "compile": {
+          "bin/placeholder/ApplicationProjectViews.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/ApplicationProjectViews.dll": {}
+        }
+      }
+    }
   },
-  "libraries": {},
+  "libraries": {
+    "ApplicationProjectViews/1.0.0": {
+      "type": "project",
+      "path": "../ApplicationProjectViews/ApplicationProjectViews.csproj",
+      "msbuildProject": "../ApplicationProjectViews/ApplicationProjectViews.csproj"
+    }
+  },
   "projectFileDependencyGroups": {
-    "net5.0-windows7.0": []
+    "net5.0-windows7.0": [
+      "ApplicationProjectViews >= 1.0.0"
+    ]
   },
   "packageFolders": {
     "C:\\Users\\user\\.nuget\\packages\\": {},
@@ -35,7 +54,11 @@
       "frameworks": {
         "net5.0-windows7.0": {
           "targetAlias": "net5.0-windows",
-          "projectReferences": {}
+          "projectReferences": {
+            "C:\\HSE\\Курсач\\Cursach\\ApplicationProjectViews\\ApplicationProjectViews.csproj": {
+              "projectPath": "C:\\HSE\\Курсач\\Cursach\\ApplicationProjectViews\\ApplicationProjectViews.csproj"
+            }
+          }
         }
       },
       "warningProperties": {

@@ -7,6 +7,9 @@
              xmlns:local="clr-namespace:ApplicationProject.UserControls.DatedPageView"
              mc:Ignorable="d" 
              d:DesignHeight="800" d:DesignWidth="800" DataContext="{Binding RelativeSource={RelativeSource Self}}" SizeChanged="CurrentPage_SizeChanged">
+    <UserControl.Resources>
+        <uc:DateRangeTypeLocale x:Key="DateRangeTypeConverter" />
+    </UserControl.Resources>
     <Grid Background="Transparent">
         <Grid.RowDefinitions>
             <RowDefinition Height="150" />
@@ -32,7 +35,7 @@
                <ComboBox.ItemTemplate>
                     <DataTemplate>
                         <Viewbox>
-                            <TextBlock Text="{Binding DisplayName}" Foreground="Black"/>
+                            <TextBlock Text="{Binding Converter={StaticResource DateRangeTypeConverter}}" Foreground="Black"/>
                         </Viewbox>
                     </DataTemplate>
                 </ComboBox.ItemTemplate>

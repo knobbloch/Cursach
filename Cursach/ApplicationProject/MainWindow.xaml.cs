@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Windows;
 using System.Windows.Controls;
-using ApplicationProject.Views;
+using ApplicationProject.UserControls;
 using System.Globalization;
+
+using ApplicationProjectViews;
 
 namespace ApplicationProject
 {
@@ -25,17 +27,17 @@ namespace ApplicationProject
         public void OnCultureChanged(CultureInfo culture)
         {
             CurrentCulture = culture;
-            PresentedView?.OnCultureChanged(culture);
+            (PresentedView as ICultureDependentData)?.OnCultureChanged(culture);
         }
 
         public bool Present(IBaseView view)
         {
-            if(view == null)
+            if (view == null)
                 throw new ArgumentNullException(nameof(view));
-            else if(!(view is UserControl && view.Show()))
+            else if (!(view is UserControl && view.Show()))
                 return false;
 
-            if(PresentedView is ISupportOverlay overlay)
+            if (PresentedView is ISupportOverlay overlay)
             {
                 overlay.ClearOverlay();
                 overlay.Overlay = null;
@@ -44,8 +46,9 @@ namespace ApplicationProject
             PresentedView = view;
             ActiveView.Content = view as UserControl;
 
-            PresentedView?.OnCultureChanged(CurrentCulture);
-            if(PresentedView is ISupportOverlay overlay2)
+            if (PresentedView is ICultureDependentData cultureDependent)
+                cultureDependent.OnCultureChanged(CurrentCulture);
+            if (PresentedView is ISupportOverlay overlay2)
                 overlay2.Overlay = Overlay;
 
             return true;

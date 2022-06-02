@@ -9,6 +9,7 @@
              d:DesignHeight="450" d:DesignWidth="800" DataContext="{Binding RelativeSource={RelativeSource Self}}">
     <UserControl.Resources>
         <uc:FractionConverter x:Key="FractionConverter" />
+        <uc:ValueErrorTypeLocale x:Key="ValueErrorConverter" />
     </UserControl.Resources>
     <Grid>
         <Grid.ColumnDefinitions>

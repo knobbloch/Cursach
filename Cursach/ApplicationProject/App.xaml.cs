@@ -6,8 +6,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 
-using ApplicationProject.Views;
-using ApplicationProject.Views.AnalysisPageView;
+using ApplicationProjectViews;
+using ApplicationProjectViews.AnalysisPageView;
 
 using ApplicationProject.UserControls.AnalysisPageView;
 
@@ -28,10 +28,7 @@ namespace ApplicationProject
             ViewsFlowController = new ViewsFlowController((IViewPresenter)(MainWindow = new MainWindow()));
 
             ViewsFlowController.IInterPageViewInstance.AccountName = "Тест";
-            ViewsFlowController.IDatedPageViewInstance.DateRangeTypes.Add(new Views.DatedPageView.DateRangeType()
-            {
-                Type = Views.DatedPageView.DateRangeType.RangeType.MONTH
-            });
+            ViewsFlowController.IDatedPageViewInstance.DateRangeTypes.Add(ApplicationProjectViews.DatedPageView.DateRangeType.MONTH);
 
             _ = ViewsFlowController.Link();
             MainWindow.Show();

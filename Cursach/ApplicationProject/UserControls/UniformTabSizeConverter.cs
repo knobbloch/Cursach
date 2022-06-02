@@ -5,7 +5,7 @@ using System.Globalization;
 
 namespace ApplicationProject.UserControls
 {
-    public class UniformTabSizeConverter : IMultiValueConverter
+    internal class UniformTabSizeConverter : IMultiValueConverter
     {
         public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
         {
