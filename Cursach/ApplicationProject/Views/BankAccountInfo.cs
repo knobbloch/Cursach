@@ -5,7 +5,7 @@ namespace ApplicationProject.Views
 {
     public class BankAccountInfo : INotifyPropertyChanged
     {
-        public BankAccountInfo(string accountName, string accountBalance, string currencyIdentifier)
+        public BankAccountInfo(string accountName, decimal accountBalance, string currencyIdentifier)
         {
             m_AccountName = accountName;
             m_AccountBalance = accountBalance;
@@ -28,16 +28,16 @@ namespace ApplicationProject.Views
         /// <summary>
         /// Contains the account's balance
         /// </summary>
-        public string AccountBalance
+        public decimal AccountBalance
         {
             get => m_AccountBalance;
             set
             {
-                m_AccountBalance = value ?? throw new ArgumentNullException(nameof(AccountBalance));
+                m_AccountBalance = value;
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(AccountBalance)));
             }
         }
-        private string m_AccountBalance;
+        private decimal m_AccountBalance;
 
         public string CurrencyIdentifier
         {

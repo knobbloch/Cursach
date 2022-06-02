@@ -78,10 +78,14 @@
             <Grid.RowDefinitions>
                 <RowDefinition Height="150"/>
                 <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
             <Border Grid.Row="1" BorderThickness="2" BorderBrush="Black"/>
-            <ListView Grid.Row="2" x:Name="BankAccountsDisplayer" Background="Azure" Margin="0" Padding="0" BorderThickness="0" ScrollViewer.VerticalScrollBarVisibility="Auto">
+            <TextBlock Grid.Row="2" Text="{Binding BankAccountsText}" Background="Azure"/>
+            <ListView Grid.Row="3" x:Name="BankAccountsDisplayer" Background="Azure" Margin="0" Padding="0" BorderThickness="0" ScrollViewer.VerticalScrollBarVisibility="Auto">
                 <ListView.ItemContainerStyle>
                     <Style TargetType="ListViewItem">
                         <Setter Property="BorderThickness" Value="0" />
@@ -94,7 +98,7 @@
                 </ListView.ItemContainerStyle>
                 <ListView.ItemTemplate>
                     <DataTemplate>
-                        <Grid Background="Azure" Margin="0">
+                        <Grid Background="Azure" Margin="0" Height="50">
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="Auto"/>
                                 <RowDefinition Height="Auto"/>
@@ -110,6 +114,11 @@
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
+            <Button Grid.Row="4" Background="Azure" Click="AddBankAccountButton_Click">
+                <Button.Content>
+                    <Image HorizontalAlignment="Center" Stretch="Uniform" Source="/REsources/plusSign.png" Height="50"/>
+                </Button.Content>
+            </Button>
         </Grid>
     </Grid>
 </UserControl>

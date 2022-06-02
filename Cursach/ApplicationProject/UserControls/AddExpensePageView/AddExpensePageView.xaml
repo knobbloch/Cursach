@@ -4,9 +4,74 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:ApplicationProject.UserControls.AddExpensePageView"
+             xmlns:uc="clr-namespace:ApplicationProject.UserControls"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
+             d:DesignHeight="450" d:DesignWidth="800" DataContext="{Binding RelativeSource={RelativeSource Self}}">
+    <UserControl.Resources>
+        <uc:FractionConverter x:Key="FractionConverter" />
+    </UserControl.Resources>
     <Grid>
-        
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="50" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="100" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="50" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="2*" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="2*" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Vertical">
+            <TextBlock Text="{Binding ExpenseNameFieldText}"/>
+            <TextBox Text="{Binding ExpenseName}" Height="{Binding ActualHeight, Source={RelativeSource AncestorType=StackPanel}, Converter={StaticResource FractionConverter}, ConverterParameter=0.5}"/>
+            <TextBlock x:Name="ExpenseNameErrorText" Foreground="Red"/>
+        </StackPanel>
+
+        <StackPanel Grid.Row="1" Grid.Column="3" Orientation="Vertical">
+            <TextBlock Text="{Binding CurrencyAmountFieldText}"/>
+            <TextBox Text="{Binding CurrencyAmount}" Height="{Binding ActualHeight, Source={RelativeSource AncestorType=StackPanel}, Converter={StaticResource FractionConverter}, ConverterParameter=0.5}"/>
+            <TextBlock x:Name="CurrencyAmountErrorText" Foreground="Red"/>
+        </StackPanel>
+
+        <StackPanel Grid.Row="3" Grid.Column="1" Orientation="Vertical">
+            <TextBlock Text="{Binding ExpenseCategoryFieldText}"/>
+            <ComboBox SelectedItem="{Binding SelectedExpenseCategory}" ItemsSource="{Binding ExpenseCategories}" Height="{Binding ActualHeight, Source={RelativeSource AncestorType=StackPanel}, Converter={StaticResource FractionConverter}, ConverterParameter=0.5}">
+                <ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Horizontal">
+                            <Image Source="{Binding ImagePath}" Stretch="Uniform" />
+                            <TextBlock Text="{Binding DisplayName}" />
+                        </StackPanel>
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
+        </StackPanel>
+
+        <StackPanel Grid.Row="3" Grid.Column="3" Orientation="Vertical">
+            <TextBlock Text="{Binding BankAccountFieldText}"/>
+            <ComboBox SelectedItem="{Binding SelectedExpenseBankAccount}" ItemsSource="{Binding ExpenseBankAccounts}" Height="{Binding ActualHeight, Source={RelativeSource AncestorType=StackPanel}, Converter={StaticResource FractionConverter}, ConverterParameter=0.5}">
+                <ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Vertical">
+                            <TextBlock Text="{Binding AccountName}" />
+                            <TextBlock>
+                                <Run Text="{Binding AccountBalance}" />
+                                <Run Text="{Binding CurrencyIdentifier}" />
+                            </TextBlock>
+                        </StackPanel>
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
+        </StackPanel>
+
+        <Button Grid.Row="5" Grid.Column="3" Background="LightGray" Content="{Binding ButtonAddText}" Click="ButtonAdd_Click"/>
+        <Button Grid.Row="5" Grid.Column="1" Background="LightGray" Content="{Binding ButtonExitText}" Click="ButtonExit_Click"/>
     </Grid>
 </UserControl>

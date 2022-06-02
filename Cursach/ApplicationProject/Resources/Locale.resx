@@ -123,6 +123,27 @@
   <data name="DATERANGE_TYPENAME_YEAR" xml:space="preserve">
     <value>Year</value>
   </data>
+  <data name="PAGE_ADDEXPENSE_BANKACCOUNTFIELD_NAME" xml:space="preserve">
+    <value>Bank account:</value>
+  </data>
+  <data name="PAGE_ADDEXPENSE_BUTTONADD_NAME" xml:space="preserve">
+    <value>Add</value>
+  </data>
+  <data name="PAGE_ADDEXPENSE_BUTTONEXIT_NAME" xml:space="preserve">
+    <value>Back</value>
+  </data>
+  <data name="PAGE_ADDEXPENSE_CURRENCYAMOUNTFIELD_NAME" xml:space="preserve">
+    <value>Currency amount:</value>
+  </data>
+  <data name="PAGE_ADDEXPENSE_EXPENSECATEGORYFIELD_NAME" xml:space="preserve">
+    <value>Expenses category:</value>
+  </data>
+  <data name="PAGE_ADDEXPENSE_NAME" xml:space="preserve">
+    <value>Add expense</value>
+  </data>
+  <data name="PAGE_ADDEXPENSE_NAMEFIELD_NAME" xml:space="preserve">
+    <value>Expense name:</value>
+  </data>
   <data name="PAGE_ANALYSIS_BUTTON_ANALYSIS" xml:space="preserve">
     <value>Analysis</value>
   </data>
@@ -158,6 +179,9 @@
   </data>
   <data name="PAGE_ANALYSIS_TAB_INCOME_TABLE_HEADER_VALUE" xml:space="preserve">
     <value>Amount</value>
+  </data>
+  <data name="PAGE_INTER_BANKACCOUNTS_NAME" xml:space="preserve">
+    <value>Bank Accounts:</value>
   </data>
   <data name="PAGE_PLAN_NAME" xml:space="preserve">
     <value>Plan</value>
