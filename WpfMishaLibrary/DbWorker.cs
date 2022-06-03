@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Data.Sqlite;
+
 namespace WpfMishaLibrary
 {
     ///<summary>
@@ -11,18 +12,19 @@ namespace WpfMishaLibrary
     ///</summary>
     public class DbWorker
     {
+        private string DbPath { get; set; }
         /// <summary>
-        /// Holds connection during whole session
+        /// Creates instance of DbWorker.
+        /// Connects to exsisting DB or creates new one at the location of the calling project.
         /// </summary>
-        private SqliteConnection Connection { get; set; }
-        /// <summary>
-        /// Creates instance of DbWorker and connects to db
-        /// </summary>
-        /// <param name="DbPath">Connects to the database specified by path or assigns new</param>
-        public DbWorker(string DbPath = "Data Source=UserData.db")
+        /// <param name="dbPath">Path to Db</param>
+        public DbWorker(string dbPath = @"Data Source= UserData.db;")
         {
-            Connection = new SqliteConnection(DbPath);
-            Connection.Open();
+            DbPath = dbPath;
+            // Checks if database and its' tables exist
+            DbInitializer initializer = new (dbPath);
+            initializer.Initialize(this);
+            //TODO: check if path is correct, maybe test connection
         }
         /// <summary>
         /// Excecutes the query, returns count of rows deleted, updated or inserted. 
@@ -31,19 +33,23 @@ namespace WpfMishaLibrary
         /// </summary>
         /// <param name="commandText">SQL query to excecute</param>
         /// <returns></returns>
-        public int ExecuteCommand(string commandText)
+        public string ExecuteCommand(string commandText)
         {
-            SqliteCommand command = new(commandText, Connection);
-            try
+            using (var connection = new SqliteConnection(DbPath))
             {
-                return command.ExecuteNonQuery();
-            }
-            catch (SqliteException ex)
-            {
-                Console.WriteLine(ex.Message);
-                return 0;
+                connection.Open();
+                SqliteCommand command = new(commandText, connection);
+                try
+                {
+                    var a = command.ExecuteReader();
+                    return a.GetChar(0).ToString();
+                }
+                catch (SqliteException ex)
+                {
+                    Console.WriteLine(ex.Message);
+                    return "0";
+                }
             }
         }
-        
     }
 }
