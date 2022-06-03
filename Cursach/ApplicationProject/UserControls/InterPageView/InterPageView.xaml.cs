@@ -7,15 +7,15 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Globalization;
 
-using ApplicationProject.Views.InterPageView;
-using ApplicationProject.Views;
+using ApplicationProjectViews.InterPageView;
+using ApplicationProjectViews;
 
 namespace ApplicationProject.UserControls.InterPageView
 {
     /// <summary>
     /// Interaction logic for InterPageView.xaml
     /// </summary>
-    public partial class InterPageView : UserControl, IInterPageView, INotifyPropertyChanged, ISupportOverlay, IViewPresenter
+    public partial class InterPageView : UserControl, IInterPageView, INotifyPropertyChanged, ISupportOverlay, IViewPresenter, ICultureDependentData
     {
         protected const string AnalysisButtonNameKey = "PAGE_ANALYSIS_BUTTON_ANALYSIS";
         protected const string PlanButtonNameKey = "PAGE_ANALYSIS_BUTTON_PLAN";
@@ -60,11 +60,21 @@ namespace ApplicationProject.UserControls.InterPageView
             PresentedView = view;
             ActivePageView.Content = view as UserControl;
 
-            PresentedView?.OnCultureChanged(CurrentCulture);
+            if (PresentedView is ICultureDependentData cultureDependent)
+                cultureDependent.OnCultureChanged(CurrentCulture);
+
             if (PresentedView is ISupportOverlay overlay2)
                 overlay2.Overlay = Overlay;
 
             return true;
+        }
+        #endregion
+
+        #region ICultureDependentDate
+        public void OnCultureChanged(CultureInfo newCulture)
+        {
+            CurrentCulture = newCulture;
+            (PresentedView as ICultureDependentData)?.OnCultureChanged(newCulture);
         }
         #endregion
 
@@ -76,12 +86,6 @@ namespace ApplicationProject.UserControls.InterPageView
             return AnalysisButtonName.Length > 0 &&
                    PlanButtonName.Length > 0 &&
                    AccountName?.Length > 0;
-        }
-
-        public void OnCultureChanged(CultureInfo newCulture)
-        {
-            CurrentCulture = newCulture;
-            PresentedView?.OnCultureChanged(newCulture);
         }
 
         public void DispatchUpdate(ViewUpdate action)
@@ -182,7 +186,7 @@ namespace ApplicationProject.UserControls.InterPageView
 
         private void AddBankAccountButton_Click(object sender, RoutedEventArgs e)
         {
-
+            AddBankAccountAction?.Invoke(this, EventArgs.Empty);
         }
     }
 }

@@ -1,12 +1,12 @@
 ﻿using System;
 
-using ApplicationProject.Views;
+using ApplicationProjectViews;
 
-using ApplicationProject.Views.AnalysisPageView;
-using ApplicationProject.Views.DatedPageView;
-using ApplicationProject.Views.InterPageView;
-using ApplicationProject.Views.PlanPageView;
-using ApplicationProject.Views.AddExpensePageView;
+using ApplicationProjectViews.AnalysisPageView;
+using ApplicationProjectViews.DatedPageView;
+using ApplicationProjectViews.InterPageView;
+using ApplicationProjectViews.PlanPageView;
+using ApplicationProjectViews.AddExpensePageView;
 
 using ApplicationProject.UserControls.AnalysisPageView;
 using ApplicationProject.UserControls.DatedPageView;

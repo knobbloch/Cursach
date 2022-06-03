@@ -1,6 +1,7 @@
 ﻿
 
 FC:\HSE\Курсач\Cursach\ApplicationProject\MainWindow.xaml;;
+FC:\HSE\Курсач\Cursach\ApplicationProject\UserControls\AddExpensePageView\AddExpensePageView.xaml;;
 FC:\HSE\Курсач\Cursach\ApplicationProject\UserControls\AnalysisPageView\AnalysisPageView.xaml;;
 FC:\HSE\Курсач\Cursach\ApplicationProject\UserControls\BarChart.xaml;;
 FC:\HSE\Курсач\Cursach\ApplicationProject\UserControls\DatedPageView\DatedPageView.xaml;;
@@ -8,5 +9,4 @@ FC:\HSE\Курсач\Cursach\ApplicationProject\UserControls\InterPageView\Inter
 FC:\HSE\Курсач\Cursach\ApplicationProject\UserControls\PlanPageView\PlanPageView.xaml;;
 FC:\HSE\Курсач\Cursach\ApplicationProject\UserControls\RangeSelectorCalendar.xaml;;
 FC:\HSE\Курсач\Cursach\ApplicationProject\UserControls\RoundButton.xaml;;
-FC:\HSE\Курсач\Cursach\ApplicationProject\UserControls\AddExpensePageView\AddExpensePageView.xaml;;
 

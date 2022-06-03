@@ -17,6 +17,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\ApplicationProjectViews\ApplicationProjectViews.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Resource Include="Resources\plusSign.png" />
     <Resource Include="Resources\plusSignWhite.png" />
     <Resource Include="Resources\profilePicture.png" />
