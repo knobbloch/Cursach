@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace ApplicationProjectViews.AddIncomePageView
+namespace ApplicationProjectViews.AddRealIncomePageView
 {
     public interface IAddRealIncomePageView : IBaseView
     {

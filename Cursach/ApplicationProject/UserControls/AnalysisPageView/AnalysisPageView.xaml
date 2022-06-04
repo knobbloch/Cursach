@@ -57,7 +57,7 @@
                         </ListView.ItemContainerStyle>
                         <ListView.View>
                             <GridView>
-                                <GridViewColumn Header="{Binding ExpensesTableNameHeader}" Width="600">
+                                <GridViewColumn Header="{Binding ExpensesTableNameHeader}" Width="{Binding ActualWidth, RelativeSource={RelativeSource AncestorType=ListView}, Converter={StaticResource FractionConverter}, ConverterParameter=0.7}">
                                     <GridViewColumn.CellTemplate>
                                         <DataTemplate>
                                             <Grid>
@@ -72,7 +72,7 @@
                                         </DataTemplate>
                                     </GridViewColumn.CellTemplate>
                                 </GridViewColumn>
-                                <GridViewColumn Header="{Binding ExpensesTableValueHeader}" Width="200">
+                                <GridViewColumn Header="{Binding ExpensesTableValueHeader}" Width="{Binding ActualWidth, RelativeSource={RelativeSource AncestorType=ListView}, Converter={StaticResource FractionConverter}, ConverterParameter=0.3}">
                                     <GridViewColumn.CellTemplate>
                                         <DataTemplate>
                                             <Grid>
@@ -138,14 +138,14 @@
                         </ListView.ItemContainerStyle>
                         <ListView.View>
                             <GridView>
-                                <GridViewColumn Header="{Binding IncomeTableNameHeader}" Width="600">
+                                <GridViewColumn Header="{Binding IncomeTableNameHeader}" Width="{Binding ActualWidth, RelativeSource={RelativeSource AncestorType=ListView}, Converter={StaticResource FractionConverter}, ConverterParameter=0.7}">
                                     <GridViewColumn.CellTemplate>
                                         <DataTemplate>
                                             <TextBlock VerticalAlignment="Center" Text="{Binding Title}" Foreground="Black" Grid.Column="2" FontSize="{StaticResource TableFontSize}"/>
                                         </DataTemplate>
                                     </GridViewColumn.CellTemplate>
                                 </GridViewColumn>
-                                <GridViewColumn Header="{Binding IncomeTableValueHeader}" Width="200">
+                                <GridViewColumn Header="{Binding IncomeTableValueHeader}" Width="{Binding ActualWidth, RelativeSource={RelativeSource AncestorType=ListView}, Converter={StaticResource FractionConverter}, ConverterParameter=0.3}">
                                     <GridViewColumn.CellTemplate>
                                         <DataTemplate>
                                             <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" TextAlignment="Center">

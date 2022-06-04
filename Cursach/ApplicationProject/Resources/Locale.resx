@@ -123,6 +123,27 @@
   <data name="DATERANGE_TYPENAME_YEAR" xml:space="preserve">
     <value>Year</value>
   </data>
+  <data name="PAGE_ADDEXPENSECATEGORY_BUTTONADD_NAME" xml:space="preserve">
+    <value>Add</value>
+  </data>
+  <data name="PAGE_ADDEXPENSECATEGORY_BUTTONEXIT_NAME" xml:space="preserve">
+    <value>Back</value>
+  </data>
+  <data name="PAGE_ADDEXPENSECATEGORY_CATEGORYIMAGEPATH_NAME" xml:space="preserve">
+    <value>Image:</value>
+  </data>
+  <data name="PAGE_ADDEXPENSECATEGORY_CURRENCYAMOUNTFIELD_NAME" xml:space="preserve">
+    <value>Currency amount:</value>
+  </data>
+  <data name="PAGE_ADDEXPENSECATEGORY_IMAGESELECTOR_NAME" xml:space="preserve">
+    <value>Select image...</value>
+  </data>
+  <data name="PAGE_ADDEXPENSECATEGORY_NAME" xml:space="preserve">
+    <value>Add expense category</value>
+  </data>
+  <data name="PAGE_ADDEXPENSECATEGORY_NAMEFIELD_NAME" xml:space="preserve">
+    <value>Category name:</value>
+  </data>
   <data name="PAGE_ADDEXPENSE_BANKACCOUNTFIELD_NAME" xml:space="preserve">
     <value>Bank account:</value>
   </data>

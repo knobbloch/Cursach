@@ -142,6 +142,69 @@ namespace ApplicationProject.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Add.
+        /// </summary>
+        internal static string PAGE_ADDEXPENSECATEGORY_BUTTONADD_NAME {
+            get {
+                return ResourceManager.GetString("PAGE_ADDEXPENSECATEGORY_BUTTONADD_NAME", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Back.
+        /// </summary>
+        internal static string PAGE_ADDEXPENSECATEGORY_BUTTONEXIT_NAME {
+            get {
+                return ResourceManager.GetString("PAGE_ADDEXPENSECATEGORY_BUTTONEXIT_NAME", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Image:.
+        /// </summary>
+        internal static string PAGE_ADDEXPENSECATEGORY_CATEGORYIMAGEPATH_NAME {
+            get {
+                return ResourceManager.GetString("PAGE_ADDEXPENSECATEGORY_CATEGORYIMAGEPATH_NAME", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Currency amount:.
+        /// </summary>
+        internal static string PAGE_ADDEXPENSECATEGORY_CURRENCYAMOUNTFIELD_NAME {
+            get {
+                return ResourceManager.GetString("PAGE_ADDEXPENSECATEGORY_CURRENCYAMOUNTFIELD_NAME", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Select image....
+        /// </summary>
+        internal static string PAGE_ADDEXPENSECATEGORY_IMAGESELECTOR_NAME {
+            get {
+                return ResourceManager.GetString("PAGE_ADDEXPENSECATEGORY_IMAGESELECTOR_NAME", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Add expense category.
+        /// </summary>
+        internal static string PAGE_ADDEXPENSECATEGORY_NAME {
+            get {
+                return ResourceManager.GetString("PAGE_ADDEXPENSECATEGORY_NAME", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Category name:.
+        /// </summary>
+        internal static string PAGE_ADDEXPENSECATEGORY_NAMEFIELD_NAME {
+            get {
+                return ResourceManager.GetString("PAGE_ADDEXPENSECATEGORY_NAMEFIELD_NAME", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Analysis.
         /// </summary>
         internal static string PAGE_ANALYSIS_BUTTON_ANALYSIS {

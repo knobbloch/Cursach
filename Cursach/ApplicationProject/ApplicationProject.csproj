@@ -7,6 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Resources\folder.png" />
     <None Remove="Resources\plusSign.png" />
     <None Remove="Resources\plusSignWhite.png" />
     <None Remove="Resources\profilePicture.png" />
@@ -21,6 +22,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="Resources\folder.png" />
     <Resource Include="Resources\plusSign.png" />
     <Resource Include="Resources\plusSignWhite.png" />
     <Resource Include="Resources\profilePicture.png" />
@@ -32,6 +34,9 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Locale.resx</DependentUpon>
     </Compile>
+    <Compile Update="UserControls\AddExpenseCategoryPageView\AddExpenseCategoryPageView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
   </ItemGroup>
 
   <ItemGroup>
@@ -39,6 +44,13 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Locale.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Page Update="UserControls\AddExpenseCategoryPageView\AddExpenseCategoryPageView.xaml">
+      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+      <SubType>Designer</SubType>
+    </Page>
   </ItemGroup>
 
 </Project>

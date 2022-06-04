@@ -1,7 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 
-namespace ApplicationProjectViews.AddIncomePageView
+namespace ApplicationProjectViews.AddPlannedIncomePageView
 {
     public interface IAddPlannedIncomePageView : IBaseView
     {
