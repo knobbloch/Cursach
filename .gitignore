@@ -131,6 +131,9 @@ $RECYCLE.BIN/
 .DS_Store
 
 _NCrunch*
+/.vs
+/TestGit/.vs
+=======
 
 .vs
 *.dll
