@@ -1,0 +1,124 @@
+﻿<UserControl x:Class="ApplicationProject.UserControls.InterPageView.InterPageView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:ApplicationProject.UserControls.InterPageView"
+             xmlns:uc="clr-namespace:ApplicationProject.UserControls"
+             mc:Ignorable="d" 
+             d:DesignHeight="1080" d:DesignWidth="1920" Background="Wheat" DataContext="{Binding RelativeSource={RelativeSource Self}}">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="Auto" />
+        </Grid.ColumnDefinitions>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <uc:RoundButton Width="120" Height="120" ButtonColor="Transparent" Margin="0, 15, 0, 15" x:Name="ProfileButton" Click="Click_ProfileButton">
+                <uc:RoundButton.ButtonContent>
+                    <Image Source="/Resources/profilePicture.png"/>
+                </uc:RoundButton.ButtonContent>
+                <uc:RoundButton.UnderContent>
+                    <Viewbox Height="40">
+                        <TextBlock Text="{Binding AccountName}" Foreground="Black"/>
+                    </Viewbox>
+                </uc:RoundButton.UnderContent>
+            </uc:RoundButton>
+            <Border Grid.Row="1" BorderThickness="2" BorderBrush="Black"/>
+            <Grid Grid.Row="2">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <StackPanel Orientation="Vertical" Grid.Row="1">
+                    <uc:RoundButton Width="150" Height="150" ButtonColor="Black"  x:Name="AnalysisButton" Margin="0, 10, 0, 0" Click="Click_CategoryButton">
+                        <uc:RoundButton.ButtonContent>
+                            <Viewbox>
+                                <TextBlock Text="{Binding AnalysisButtonSymbol}" Foreground="White" />
+                            </Viewbox>
+                        </uc:RoundButton.ButtonContent>
+                        <uc:RoundButton.UnderContent>
+                            <Viewbox Height="40">
+                                <TextBlock Text="{Binding AnalysisButtonName}" Foreground="Black"/>
+                            </Viewbox>
+                        </uc:RoundButton.UnderContent>
+                    </uc:RoundButton>
+                    <uc:RoundButton Width="150" Height="150" ButtonColor="Black"  x:Name="PlanButton" Margin="0, 50, 0, 0" Click="Click_CategoryButton">
+                        <uc:RoundButton.ButtonContent>
+                            <Viewbox>
+                                <TextBlock Text="{Binding PlanButtonSymbol}" Foreground="White" />
+                            </Viewbox>
+                        </uc:RoundButton.ButtonContent>
+                        <uc:RoundButton.UnderContent>
+                            <Viewbox Height="40">
+                                <TextBlock Text="{Binding PlanButtonName}" Foreground="Black"/>
+                            </Viewbox>
+                        </uc:RoundButton.UnderContent>
+                    </uc:RoundButton>
+                    <uc:RoundButton Width="150" Height="120" ButtonColor="Black" x:Name="NewEntryButton" Margin="0, 50, 0, 10" Click="Click_CategoryButton">
+                        <uc:RoundButton.ButtonContent>
+                            <Image Source="/Resources/plusSignWhite.png" />
+                        </uc:RoundButton.ButtonContent>
+                    </uc:RoundButton>
+                </StackPanel>
+            </Grid>
+        </Grid>
+        <Border Grid.Column="1" BorderThickness="2" BorderBrush="Black"/>
+        <ContentControl Grid.Column="2" x:Name="ActivePageView"/>
+        <Border Grid.Column="3" BorderThickness="2" BorderBrush="Black"/>
+        <Grid Grid.Column="4" Margin="0, 0, 0, 0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="150"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Border Grid.Row="1" BorderThickness="2" BorderBrush="Black"/>
+            <TextBlock Grid.Row="2" Text="{Binding BankAccountsText}" Background="Azure"/>
+            <ListView Grid.Row="3" x:Name="BankAccountsDisplayer" Background="Azure" Margin="0" Padding="0" BorderThickness="0" ScrollViewer.VerticalScrollBarVisibility="Auto">
+                <ListView.ItemContainerStyle>
+                    <Style TargetType="ListViewItem">
+                        <Setter Property="BorderThickness" Value="0" />
+                        <Setter Property="Margin" Value="0" />
+                        <Setter Property="Padding" Value="0" />
+                        <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                        <Setter Property="VerticalContentAlignment" Value="Stretch"/>
+                        <EventSetter Event="PreviewMouseLeftButtonUp" Handler="Selected_BankAccount" />
+                    </Style>
+                </ListView.ItemContainerStyle>
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <Grid Background="Azure" Margin="0" Height="50">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            <TextBlock Text="{Binding AccountName}" FontWeight="Bold"/>
+                            <TextBlock Grid.Row="1">
+                                <Run Text="{Binding AccountBalance}" FontWeight="Bold" />
+                                <Run Text="{Binding CurrencyIdentifier}" FontWeight="Bold" />
+                            </TextBlock>
+                            <Border Grid.Row="2" BorderThickness="2" BorderBrush="Black"/>
+                        </Grid>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+            <Button Grid.Row="4" Background="Azure" Click="AddBankAccountButton_Click">
+                <Button.Content>
+                    <Image HorizontalAlignment="Center" Stretch="Uniform" Source="/REsources/plusSign.png" Height="50"/>
+                </Button.Content>
+            </Button>
+        </Grid>
+    </Grid>
+</UserControl>

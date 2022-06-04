@@ -113,9 +113,9 @@ UpgradeLog*.htm
 App_Data/*.mdf
 App_Data/*.ldf
 
-# =========================
+
 # Windows detritus
-# =========================
+
 
 # Windows image file caches
 Thumbs.db
@@ -133,3 +133,11 @@ $RECYCLE.BIN/
 _NCrunch*
 /.vs
 /TestGit/.vs
+=======
+
+.vs
+*.dll
+*.exe
+Cursach/ApplicationProject/bin
+*.sln
+.editorconfig
