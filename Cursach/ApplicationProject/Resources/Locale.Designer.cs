@@ -79,6 +79,42 @@ namespace ApplicationProject.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Add.
+        /// </summary>
+        internal static string PAGE_ADDBANKACCOUNT_BUTTONADD_NAME {
+            get {
+                return ResourceManager.GetString("PAGE_ADDBANKACCOUNT_BUTTONADD_NAME", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Back.
+        /// </summary>
+        internal static string PAGE_ADDBANKACCOUNT_BUTTONEXIT_NAME {
+            get {
+                return ResourceManager.GetString("PAGE_ADDBANKACCOUNT_BUTTONEXIT_NAME", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Current account balance:.
+        /// </summary>
+        internal static string PAGE_ADDBANKACCOUNT_CURRENCYAMOUNTFIELD_NAME {
+            get {
+                return ResourceManager.GetString("PAGE_ADDBANKACCOUNT_CURRENCYAMOUNTFIELD_NAME", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Account name:.
+        /// </summary>
+        internal static string PAGE_ADDBANKACCOUNT_NAMEFIELD_NAME {
+            get {
+                return ResourceManager.GetString("PAGE_ADDBANKACCOUNT_NAMEFIELD_NAME", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Bank account:.
         /// </summary>
         internal static string PAGE_ADDEXPENSE_BANKACCOUNTFIELD_NAME {

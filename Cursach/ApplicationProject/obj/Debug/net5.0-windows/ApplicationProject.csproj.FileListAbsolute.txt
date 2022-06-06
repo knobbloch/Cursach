@@ -51,3 +51,5 @@ C:\HSE\Курсач\Cursach\ApplicationProject\obj\Debug\net5.0-windows\UserCont
 C:\HSE\Курсач\Cursach\ApplicationProject\obj\Debug\net5.0-windows\UserControls\AddIncomePageView\AddIncomePageView.g.cs
 C:\HSE\Курсач\Cursach\ApplicationProject\obj\Debug\net5.0-windows\UserControls\AddIncomeCategoryPageView\AddIncomeCategoryPageView.baml
 C:\HSE\Курсач\Cursach\ApplicationProject\obj\Debug\net5.0-windows\UserControls\AddIncomePageView\AddIncomePageView.baml
+C:\HSE\Курсач\Cursach\ApplicationProject\obj\Debug\net5.0-windows\UserControls\AddBankAccountPageView\AddBankAccountPageView.g.cs
+C:\HSE\Курсач\Cursach\ApplicationProject\obj\Debug\net5.0-windows\UserControls\AddBankAccountPageView\AddBankAccountPageView.baml

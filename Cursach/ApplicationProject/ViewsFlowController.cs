@@ -10,6 +10,7 @@ using ApplicationProjectViews.AddExpensePageView;
 using ApplicationProjectViews.AddExpenseCategoryPageView;
 using ApplicationProjectViews.AddIncomePageView;
 using ApplicationProjectViews.AddIncomeCategoryPageView;
+using ApplicationProjectViews.AddBankAccountPageView;
 
 using ApplicationProject.UserControls.AnalysisPageView;
 using ApplicationProject.UserControls.DatedPageView;
@@ -19,6 +20,7 @@ using ApplicationProject.UserControls.AddExpensePageView;
 using ApplicationProject.UserControls.AddExpenseCategoryPageView;
 using ApplicationProject.UserControls.AddIncomePageView;
 using ApplicationProject.UserControls.AddIncomeCategoryPageView;
+using ApplicationProject.UserControls.AddBankAccountPageView;
 
 namespace ApplicationProject
 {
@@ -37,6 +39,7 @@ namespace ApplicationProject
         public IAddExpenseCategoryPageView IAddExpenseCategoryPageViewInstance => AddExpenseCategoryPageViewInstance;
         public IAddIncomePageView IAddIncomePageViewInstance => AddIncomePageViewInstance;
         public IAddIncomeCategoryPageView IAddIncomeCategoryPageViewInstance => AddIncomeCategoryPageViewInstance;
+        public IAddBankAccountPageView IAddBankAccountPageViewInstance => AddBankAccountPageViewInstance;
         public IViewPresenter ViewRoot { get; }
 
         private InterPageView InterPageViewInstance { get; }
@@ -45,8 +48,9 @@ namespace ApplicationProject
         private PlanPageView PlanPageViewInstance { get; }
         private AddExpensePageView AddExpensePageViewInstance { get; }
         private AddExpenseCategoryPageView AddExpenseCategoryPageViewInstance { get; }
-        public AddIncomePageView AddIncomePageViewInstance { get; }
-        public AddIncomeCategoryPageView AddIncomeCategoryPageViewInstance { get; }
+        private AddIncomePageView AddIncomePageViewInstance { get; }
+        private AddIncomeCategoryPageView AddIncomeCategoryPageViewInstance { get; }
+        private AddBankAccountPageView AddBankAccountPageViewInstance { get; }
 
         private IBaseView PreviousView { get; set; }
         private string PreviousViewName { get; set; }
@@ -58,6 +62,7 @@ namespace ApplicationProject
             //Initialize InterPageView
             InterPageViewInstance = new();
             IInterPageViewInstance.CategorySelectedAction += IInterPageViewInstance_CategorySelectedAction;
+            IInterPageViewInstance.AddBankAccountAction += IInterPageViewInstance_AddBankAccountAction;
 
             DatedPageViewInstance = new();
             DatedPageViewInstance.PageNameTextKey = AnalysisPageNameKey;
@@ -87,6 +92,24 @@ namespace ApplicationProject
             AddIncomeCategoryPageViewInstance = new();
             AddIncomeCategoryPageViewInstance.AddActionPost += AddIncomeCategoryPageViewInstance_AddActionPost;
             AddIncomeCategoryPageViewInstance.ExitAction += AddCategoryPageViewInstance_ExitAction;
+
+            AddBankAccountPageViewInstance = new();
+            AddBankAccountPageViewInstance.AddActionPost += AddBankAccountPageViewInstance_AddActionPost;
+            AddBankAccountPageViewInstance.ExitAction += AddPageViewInstance_ExitAction;
+        }
+
+        private void IInterPageViewInstance_AddBankAccountAction(object sender, EventArgs e)
+        {
+            _ = InterPageViewInstance.Present(IAddBankAccountPageViewInstance);
+        }
+
+        private void AddBankAccountPageViewInstance_AddActionPost(object sender, EventArgs e)
+        {
+            if ((AddBankAccountPageViewInstance.CurrencyAmountError ??
+                AddBankAccountPageViewInstance.AccountNameError) == null)
+            {
+                AddPageViewInstance_ExitAction(sender, e);
+            }
         }
 
         private void PlanPageViewInstance_AddIncomeCategoryAction(object sender, EventArgs e)

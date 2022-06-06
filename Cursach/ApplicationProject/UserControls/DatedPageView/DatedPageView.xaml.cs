@@ -24,8 +24,7 @@ namespace ApplicationProject.UserControls.DatedPageView
         public DatedPageView()
         {
             m_PageNameTextKey = "";
-            CurrentCulture = null;
-
+            
             InitializeComponent();
 
             DateRangeTypes = new ObservableCollection<DateRangeType>();
@@ -40,6 +39,7 @@ namespace ApplicationProject.UserControls.DatedPageView
             DateRangeSelectorCalendar = (RangeSelectorCalendar)DateRangeSelectorRoot.Child;
             DateRangeSelectorCalendar.SelectionTarget = RangeSelectorCalendar.RangeSelectorCalendarMode.Month;
             DateRangeSelectorCalendar.SelectionChanged += DaterRangeSelector_SelectionChanged;
+            CurrentCulture = null;
         }
 
         protected Viewbox DateRangeSelectorRoot { get; }

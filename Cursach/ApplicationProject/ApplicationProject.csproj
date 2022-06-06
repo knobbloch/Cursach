@@ -34,6 +34,9 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Locale.resx</DependentUpon>
     </Compile>
+    <Compile Update="UserControls\AddBankAccountPageView\AddBankAccountPageView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="UserControls\AddIncomeCategoryPageView\AddIncomeCategoryPageView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -53,6 +56,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Page Update="UserControls\AddBankAccountPageView\AddBankAccountPageView.xaml">
+      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="UserControls\AddIncomeCategoryPageView\AddIncomeCategoryPageView.xaml">
       <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
       <SubType>Designer</SubType>
