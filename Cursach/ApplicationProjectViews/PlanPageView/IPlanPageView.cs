@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 
-using ApplicationProjectViews.DatedPageView;
-
 namespace ApplicationProjectViews.PlanPageView
 {
     public interface IPlanPageView : IBaseView

@@ -6,7 +6,7 @@ namespace ApplicationProjectViews.PlanPageView
 
     public class PlanPageModeSelectedEventArgs : EventArgs
     {
-        public IPlanPageView.PlanPageMode Mode { get; }
+        public IPlanPageView.PlanPageMode Mode { get; init; }
 
         public PlanPageModeSelectedEventArgs(IPlanPageView.PlanPageMode mode) : base()
         {

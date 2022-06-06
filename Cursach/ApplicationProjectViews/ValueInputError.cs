@@ -44,7 +44,7 @@
         /// <summary>
         /// Defines the type of the error
         /// </summary>
-        public ValueInputErrorType ErrorType { get; }
+        public ValueInputErrorType ErrorType { get; init; }
 
         /// <summary>
         /// Contains extra information regarding the error. The value dependes on the ErrorType:
@@ -52,7 +52,7 @@
         /// InvalidSymbol - the symbol (or sequence of symbols) which are considered invalid of the given input
         /// OutOfBoundsValue - the expected bounds for the value
         /// </summary>
-        public string ErrorInfo { get; }
+        public string ErrorInfo { get; init; }
         #endregion
     }
 }

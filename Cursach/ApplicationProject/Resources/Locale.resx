@@ -246,11 +246,11 @@
   <data name="PAGE_ANALYSIS_TAB_EXPENSES_TABLE_HEADER_VALUE" xml:space="preserve">
     <value>Amount</value>
   </data>
-  <data name="PAGE_ANALYSIS_TAB_INCOMECATEGORY_BUTTON_ADD" xml:space="preserve">
-    <value>Add income category</value>
-  </data>
   <data name="PAGE_ANALYSIS_TAB_INCOME_BUTTON_ADD" xml:space="preserve">
     <value>Add income</value>
+  </data>
+  <data name="PAGE_ANALYSIS_TAB_INCOME_BUTTON_ADDCATEGORY" xml:space="preserve">
+    <value>Add income category</value>
   </data>
   <data name="PAGE_ANALYSIS_TAB_INCOME_NAME" xml:space="preserve">
     <value>Income</value>
@@ -260,6 +260,12 @@
   </data>
   <data name="PAGE_ANALYSIS_TAB_INCOME_TABLE_HEADER_VALUE" xml:space="preserve">
     <value>Amount</value>
+  </data>
+  <data name="PAGE_ANALYSIS_TAB_INCOME_TOTALEXPENSES_NAME" xml:space="preserve">
+    <value>Total:</value>
+  </data>
+  <data name="PAGE_ANALYSIS_TAB_INCOME_TOTALINCOME_NAME" xml:space="preserve">
+    <value>Total:</value>
   </data>
   <data name="PAGE_INTER_BANKACCOUNTS_NAME" xml:space="preserve">
     <value>Bank Accounts:</value>

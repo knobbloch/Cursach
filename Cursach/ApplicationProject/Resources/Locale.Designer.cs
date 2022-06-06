@@ -457,6 +457,15 @@ namespace ApplicationProject.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Add income category.
+        /// </summary>
+        internal static string PAGE_ANALYSIS_TAB_INCOME_BUTTON_ADDCATEGORY {
+            get {
+                return ResourceManager.GetString("PAGE_ANALYSIS_TAB_INCOME_BUTTON_ADDCATEGORY", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Income.
         /// </summary>
         internal static string PAGE_ANALYSIS_TAB_INCOME_NAME {
@@ -484,11 +493,20 @@ namespace ApplicationProject.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Add income category.
+        ///   Looks up a localized string similar to Total:.
         /// </summary>
-        internal static string PAGE_ANALYSIS_TAB_INCOMECATEGORY_BUTTON_ADD {
+        internal static string PAGE_ANALYSIS_TAB_INCOME_TOTALEXPENSES_NAME {
             get {
-                return ResourceManager.GetString("PAGE_ANALYSIS_TAB_INCOMECATEGORY_BUTTON_ADD", resourceCulture);
+                return ResourceManager.GetString("PAGE_ANALYSIS_TAB_INCOME_TOTALEXPENSES_NAME", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Total:.
+        /// </summary>
+        internal static string PAGE_ANALYSIS_TAB_INCOME_TOTALINCOME_NAME {
+            get {
+                return ResourceManager.GetString("PAGE_ANALYSIS_TAB_INCOME_TOTALINCOME_NAME", resourceCulture);
             }
         }
         

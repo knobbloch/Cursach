@@ -28,7 +28,9 @@ namespace ApplicationProject.UserControls.AnalysisPageView
         protected const string AddExpenseTextKey = "PAGE_ANALYSIS_TAB_EXPENSES_BUTTON_ADD";
         protected const string AddExpenseCategoryTextKey = "PAGE_ANALYSIS_TAB_EXPENSES_BUTTON_ADDCATEGORY";
         protected const string AddIncomeTextKey = "PAGE_ANALYSIS_TAB_INCOME_BUTTON_ADD";
-        protected const string AddIncomeCategoryTextKey = "PAGE_ANALYSIS_TAB_INCOMECATEGORY_BUTTON_ADD";
+        protected const string AddIncomeCategoryTextKey = "PAGE_ANALYSIS_TAB_INCOME_BUTTON_ADDCATEGORY";
+        protected const string TotalExpensesTextKey = "PAGE_ANALYSIS_TAB_INCOME_TOTALEXPENSES_NAME";
+        protected const string TotalIncomeTextKey = "PAGE_ANALYSIS_TAB_INCOME_TOTALINCOME_NAME";
 
         public AnalysisPageView()
         {
@@ -100,6 +102,9 @@ namespace ApplicationProject.UserControls.AnalysisPageView
         public string AddExpenseCategoryText => GetLocalizedString(AddExpenseCategoryTextKey);
         public string AddIncomeText => GetLocalizedString(AddIncomeTextKey);
         public string AddIncomeCategoryText => GetLocalizedString(AddIncomeCategoryTextKey);
+        public string TotalExpensesText => GetLocalizedString(TotalExpensesTextKey);
+        public string TotalIncomeText => GetLocalizedString(TotalIncomeTextKey);
+
 
         public event EventHandler AddExpenseAction;
         public event EventHandler AddExpenseCategoryAction;
@@ -108,6 +113,29 @@ namespace ApplicationProject.UserControls.AnalysisPageView
         public event AnalysisPageModeSelectedEventHandler ModeChanged;
         public event AnalysisPageIncomeEntrySelectedEventHandler IncomeEntrySelected;
         public event AnalysisPageExpenseEntrySelectedEventHandler ExpenseEntrySelected;
+
+
+        public decimal TotalExpenses
+        {
+            get => m_TotalExpenses;
+            set
+            {
+                m_TotalExpenses = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(TotalExpenses)));
+            }
+        }
+        private decimal m_TotalExpenses;
+
+        public decimal TotalIncome
+        {
+            get => m_TotalIncome;
+            set
+            {
+                m_TotalIncome = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(TotalIncome)));
+            }
+        }
+        private decimal m_TotalIncome;
 
         public IAnalysisPageView.AnalysisPageMode CurrentMode
         {
@@ -148,6 +176,9 @@ namespace ApplicationProject.UserControls.AnalysisPageView
 
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(AddIncomeText)));
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(AddIncomeCategoryText)));
+
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(TotalExpensesText)));
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(TotalIncomeText)));
         }
 
         private string GetLocalizedString(string key)

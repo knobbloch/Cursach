@@ -24,7 +24,7 @@ namespace ApplicationProject.UserControls.DatedPageView
         public DatedPageView()
         {
             m_PageNameTextKey = "";
-            
+
             InitializeComponent();
 
             DateRangeTypes = new ObservableCollection<DateRangeType>();

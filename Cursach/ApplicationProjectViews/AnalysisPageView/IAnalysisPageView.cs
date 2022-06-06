@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 
-using ApplicationProjectViews.DatedPageView;
-
 namespace ApplicationProjectViews.AnalysisPageView
 {
     public interface IAnalysisPageView : IBaseView
@@ -62,5 +60,15 @@ namespace ApplicationProjectViews.AnalysisPageView
         /// Stores items which are used to build expenses table
         /// </summary>
         public ICollection<AnalysisPageExpenseEntry> ExpenesItems { get; }
+
+
+        /// <summary>
+        /// The total sum of expenses for a given period
+        /// </summary>
+        decimal TotalExpenses { set; }
+        /// <summary>
+        /// The total sum of income for a given period
+        /// </summary>
+        decimal TotalIncome { set; }
     }
 }
