@@ -430,6 +430,24 @@ namespace ApplicationProject.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Category.
+        /// </summary>
+        internal static string PAGE_ANALYSIS_TAB_EXPENSES_TABLE_HEADER_CATEGORY {
+            get {
+                return ResourceManager.GetString("PAGE_ANALYSIS_TAB_EXPENSES_TABLE_HEADER_CATEGORY", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Date.
+        /// </summary>
+        internal static string PAGE_ANALYSIS_TAB_EXPENSES_TABLE_HEADER_DATE {
+            get {
+                return ResourceManager.GetString("PAGE_ANALYSIS_TAB_EXPENSES_TABLE_HEADER_DATE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Name.
         /// </summary>
         internal static string PAGE_ANALYSIS_TAB_EXPENSES_TABLE_HEADER_NAME {
@@ -471,6 +489,24 @@ namespace ApplicationProject.Resources {
         internal static string PAGE_ANALYSIS_TAB_INCOME_NAME {
             get {
                 return ResourceManager.GetString("PAGE_ANALYSIS_TAB_INCOME_NAME", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Category.
+        /// </summary>
+        internal static string PAGE_ANALYSIS_TAB_INCOME_TABLE_HEADER_CATEGORY {
+            get {
+                return ResourceManager.GetString("PAGE_ANALYSIS_TAB_INCOME_TABLE_HEADER_CATEGORY", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Date.
+        /// </summary>
+        internal static string PAGE_ANALYSIS_TAB_INCOME_TABLE_HEADER_DATE {
+            get {
+                return ResourceManager.GetString("PAGE_ANALYSIS_TAB_INCOME_TABLE_HEADER_DATE", resourceCulture);
             }
         }
         

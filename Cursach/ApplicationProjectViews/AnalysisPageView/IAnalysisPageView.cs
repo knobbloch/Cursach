@@ -59,7 +59,7 @@ namespace ApplicationProjectViews.AnalysisPageView
         /// <summary>
         /// Stores items which are used to build expenses table
         /// </summary>
-        public ICollection<AnalysisPageExpenseEntry> ExpenesItems { get; }
+        public ICollection<AnalysisPageExpenseEntry> ExpensesItems { get; }
 
 
         /// <summary>

@@ -22,8 +22,12 @@ namespace ApplicationProject.UserControls.AnalysisPageView
         protected const string ExpensesTabNameKey = "PAGE_ANALYSIS_TAB_EXPENSES_NAME";
         protected const string IncomeTabNameKey = "PAGE_ANALYSIS_TAB_INCOME_NAME";
         protected const string ExpensesTableNameHeaderKey = "PAGE_ANALYSIS_TAB_EXPENSES_TABLE_HEADER_NAME";
+        protected const string ExpensesTableCategoryHeaderKey = "PAGE_ANALYSIS_TAB_EXPENSES_TABLE_HEADER_CATEGORY";
+        protected const string ExpensesTableDateHeaderKey = "PAGE_ANALYSIS_TAB_EXPENSES_TABLE_HEADER_DATE";
         protected const string ExpensesTableValueHeaderKey = "PAGE_ANALYSIS_TAB_EXPENSES_TABLE_HEADER_VALUE";
         protected const string IncomeTableNameHeaderKey = "PAGE_ANALYSIS_TAB_INCOME_TABLE_HEADER_NAME";
+        protected const string IncomeTableCategoryHeaderKey = "PAGE_ANALYSIS_TAB_INCOME_TABLE_HEADER_CATEGORY";
+        protected const string IncomeTableDateHeaderKey = "PAGE_ANALYSIS_TAB_INCOME_TABLE_HEADER_DATE";
         protected const string IncomeTableValueHeaderKey = "PAGE_ANALYSIS_TAB_INCOME_TABLE_HEADER_VALUE";
         protected const string AddExpenseTextKey = "PAGE_ANALYSIS_TAB_EXPENSES_BUTTON_ADD";
         protected const string AddExpenseCategoryTextKey = "PAGE_ANALYSIS_TAB_EXPENSES_BUTTON_ADDCATEGORY";
@@ -34,14 +38,14 @@ namespace ApplicationProject.UserControls.AnalysisPageView
 
         public AnalysisPageView()
         {
+            IncomeDays = new ObservableCollection<AnalysisPageIncomeDayEntry>();
+            ExpensesDays = new ObservableCollection<AnalysisPageExpenseDayEntry>();
+            IncomeItems = new ObservableCollection<AnalysisPageIncomeEntry>();
+            ExpensesItems = new ObservableCollection<AnalysisPageExpenseEntry>();
+
             InitializeComponent();
 
             CurrentCulture = null;
-
-            IncomeBarChart.BarsSource = IncomeDays = new ObservableCollection<AnalysisPageIncomeDayEntry>();
-            ExpensesBarChart.BarsSource = ExpensesDays = new ObservableCollection<AnalysisPageExpenseDayEntry>();
-            IncomeList.ItemsSource = IncomeItems = new ObservableCollection<AnalysisPageIncomeEntry>();
-            ExpensesList.ItemsSource = ExpenesItems = new ObservableCollection<AnalysisPageExpenseEntry>();
         }
 
         protected CultureInfo CurrentCulture
@@ -104,7 +108,10 @@ namespace ApplicationProject.UserControls.AnalysisPageView
         public string AddIncomeCategoryText => GetLocalizedString(AddIncomeCategoryTextKey);
         public string TotalExpensesText => GetLocalizedString(TotalExpensesTextKey);
         public string TotalIncomeText => GetLocalizedString(TotalIncomeTextKey);
-
+        public string ExpensesTableCategoryHeader => GetLocalizedString(ExpensesTableCategoryHeaderKey);
+        public string ExpensesTableDateHeader => GetLocalizedString(ExpensesTableDateHeaderKey);
+        public string IncomeTableCategoryHeader => GetLocalizedString(IncomeTableCategoryHeaderKey);
+        public string IncomeTableDateHeader => GetLocalizedString(IncomeTableDateHeaderKey);
 
         public event EventHandler AddExpenseAction;
         public event EventHandler AddExpenseCategoryAction;
@@ -156,7 +163,7 @@ namespace ApplicationProject.UserControls.AnalysisPageView
         public ICollection<AnalysisPageIncomeDayEntry> IncomeDays { get; }
         public ICollection<AnalysisPageExpenseDayEntry> ExpensesDays { get; }
         public ICollection<AnalysisPageIncomeEntry> IncomeItems { get; }
-        public ICollection<AnalysisPageExpenseEntry> ExpenesItems { get; }
+        public ICollection<AnalysisPageExpenseEntry> ExpensesItems { get; }
         #endregion
 
         #region Methods

@@ -240,6 +240,12 @@
   <data name="PAGE_ANALYSIS_TAB_EXPENSES_NAME" xml:space="preserve">
     <value>Expenses</value>
   </data>
+  <data name="PAGE_ANALYSIS_TAB_EXPENSES_TABLE_HEADER_CATEGORY" xml:space="preserve">
+    <value>Category</value>
+  </data>
+  <data name="PAGE_ANALYSIS_TAB_EXPENSES_TABLE_HEADER_DATE" xml:space="preserve">
+    <value>Date</value>
+  </data>
   <data name="PAGE_ANALYSIS_TAB_EXPENSES_TABLE_HEADER_NAME" xml:space="preserve">
     <value>Name</value>
   </data>
@@ -254,6 +260,12 @@
   </data>
   <data name="PAGE_ANALYSIS_TAB_INCOME_NAME" xml:space="preserve">
     <value>Income</value>
+  </data>
+  <data name="PAGE_ANALYSIS_TAB_INCOME_TABLE_HEADER_CATEGORY" xml:space="preserve">
+    <value>Category</value>
+  </data>
+  <data name="PAGE_ANALYSIS_TAB_INCOME_TABLE_HEADER_DATE" xml:space="preserve">
+    <value>Date</value>
   </data>
   <data name="PAGE_ANALYSIS_TAB_INCOME_TABLE_HEADER_NAME" xml:space="preserve">
     <value>Name</value>

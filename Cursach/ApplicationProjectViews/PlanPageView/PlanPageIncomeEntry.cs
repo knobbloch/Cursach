@@ -48,8 +48,7 @@ namespace ApplicationProjectViews.PlanPageView
         }
         private string m_ImagePath;
 
-        public PlanPageIncomeEntry() : this("", "", 0, 0) { }
-        public PlanPageIncomeEntry(string title, string currencyIdentifier, double rValue, double pValue)
+        public PlanPageIncomeEntry()
         {
             RealValue = 0;
             PlannedValue = 0;

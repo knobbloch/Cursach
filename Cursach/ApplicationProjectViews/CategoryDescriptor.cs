@@ -17,5 +17,11 @@ namespace ApplicationProjectViews
             get => m_ImagePath;
             init => m_ImagePath = value ?? throw new ArgumentNullException(nameof(ImagePath));
         }
+
+        public CategoryDescriptor()
+        {
+            DisplayName = "";
+            ImagePath = "";
+        }
     }
 }
