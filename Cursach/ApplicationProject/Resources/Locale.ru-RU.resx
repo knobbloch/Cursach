@@ -123,6 +123,105 @@
   <data name="DATERANGE_TYPENAME_YEAR" xml:space="preserve">
     <value>Год</value>
   </data>
+  <data name="PAGE_ADDBANKACCOUNT_BUTTONADD_NAME" xml:space="preserve">
+    <value>Добавить</value>
+  </data>
+  <data name="PAGE_ADDBANKACCOUNT_BUTTONEXIT_NAME" xml:space="preserve">
+    <value>Назад</value>
+  </data>
+  <data name="PAGE_ADDBANKACCOUNT_CURRENCYAMOUNTFIELD_NAME" xml:space="preserve">
+    <value>Текущее состояние счёта:</value>
+  </data>
+  <data name="PAGE_ADDBANKACCOUNT_NAMEFIELD_NAME" xml:space="preserve">
+    <value>Название счёта:</value>
+  </data>
+  <data name="PAGE_ADDEXPENSECATEGORY_BUTTONADD_NAME" xml:space="preserve">
+    <value>Добавить</value>
+  </data>
+  <data name="PAGE_ADDEXPENSECATEGORY_BUTTONEXIT_NAME" xml:space="preserve">
+    <value>Назад</value>
+  </data>
+  <data name="PAGE_ADDEXPENSECATEGORY_CATEGORYIMAGEPATH_NAME" xml:space="preserve">
+    <value>Изображение:</value>
+  </data>
+  <data name="PAGE_ADDEXPENSECATEGORY_CURRENCYAMOUNTFIELD_NAME" xml:space="preserve">
+    <value>Сумма:</value>
+  </data>
+  <data name="PAGE_ADDEXPENSECATEGORY_IMAGESELECTOR_NAME" xml:space="preserve">
+    <value>Выберите изображение...</value>
+  </data>
+  <data name="PAGE_ADDEXPENSECATEGORY_NAME" xml:space="preserve">
+    <value>Добавить категорию расходов</value>
+  </data>
+  <data name="PAGE_ADDEXPENSECATEGORY_NAMEFIELD_NAME" xml:space="preserve">
+    <value>Название категории:</value>
+  </data>
+  <data name="PAGE_ADDEXPENSE_BANKACCOUNTFIELD_NAME" xml:space="preserve">
+    <value>Счёт:</value>
+  </data>
+  <data name="PAGE_ADDEXPENSE_BUTTONADD_NAME" xml:space="preserve">
+    <value>Добавить</value>
+  </data>
+  <data name="PAGE_ADDEXPENSE_BUTTONEXIT_NAME" xml:space="preserve">
+    <value>Назад</value>
+  </data>
+  <data name="PAGE_ADDEXPENSE_CURRENCYAMOUNTFIELD_NAME" xml:space="preserve">
+    <value>Сумма:</value>
+  </data>
+  <data name="PAGE_ADDEXPENSE_DATEFIELD_NAME" xml:space="preserve">
+    <value>Дата:</value>
+  </data>
+  <data name="PAGE_ADDEXPENSE_EXPENSECATEGORYFIELD_NAME" xml:space="preserve">
+    <value>Категория расхода</value>
+  </data>
+  <data name="PAGE_ADDEXPENSE_NAME" xml:space="preserve">
+    <value>Добавить расход</value>
+  </data>
+  <data name="PAGE_ADDEXPENSE_NAMEFIELD_NAME" xml:space="preserve">
+    <value>Название расхода:</value>
+  </data>
+  <data name="PAGE_ADDINCOMECATEGORY_BUTTONADD_NAME" xml:space="preserve">
+    <value>Добавить</value>
+  </data>
+  <data name="PAGE_ADDINCOMECATEGORY_BUTTONEXIT_NAME" xml:space="preserve">
+    <value>Назад</value>
+  </data>
+  <data name="PAGE_ADDINCOMECATEGORY_CATEGORYIMAGEPATH_NAME" xml:space="preserve">
+    <value>Изображение:</value>
+  </data>
+  <data name="PAGE_ADDINCOMECATEGORY_CURRENCYAMOUNTFIELD_NAME" xml:space="preserve">
+    <value>Сумма:</value>
+  </data>
+  <data name="PAGE_ADDINCOMECATEGORY_IMAGESELECTOR_NAME" xml:space="preserve">
+    <value>Выберите изображение...</value>
+  </data>
+  <data name="PAGE_ADDINCOMECATEGORY_NAME" xml:space="preserve">
+    <value>Добавить категорию доходов</value>
+  </data>
+  <data name="PAGE_ADDINCOMECATEGORY_NAMEFIELD_NAME" xml:space="preserve">
+    <value>Название категории:</value>
+  </data>
+  <data name="PAGE_ADDINCOME_BANKACCOUNTFIELD_NAME" xml:space="preserve">
+    <value>Счёт:</value>
+  </data>
+  <data name="PAGE_ADDINCOME_BUTTONADD_NAME" xml:space="preserve">
+    <value>Добавить</value>
+  </data>
+  <data name="PAGE_ADDINCOME_BUTTONEXIT_NAME" xml:space="preserve">
+    <value>Назад</value>
+  </data>
+  <data name="PAGE_ADDINCOME_CURRENCYAMOUNTFIELD_NAME" xml:space="preserve">
+    <value>Сумма:</value>
+  </data>
+  <data name="PAGE_ADDINCOME_DATEFIELD_NAME" xml:space="preserve">
+    <value>Дата:</value>
+  </data>
+  <data name="PAGE_ADDINCOME_INCOMECATEGORYFIELD_NAME" xml:space="preserve">
+    <value>Категория доходов:</value>
+  </data>
+  <data name="PAGE_ADDINCOME_NAMEFIELD_NAME" xml:space="preserve">
+    <value>Название дохода:</value>
+  </data>
   <data name="PAGE_ANALYSIS_BUTTON_ANALYSIS" xml:space="preserve">
     <value>Анализ</value>
   </data>
@@ -150,6 +249,9 @@
   <data name="PAGE_ANALYSIS_TAB_INCOME_BUTTON_ADD" xml:space="preserve">
     <value>Добавить доход</value>
   </data>
+  <data name="PAGE_ANALYSIS_TAB_INCOME_BUTTON_ADDCATEGORY" xml:space="preserve">
+    <value>Добавить категорию доходов</value>
+  </data>
   <data name="PAGE_ANALYSIS_TAB_INCOME_NAME" xml:space="preserve">
     <value>Доходы</value>
   </data>
@@ -158,6 +260,15 @@
   </data>
   <data name="PAGE_ANALYSIS_TAB_INCOME_TABLE_HEADER_VALUE" xml:space="preserve">
     <value>Сумма</value>
+  </data>
+  <data name="PAGE_ANALYSIS_TAB_INCOME_TOTALEXPENSES_NAME" xml:space="preserve">
+    <value>Всего:</value>
+  </data>
+  <data name="PAGE_ANALYSIS_TAB_INCOME_TOTALINCOME_NAME" xml:space="preserve">
+    <value>Всего:</value>
+  </data>
+  <data name="PAGE_INTER_BANKACCOUNTS_NAME" xml:space="preserve">
+    <value>Счета:</value>
   </data>
   <data name="PAGE_PLAN_NAME" xml:space="preserve">
     <value>План</value>
@@ -177,6 +288,9 @@
   <data name="PAGE_PLAN_TAB_EXPENSES_TABLE_HEADER_REALVALUE" xml:space="preserve">
     <value>Фактическая сумма</value>
   </data>
+  <data name="PAGE_PLAN_TAB_INCOME_BUTTON_ADDCATEGORY" xml:space="preserve">
+    <value>Добавить категорию доходов</value>
+  </data>
   <data name="PAGE_PLAN_TAB_INCOME_NAME" xml:space="preserve">
     <value>Доходы</value>
   </data>
@@ -193,12 +307,12 @@
     <value>Это значение уже используется.</value>
   </data>
   <data name="VALUE_INPUT_ERROR_EMPTY_VALUE" xml:space="preserve">
-    <value>В поле ничего не введено.</value>
+    <value>Ничего не введено.</value>
   </data>
   <data name="VALUE_INPUT_ERROR_INVALID_SYMBOL" xml:space="preserve">
-    <value>Поле содержит некорректные символы: </value>
+    <value>Значение содержит некорректные символ(ы): </value>
   </data>
   <data name="VALUE_INPUT_ERROR_OUT_OF_BOUNDS" xml:space="preserve">
-    <value>Значение в поле выходит за допустимые границы: </value>
+    <value>Значение находится вне границ: </value>
   </data>
 </root>
