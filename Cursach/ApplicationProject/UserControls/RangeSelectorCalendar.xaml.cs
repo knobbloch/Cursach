@@ -1,21 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 using System.Globalization;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
+
 using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+
 using System.Threading;
 using System.ComponentModel;
-using System.Windows.Controls.Primitives;
 
 namespace ApplicationProject.UserControls
 {
@@ -124,7 +118,7 @@ namespace ApplicationProject.UserControls
 
         public RangeSelectorCalendar()
         {
-            m_CurrentCulture = Thread.CurrentThread.CurrentUICulture ?? CultureInfo.CurrentUICulture;
+            m_CurrentCulture = Thread.CurrentThread.CurrentUICulture ?? CultureInfo.CurrentUICulture ?? CultureInfo.InvariantCulture;
             LowerBoundaryInternal = CurrentCulture.Calendar.MinSupportedDateTime;
             UpperBoundaryInternal = CurrentCulture.Calendar.MaxSupportedDateTime;
 
@@ -322,17 +316,17 @@ namespace ApplicationProject.UserControls
             get => m_CurrentCulture;
             set
             {
-                m_CurrentCulture = value ?? Thread.CurrentThread.CurrentUICulture ?? CultureInfo.CurrentUICulture;
+                m_CurrentCulture = value ?? Thread.CurrentThread.CurrentUICulture ?? CultureInfo.CurrentUICulture ?? CultureInfo.InvariantCulture;
                 Rebuild();
             }
         }
-        public string DayOneAbbreviation => CurrentCulture.DateTimeFormat.AbbreviatedDayNames[0].Substring(0, 1); 
-        public string DayTwoAbbreviation => CurrentCulture.DateTimeFormat.AbbreviatedDayNames[1].Substring(0, 1);
-        public string DayThreeAbbreviation => CurrentCulture.DateTimeFormat.AbbreviatedDayNames[2].Substring(0, 1);
-        public string DayFourAbbreviation => CurrentCulture.DateTimeFormat.AbbreviatedDayNames[3].Substring(0, 1);
-        public string DayFiveAbbreviation => CurrentCulture.DateTimeFormat.AbbreviatedDayNames[4].Substring(0, 1);
-        public string DaySixAbbreviation => CurrentCulture.DateTimeFormat.AbbreviatedDayNames[5].Substring(0, 1);
-        public string DaySevenAbbreviation => CurrentCulture.DateTimeFormat.AbbreviatedDayNames[6].Substring(0, 1);
+        public string DayOneAbbreviation => CurrentCulture.DateTimeFormat.AbbreviatedDayNames[((int)CurrentCulture.DateTimeFormat.FirstDayOfWeek) % 7].Substring(0, 1); 
+        public string DayTwoAbbreviation => CurrentCulture.DateTimeFormat.AbbreviatedDayNames[(((int)CurrentCulture.DateTimeFormat.FirstDayOfWeek) + 1)%7].Substring(0, 1);
+        public string DayThreeAbbreviation => CurrentCulture.DateTimeFormat.AbbreviatedDayNames[(((int)CurrentCulture.DateTimeFormat.FirstDayOfWeek) + 2)%7].Substring(0, 1);
+        public string DayFourAbbreviation => CurrentCulture.DateTimeFormat.AbbreviatedDayNames[(((int)CurrentCulture.DateTimeFormat.FirstDayOfWeek) + 3)%7].Substring(0, 1);
+        public string DayFiveAbbreviation => CurrentCulture.DateTimeFormat.AbbreviatedDayNames[(((int)CurrentCulture.DateTimeFormat.FirstDayOfWeek) + 4)%7].Substring(0, 1);
+        public string DaySixAbbreviation => CurrentCulture.DateTimeFormat.AbbreviatedDayNames[(((int)CurrentCulture.DateTimeFormat.FirstDayOfWeek) + 5)%7].Substring(0, 1);
+        public string DaySevenAbbreviation => CurrentCulture.DateTimeFormat.AbbreviatedDayNames[(((int)CurrentCulture.DateTimeFormat.FirstDayOfWeek) + 6)%7].Substring(0, 1);
         public string LevelHeader
         {
             get
@@ -413,12 +407,12 @@ namespace ApplicationProject.UserControls
 
                 //Account for possibiliy of exceeding supported datetime
                 DateTime day = SelectedPeriodStart.AddDays(-1);
-                while(day.DayOfWeek != CurrentCulture.DateTimeFormat.FirstDayOfWeek && day > LowerBoundaryInternal)
+                while (day.DayOfWeek != CurrentCulture.DateTimeFormat.FirstDayOfWeek && day > LowerBoundaryInternal)
                     day = day.AddDays(-1);
 
                 int i, j;
-                for(i = 0; i < DaysHeight; i++)
-                    for(j = 0; j < DaysWidth; j++)
+                for (i = 0; i < DaysHeight; i++)
+                    for (j = 0; j < DaysWidth; j++)
                     {
                         if(day >= LowerBoundaryInternal && day <= UpperBoundaryInternal)
                         {

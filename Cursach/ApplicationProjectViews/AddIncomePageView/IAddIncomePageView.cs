@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace ApplicationProjectViews.AddExpensePageView
+namespace ApplicationProjectViews.AddIncomePageView
 {
-    public interface IAddExpensePageView : IBaseView
+    public interface IAddIncomePageView : IBaseView
     {
         /// <summary>
         /// Is called when the "add" action should be executed
@@ -21,14 +21,14 @@ namespace ApplicationProjectViews.AddExpensePageView
         event EventHandler SelectedDateChanged;
 
         /// <summary>
-        /// The name of the expense currently entered
+        /// The name of the income currently entered
         /// </summary>
-        string ExpenseName { get; set; }
+        string IncomeName { get; set; }
 
         /// <summary>
         /// The ValueInputError for ExpenseName
         /// </summary>
-        ValueInputError ExpenseNameError { set; }
+        ValueInputError IncomeNameError { set; }
 
         /// <summary>
         /// The planned amount of money
@@ -48,12 +48,12 @@ namespace ApplicationProjectViews.AddExpensePageView
         /// <summary>
         /// The categories to display to select from
         /// </summary>
-        ICollection<CategoryDescriptor> ExpenseCategories { get; }
+        ICollection<CategoryDescriptor> IncomeCategories { get; }
 
         /// <summary>
         /// The currently selected category
         /// </summary>
-        CategoryDescriptor SelectedExpenseCategory { get; set; }
+        CategoryDescriptor SelectedIncomeCategory { get; set; }
 
         /// <summary>
         /// The bank accounts to display to select from

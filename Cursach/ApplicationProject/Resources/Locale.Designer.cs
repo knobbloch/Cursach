@@ -115,6 +115,15 @@ namespace ApplicationProject.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Date:.
+        /// </summary>
+        internal static string PAGE_ADDEXPENSE_DATEFIELD_NAME {
+            get {
+                return ResourceManager.GetString("PAGE_ADDEXPENSE_DATEFIELD_NAME", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Expenses category:.
         /// </summary>
         internal static string PAGE_ADDEXPENSE_EXPENSECATEGORYFIELD_NAME {
@@ -201,6 +210,132 @@ namespace ApplicationProject.Resources {
         internal static string PAGE_ADDEXPENSECATEGORY_NAMEFIELD_NAME {
             get {
                 return ResourceManager.GetString("PAGE_ADDEXPENSECATEGORY_NAMEFIELD_NAME", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Bank account:.
+        /// </summary>
+        internal static string PAGE_ADDINCOME_BANKACCOUNTFIELD_NAME {
+            get {
+                return ResourceManager.GetString("PAGE_ADDINCOME_BANKACCOUNTFIELD_NAME", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Add.
+        /// </summary>
+        internal static string PAGE_ADDINCOME_BUTTONADD_NAME {
+            get {
+                return ResourceManager.GetString("PAGE_ADDINCOME_BUTTONADD_NAME", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Back.
+        /// </summary>
+        internal static string PAGE_ADDINCOME_BUTTONEXIT_NAME {
+            get {
+                return ResourceManager.GetString("PAGE_ADDINCOME_BUTTONEXIT_NAME", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Currency amount:.
+        /// </summary>
+        internal static string PAGE_ADDINCOME_CURRENCYAMOUNTFIELD_NAME {
+            get {
+                return ResourceManager.GetString("PAGE_ADDINCOME_CURRENCYAMOUNTFIELD_NAME", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Date:.
+        /// </summary>
+        internal static string PAGE_ADDINCOME_DATEFIELD_NAME {
+            get {
+                return ResourceManager.GetString("PAGE_ADDINCOME_DATEFIELD_NAME", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Income category:.
+        /// </summary>
+        internal static string PAGE_ADDINCOME_INCOMECATEGORYFIELD_NAME {
+            get {
+                return ResourceManager.GetString("PAGE_ADDINCOME_INCOMECATEGORYFIELD_NAME", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Income name:.
+        /// </summary>
+        internal static string PAGE_ADDINCOME_NAMEFIELD_NAME {
+            get {
+                return ResourceManager.GetString("PAGE_ADDINCOME_NAMEFIELD_NAME", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Add.
+        /// </summary>
+        internal static string PAGE_ADDINCOMECATEGORY_BUTTONADD_NAME {
+            get {
+                return ResourceManager.GetString("PAGE_ADDINCOMECATEGORY_BUTTONADD_NAME", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Back.
+        /// </summary>
+        internal static string PAGE_ADDINCOMECATEGORY_BUTTONEXIT_NAME {
+            get {
+                return ResourceManager.GetString("PAGE_ADDINCOMECATEGORY_BUTTONEXIT_NAME", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Image:.
+        /// </summary>
+        internal static string PAGE_ADDINCOMECATEGORY_CATEGORYIMAGEPATH_NAME {
+            get {
+                return ResourceManager.GetString("PAGE_ADDINCOMECATEGORY_CATEGORYIMAGEPATH_NAME", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Currency amount:.
+        /// </summary>
+        internal static string PAGE_ADDINCOMECATEGORY_CURRENCYAMOUNTFIELD_NAME {
+            get {
+                return ResourceManager.GetString("PAGE_ADDINCOMECATEGORY_CURRENCYAMOUNTFIELD_NAME", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Select image....
+        /// </summary>
+        internal static string PAGE_ADDINCOMECATEGORY_IMAGESELECTOR_NAME {
+            get {
+                return ResourceManager.GetString("PAGE_ADDINCOMECATEGORY_IMAGESELECTOR_NAME", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Add Income Category.
+        /// </summary>
+        internal static string PAGE_ADDINCOMECATEGORY_NAME {
+            get {
+                return ResourceManager.GetString("PAGE_ADDINCOMECATEGORY_NAME", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Category name:.
+        /// </summary>
+        internal static string PAGE_ADDINCOMECATEGORY_NAMEFIELD_NAME {
+            get {
+                return ResourceManager.GetString("PAGE_ADDINCOMECATEGORY_NAMEFIELD_NAME", resourceCulture);
             }
         }
         
@@ -313,6 +448,15 @@ namespace ApplicationProject.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Add income category.
+        /// </summary>
+        internal static string PAGE_ANALYSIS_TAB_INCOMECATEGORY_BUTTON_ADD {
+            get {
+                return ResourceManager.GetString("PAGE_ANALYSIS_TAB_INCOMECATEGORY_BUTTON_ADD", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Bank Accounts:.
         /// </summary>
         internal static string PAGE_INTER_BANKACCOUNTS_NAME {
@@ -372,6 +516,15 @@ namespace ApplicationProject.Resources {
         internal static string PAGE_PLAN_TAB_EXPENSES_TABLE_HEADER_REALVALUE {
             get {
                 return ResourceManager.GetString("PAGE_PLAN_TAB_EXPENSES_TABLE_HEADER_REALVALUE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Add income category.
+        /// </summary>
+        internal static string PAGE_PLAN_TAB_INCOME_BUTTON_ADDCATEGORY {
+            get {
+                return ResourceManager.GetString("PAGE_PLAN_TAB_INCOME_BUTTON_ADDCATEGORY", resourceCulture);
             }
         }
         

@@ -34,7 +34,13 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Locale.resx</DependentUpon>
     </Compile>
+    <Compile Update="UserControls\AddIncomeCategoryPageView\AddIncomeCategoryPageView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="UserControls\AddExpenseCategoryPageView\AddExpenseCategoryPageView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="UserControls\AddIncomePageView\AddIncomePageView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
@@ -47,7 +53,15 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Page Update="UserControls\AddIncomeCategoryPageView\AddIncomeCategoryPageView.xaml">
+      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="UserControls\AddExpenseCategoryPageView\AddExpenseCategoryPageView.xaml">
+      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="UserControls\AddIncomePageView\AddIncomePageView.xaml">
       <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
       <SubType>Designer</SubType>
     </Page>

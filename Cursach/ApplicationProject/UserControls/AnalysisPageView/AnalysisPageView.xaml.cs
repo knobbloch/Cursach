@@ -28,6 +28,7 @@ namespace ApplicationProject.UserControls.AnalysisPageView
         protected const string AddExpenseTextKey = "PAGE_ANALYSIS_TAB_EXPENSES_BUTTON_ADD";
         protected const string AddExpenseCategoryTextKey = "PAGE_ANALYSIS_TAB_EXPENSES_BUTTON_ADDCATEGORY";
         protected const string AddIncomeTextKey = "PAGE_ANALYSIS_TAB_INCOME_BUTTON_ADD";
+        protected const string AddIncomeCategoryTextKey = "PAGE_ANALYSIS_TAB_INCOMECATEGORY_BUTTON_ADD";
 
         public AnalysisPageView()
         {
@@ -98,10 +99,12 @@ namespace ApplicationProject.UserControls.AnalysisPageView
         public string AddExpenseText => GetLocalizedString(AddExpenseTextKey);
         public string AddExpenseCategoryText => GetLocalizedString(AddExpenseCategoryTextKey);
         public string AddIncomeText => GetLocalizedString(AddIncomeTextKey);
+        public string AddIncomeCategoryText => GetLocalizedString(AddIncomeCategoryTextKey);
 
         public event EventHandler AddExpenseAction;
         public event EventHandler AddExpenseCategoryAction;
         public event EventHandler AddIncomeAction;
+        public event EventHandler AddIncomeCategoryAction;
         public event AnalysisPageModeSelectedEventHandler ModeChanged;
         public event AnalysisPageIncomeEntrySelectedEventHandler IncomeEntrySelected;
         public event AnalysisPageExpenseEntrySelectedEventHandler ExpenseEntrySelected;
@@ -144,6 +147,7 @@ namespace ApplicationProject.UserControls.AnalysisPageView
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(AddExpenseCategoryText)));
 
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(AddIncomeText)));
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(AddIncomeCategoryText)));
         }
 
         private string GetLocalizedString(string key)
@@ -177,6 +181,11 @@ namespace ApplicationProject.UserControls.AnalysisPageView
             AddIncomeAction?.Invoke(this, EventArgs.Empty);
         }
 
+        private void AddIncomeCategoryButton_Click(object sender, RoutedEventArgs e)
+        {
+            AddIncomeCategoryAction?.Invoke(this, EventArgs.Empty);
+        }
+
         private void ExpensesList_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             ExpenseEntrySelected?.Invoke(this, new AnalysisPageExpenseEntrySelectedEventArgs((AnalysisPageExpenseEntry)ExpensesList.SelectedItem));
@@ -187,5 +196,6 @@ namespace ApplicationProject.UserControls.AnalysisPageView
             IncomeEntrySelected?.Invoke(this, new AnalysisPageIncomeEntrySelectedEventArgs((AnalysisPageIncomeEntry)IncomeList.SelectedItem));
         }
         #endregion
+
     }
 }

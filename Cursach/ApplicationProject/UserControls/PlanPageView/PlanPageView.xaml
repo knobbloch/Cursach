@@ -118,6 +118,8 @@
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="30" />
                         <RowDefinition Height="Auto" />
+                        <RowDefinition Height="30" />
+                        <RowDefinition Height="Auto" />
                     </Grid.RowDefinitions>
                     <uc:BarChart x:Name="IncomeBarChart" ValueSource="Value" Height="300" Grid.Row="1">
                         <uc:BarChart.BarTitleTemplate>
@@ -167,6 +169,14 @@
                             </GridView>
                         </ListView.View>
                     </ListView>
+                    <Button Grid.Row="5" BorderThickness="0" Name="AddIncomeCategoryButton" Click="AddIncomeCategoryButton_Click" HorizontalContentAlignment="Left" Width="{Binding RelativeSource={RelativeSource AncestorType=ScrollViewer}, Path=ViewportWidth}" Background="Transparent">
+                        <Button.Content>
+                            <StackPanel Orientation="Horizontal">
+                                <Image Source="/Resources/plusSign.png"/>
+                                <TextBlock Text="{Binding AddIncomeCategoryText}" Margin="10" FontSize="60" VerticalAlignment="Center"/>
+                            </StackPanel>
+                        </Button.Content>
+                    </Button>
                 </Grid>
             </ScrollViewer>
         </TabItem>

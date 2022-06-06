@@ -26,6 +26,10 @@ namespace ApplicationProjectViews.AnalysisPageView
         /// </summary>
         event EventHandler AddIncomeAction;
         /// <summary>
+        /// Is called when the "add income category" action should be executed
+        /// </summary>
+        event EventHandler AddIncomeCategoryAction;
+        /// <summary>
         /// Is called when the active mode is changed
         /// </summary>
         event AnalysisPageModeSelectedEventHandler ModeChanged;

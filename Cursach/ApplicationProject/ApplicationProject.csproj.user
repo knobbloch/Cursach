@@ -36,7 +36,13 @@
     <Page Update="MainWindow.xaml">
       <SubType>Designer</SubType>
     </Page>
+    <Page Update="UserControls\AddIncomeCategoryPageView\AddIncomeCategoryPageView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="UserControls\AddExpenseCategoryPageView\AddExpenseCategoryPageView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="UserControls\AddIncomePageView\AddIncomePageView.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="UserControls\AddExpensePageView\AddExpensePageView.xaml">

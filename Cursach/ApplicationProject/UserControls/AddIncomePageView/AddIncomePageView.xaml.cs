@@ -9,28 +9,28 @@ using System.Windows;
 using System.Windows.Controls;
 
 using ApplicationProjectViews;
-using ApplicationProjectViews.AddExpensePageView;
+using ApplicationProjectViews.AddIncomePageView;
 
-namespace ApplicationProject.UserControls.AddExpensePageView
+namespace ApplicationProject.UserControls.AddIncomePageView
 {
     /// <summary>
     /// Interaction logic for AddExpensePageView.xaml
     /// </summary>
-    public partial class AddExpensePageView : UserControl, IAddExpensePageView, INotifyPropertyChanged, ICultureDependentData, ISupportOverlay
+    public partial class AddIncomePageView : UserControl, IAddIncomePageView, INotifyPropertyChanged, ICultureDependentData, ISupportOverlay
     {
         protected static readonly Point CalendarOffset = new(0, 0);
 
-        protected const string ExpenseNameFieldTextKey = "PAGE_ADDEXPENSE_NAMEFIELD_NAME";
-        protected const string CurrencyAmountFieldTextKey = "PAGE_ADDEXPENSE_CURRENCYAMOUNTFIELD_NAME";
-        protected const string ExpenseCategoryFieldTextKey = "PAGE_ADDEXPENSE_EXPENSECATEGORYFIELD_NAME";
-        protected const string BankAccountFieldTextKey = "PAGE_ADDEXPENSE_BANKACCOUNTFIELD_NAME";
-        protected const string ButtonAddTextKey = "PAGE_ADDEXPENSE_BUTTONADD_NAME";
-        protected const string ButtonExitTextKey = "PAGE_ADDEXPENSE_BUTTONEXIT_NAME";
-        protected const string DateFieldTextKey = "PAGE_ADDEXPENSE_DATEFIELD_NAME";
+        protected const string IncomeNameFieldTextKey = "PAGE_ADDINCOME_NAMEFIELD_NAME";
+        protected const string CurrencyAmountFieldTextKey = "PAGE_ADDINCOME_CURRENCYAMOUNTFIELD_NAME";
+        protected const string IncomeCategoryFieldTextKey = "PAGE_ADDINCOME_INCOMECATEGORYFIELD_NAME";
+        protected const string BankAccountFieldTextKey = "PAGE_ADDINCOME_BANKACCOUNTFIELD_NAME";
+        protected const string ButtonAddTextKey = "PAGE_ADDINCOME_BUTTONADD_NAME";
+        protected const string ButtonExitTextKey = "PAGE_ADDINCOME_BUTTONEXIT_NAME";
+        protected const string DateFieldTextKey = "PAGE_ADDINCOME_DATEFIELD_NAME";
 
-        public AddExpensePageView()
+        public AddIncomePageView()
         {
-            m_ExpenseName = "";
+            m_IncomeName = "";
             m_CurrencyAmount = 0;
             CurrentCulture = null;
 
@@ -43,7 +43,7 @@ namespace ApplicationProject.UserControls.AddExpensePageView
             DateSelectorCalendar.SelectionTarget = RangeSelectorCalendar.RangeSelectorCalendarMode.Day;
             DateSelectorCalendar.SelectionMode = RangeSelectorCalendar.RangeSelectorSelectionMode.Single;
             DateSelectorCalendar.SelectionChanged += DateSelectorCalendar_SelectionChanged;
-            ExpenseCategories = new ObservableCollection<CategoryDescriptor>();
+            IncomeCategories = new ObservableCollection<CategoryDescriptor>();
             BankAccounts = new ObservableCollection<BankAccountInfo>();
 
             InitializeComponent();
@@ -64,9 +64,9 @@ namespace ApplicationProject.UserControls.AddExpensePageView
         }
         private CultureInfo m_CurrentCulture;
 
-        public string ExpenseNameFieldText => GetLocalizedString(ExpenseNameFieldTextKey);
+        public string IncomeNameFieldText => GetLocalizedString(IncomeNameFieldTextKey);
         public string CurrencyAmountFieldText => GetLocalizedString(CurrencyAmountFieldTextKey);
-        public string ExpenseCategoryFieldText => GetLocalizedString(ExpenseCategoryFieldTextKey);
+        public string IncomeCategoryFieldText => GetLocalizedString(IncomeCategoryFieldTextKey);
         public string BankAccountFieldText => GetLocalizedString(BankAccountFieldTextKey);
         public string ButtonAddText => GetLocalizedString(ButtonAddTextKey);
         public string ButtonExitText => GetLocalizedString(ButtonExitTextKey);
@@ -127,27 +127,27 @@ namespace ApplicationProject.UserControls.AddExpensePageView
         public event EventHandler ExitAction;
         public event EventHandler SelectedDateChanged;
 
-        public string ExpenseName
+        public string IncomeName
         {
-            get => m_ExpenseName;
+            get => m_IncomeName;
             set
             {
-                m_ExpenseName = value ?? throw new ArgumentNullException(nameof(ExpenseName));
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(ExpenseName)));
+                m_IncomeName = value ?? throw new ArgumentNullException(nameof(IncomeName));
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(IncomeName)));
             }
         }
-        private string m_ExpenseName;
+        private string m_IncomeName;
 
-        public ValueInputError ExpenseNameError
+        public ValueInputError IncomeNameError
         {
-            get => m_ExpenseNameError;
+            get => m_IncomeNameError;
             set
             {
-                m_ExpenseNameError = value;
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(ExpenseNameError)));
+                m_IncomeNameError = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(IncomeNameError)));
             }
         }
-        private ValueInputError m_ExpenseNameError;
+        private ValueInputError m_IncomeNameError;
 
         public decimal CurrencyAmount
         {
@@ -171,18 +171,18 @@ namespace ApplicationProject.UserControls.AddExpensePageView
         }
         private ValueInputError m_CurrencyAmountError;
 
-        public ICollection<CategoryDescriptor> ExpenseCategories { get; }
+        public ICollection<CategoryDescriptor> IncomeCategories { get; }
 
-        public CategoryDescriptor SelectedExpenseCategory
+        public CategoryDescriptor SelectedIncomeCategory
         {
-            get => m_SelectedExpenseCategory;
+            get => m_SelectedIncomeCategory;
             set
             {
-                m_SelectedExpenseCategory = value;
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(SelectedExpenseCategory)));
+                m_SelectedIncomeCategory = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(SelectedIncomeCategory)));
             }
         }
-        private CategoryDescriptor m_SelectedExpenseCategory;
+        private CategoryDescriptor m_SelectedIncomeCategory;
 
         public ICollection<BankAccountInfo> BankAccounts { get; }
 
@@ -213,9 +213,9 @@ namespace ApplicationProject.UserControls.AddExpensePageView
         public void RefreshLocalization()
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(DateFieldText)));
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(ExpenseNameFieldText)));
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(IncomeNameFieldText)));
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(CurrencyAmountFieldText)));
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(ExpenseCategoryFieldText)));
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(IncomeCategoryFieldText)));
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(BankAccountFieldText)));
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(ButtonAddText)));
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(ButtonExitText)));
