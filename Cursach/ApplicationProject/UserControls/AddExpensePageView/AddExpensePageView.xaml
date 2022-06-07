@@ -6,7 +6,7 @@
              xmlns:local="clr-namespace:ApplicationProject.UserControls.AddExpensePageView"
              xmlns:uc="clr-namespace:ApplicationProject.UserControls"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800" DataContext="{Binding RelativeSource={RelativeSource Self}}">
+             d:DesignHeight="450" d:DesignWidth="800" DataContext="{Binding RelativeSource={RelativeSource Self}}" SizeChanged="CurrentPage_SizeChanged">
     <UserControl.Resources>
         <uc:FractionConverter x:Key="FractionConverter" />
         <uc:ValueErrorTypeLocale x:Key="ValueErrorConverter" />
@@ -25,25 +25,43 @@
             <RowDefinition Height="*" />
             <RowDefinition Height="2*" />
             <RowDefinition Height="*" />
+            <RowDefinition Height="2*" />
+            <RowDefinition Height="*" />
             <RowDefinition Height="*" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
-        <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Vertical">
+        <Grid Grid.Row="3" Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
             <TextBlock Text="{Binding ExpenseNameFieldText}"/>
-            <TextBox Text="{Binding ExpenseName}" Height="{Binding ActualHeight, Source={RelativeSource AncestorType=StackPanel}, Converter={StaticResource FractionConverter}, ConverterParameter=0.5}"/>
-            <TextBlock x:Name="ExpenseNameErrorText" Foreground="Red"/>
-        </StackPanel>
+            <TextBox Grid.Row="1" Text="{Binding ExpenseName}"/>
+            <TextBlock Grid.Row="2" Text="{Binding ExpenseNameError, Converter={StaticResource ValueErrorConverter}}" Foreground="Red"/>
+        </Grid>
 
-        <StackPanel Grid.Row="1" Grid.Column="3" Orientation="Vertical">
+        <Grid Grid.Row="3" Grid.Column="3">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
             <TextBlock Text="{Binding CurrencyAmountFieldText}"/>
-            <TextBox Text="{Binding CurrencyAmount}" Height="{Binding ActualHeight, Source={RelativeSource AncestorType=StackPanel}, Converter={StaticResource FractionConverter}, ConverterParameter=0.5}"/>
-            <TextBlock x:Name="CurrencyAmountErrorText" Foreground="Red"/>
-        </StackPanel>
+            <TextBox Grid.Row="1" Text="{Binding CurrencyAmount}"/>
+            <TextBlock Grid.Row="2" Text="{Binding CurrencyAmountError, Converter={StaticResource ValueErrorConverter}}" Foreground="Red"/>
+        </Grid>
 
-        <StackPanel Grid.Row="3" Grid.Column="1" Orientation="Vertical">
+        <Grid Grid.Row="5" Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            
             <TextBlock Text="{Binding ExpenseCategoryFieldText}"/>
-            <ComboBox SelectedItem="{Binding SelectedExpenseCategory}" ItemsSource="{Binding ExpenseCategories}" Height="{Binding ActualHeight, Source={RelativeSource AncestorType=StackPanel}, Converter={StaticResource FractionConverter}, ConverterParameter=0.5}">
+            <ComboBox Grid.Row="1" SelectedItem="{Binding SelectedExpenseCategory}" ItemsSource="{Binding ExpenseCategories}">
                 <ComboBox.ItemTemplate>
                     <DataTemplate>
                         <StackPanel Orientation="Horizontal">
@@ -53,11 +71,16 @@
                     </DataTemplate>
                 </ComboBox.ItemTemplate>
             </ComboBox>
-        </StackPanel>
+        </Grid>
 
-        <StackPanel Grid.Row="3" Grid.Column="3" Orientation="Vertical">
+        <Grid Grid.Row="5" Grid.Column="3">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
             <TextBlock Text="{Binding BankAccountFieldText}"/>
-            <ComboBox SelectedItem="{Binding SelectedExpenseBankAccount}" ItemsSource="{Binding ExpenseBankAccounts}" Height="{Binding ActualHeight, Source={RelativeSource AncestorType=StackPanel}, Converter={StaticResource FractionConverter}, ConverterParameter=0.5}">
+            <ComboBox Grid.Row="1" SelectedItem="{Binding SelectedBankAccount}" ItemsSource="{Binding BankAccounts}">
                 <ComboBox.ItemTemplate>
                     <DataTemplate>
                         <StackPanel Orientation="Vertical">
@@ -70,9 +93,21 @@
                     </DataTemplate>
                 </ComboBox.ItemTemplate>
             </ComboBox>
-        </StackPanel>
+        </Grid>
 
-        <Button Grid.Row="5" Grid.Column="3" Background="LightGray" Content="{Binding ButtonAddText}" Click="ButtonAdd_Click"/>
-        <Button Grid.Row="5" Grid.Column="1" Background="LightGray" Content="{Binding ButtonExitText}" Click="ButtonExit_Click"/>
+        <Grid Grid.Row="1" Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <TextBlock Text="{Binding DateFieldText}"/>
+            <ToggleButton Grid.Column="1" Grid.Row="1" Name="DateSelector" Foreground="Black" Click="DateSelector_Click">
+                <TextBlock Text="{Binding SelectedDate, StringFormat={}{0:d MMMM yyyy}}" Foreground="Black" VerticalAlignment="Center" HorizontalAlignment="Center" />
+            </ToggleButton>
+        </Grid>
+
+        <Button Grid.Row="7" Grid.Column="3" Background="LightGray" Content="{Binding ButtonAddText}" Click="ButtonAdd_Click"/>
+        <Button Grid.Row="7" Grid.Column="1" Background="LightGray" Content="{Binding ButtonExitText}" Click="ButtonExit_Click"/>
     </Grid>
 </UserControl>

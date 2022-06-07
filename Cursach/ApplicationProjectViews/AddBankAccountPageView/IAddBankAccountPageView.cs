@@ -1,9 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 
-namespace ApplicationProjectViews.AddIncomePageView
+namespace ApplicationProjectViews.AddBankAccountPageView
 {
-    public interface IAddPlannedIncomePageView : IBaseView
+    public interface IAddBankAccountPageView : IBaseView
     {
         /// <summary>
         /// Is called when the "add" action should be executed
@@ -16,22 +15,22 @@ namespace ApplicationProjectViews.AddIncomePageView
         event EventHandler ExitAction;
 
         /// <summary>
-        /// The name of the income currently entered
+        /// The name of the bank account currently entered
         /// </summary>
-        string IncomeName { get; }
+        string AccountName { get; set; }
 
         /// <summary>
-        /// ValueInputError for IncomeName
+        /// ValueInputError for AccountName
         /// </summary>
-        ValueInputError IncomeNameError { get; }
+        ValueInputError AccountNameError { get; }
 
         /// <summary>
-        /// The amount of money
+        /// The current amount of currency
         /// </summary>
         decimal CurrencyAmount { get; set; }
 
         /// <summary>
-        /// TheValueInputError for CurrencyAmount
+        /// ValueInputError for CurrencyAmount
         /// </summary>
         ValueInputError CurrencyAmountError { get; }
     }

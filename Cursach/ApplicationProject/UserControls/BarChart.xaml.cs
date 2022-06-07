@@ -147,6 +147,10 @@ namespace ApplicationProject.UserControls
         }
         #endregion
 
+        #region DependencyProperties
+        public static readonly DependencyProperty BarsSourceProperty = DependencyProperty.Register("BarsSource", typeof(IEnumerable), typeof(BarChart));
+        #endregion
+
         public BarChart() : this(null) { }
 
         public BarChart(Func<double, double> valueProcessor = null)
@@ -194,7 +198,7 @@ namespace ApplicationProject.UserControls
         /// </summary>
         public IEnumerable BarsSource
         {
-            get => m_BarsSource;
+            get => (IEnumerable)GetValue(BarsSourceProperty);
             set
             {
                 if (m_BarsSource is INotifyCollectionChanged col)
@@ -204,6 +208,8 @@ namespace ApplicationProject.UserControls
 
                 if (m_BarsSource is INotifyCollectionChanged col2)
                     col2.CollectionChanged += Self_OnCollectionChanged;
+
+                SetValue(BarsSourceProperty, value);
 
                 Rebuild();
             }

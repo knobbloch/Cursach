@@ -16,14 +16,17 @@ namespace ApplicationProject.UserControls.AddExpensePageView
     /// <summary>
     /// Interaction logic for AddExpensePageView.xaml
     /// </summary>
-    public partial class AddExpensePageView : UserControl, IAddExpensePageView, INotifyPropertyChanged, ICultureDependentData
+    public partial class AddExpensePageView : UserControl, IAddExpensePageView, INotifyPropertyChanged, ICultureDependentData, ISupportOverlay
     {
+        protected static readonly Point CalendarOffset = new(0, 0);
+
         protected const string ExpenseNameFieldTextKey = "PAGE_ADDEXPENSE_NAMEFIELD_NAME";
         protected const string CurrencyAmountFieldTextKey = "PAGE_ADDEXPENSE_CURRENCYAMOUNTFIELD_NAME";
         protected const string ExpenseCategoryFieldTextKey = "PAGE_ADDEXPENSE_EXPENSECATEGORYFIELD_NAME";
         protected const string BankAccountFieldTextKey = "PAGE_ADDEXPENSE_BANKACCOUNTFIELD_NAME";
         protected const string ButtonAddTextKey = "PAGE_ADDEXPENSE_BUTTONADD_NAME";
         protected const string ButtonExitTextKey = "PAGE_ADDEXPENSE_BUTTONEXIT_NAME";
+        protected const string DateFieldTextKey = "PAGE_ADDEXPENSE_DATEFIELD_NAME";
 
         public AddExpensePageView()
         {
@@ -31,12 +34,23 @@ namespace ApplicationProject.UserControls.AddExpensePageView
             m_CurrencyAmount = 0;
             CurrentCulture = null;
 
+            DateSelectorRoot = new Viewbox
+            {
+                Child = new RangeSelectorCalendar()
+            };
 
+            DateSelectorCalendar = (RangeSelectorCalendar)DateSelectorRoot.Child;
+            DateSelectorCalendar.SelectionTarget = RangeSelectorCalendar.RangeSelectorCalendarMode.Day;
+            DateSelectorCalendar.SelectionMode = RangeSelectorCalendar.RangeSelectorSelectionMode.Single;
+            DateSelectorCalendar.SelectionChanged += DateSelectorCalendar_SelectionChanged;
             ExpenseCategories = new ObservableCollection<CategoryDescriptor>();
-            ExpenseBankAccounts = new ObservableCollection<BankAccountInfo>();
+            BankAccounts = new ObservableCollection<BankAccountInfo>();
 
             InitializeComponent();
         }
+
+        protected Viewbox DateSelectorRoot { get; }
+        protected RangeSelectorCalendar DateSelectorCalendar { get; }
 
         protected CultureInfo CurrentCulture
         {
@@ -56,6 +70,7 @@ namespace ApplicationProject.UserControls.AddExpensePageView
         public string BankAccountFieldText => GetLocalizedString(BankAccountFieldTextKey);
         public string ButtonAddText => GetLocalizedString(ButtonAddTextKey);
         public string ButtonExitText => GetLocalizedString(ButtonExitTextKey);
+        public string DateFieldText => GetLocalizedString(DateFieldTextKey);
 
         #region IBaseView
         public bool Show()
@@ -83,10 +98,34 @@ namespace ApplicationProject.UserControls.AddExpensePageView
         public event PropertyChangedEventHandler PropertyChanged;
         #endregion
 
+        #region ISupportOverlay
+        private Overlay m_Overlay;
+        public Overlay Overlay
+        {
+            get => m_Overlay;
+            set
+            {
+                m_Overlay = value;
+
+                if (m_Overlay != null)
+                    m_Overlay.BackgroundClick += Overlay_Click;
+            }
+        }
+
+        public void ClearOverlay()
+        {
+            if (Overlay.Visible)
+                Overlay.RemoveElement(DateSelectorRoot);
+
+            Overlay.BackgroundClick -= Overlay_Click;
+        }
+        #endregion
+
         #region IAddExpensePageView
         public event EventHandler AddAction;
         public event EventHandler AddActionPost;
         public event EventHandler ExitAction;
+        public event EventHandler SelectedDateChanged;
 
         public string ExpenseName
         {
@@ -145,23 +184,35 @@ namespace ApplicationProject.UserControls.AddExpensePageView
         }
         private CategoryDescriptor m_SelectedExpenseCategory;
 
-        public ICollection<BankAccountInfo> ExpenseBankAccounts { get; }
+        public ICollection<BankAccountInfo> BankAccounts { get; }
 
-        public BankAccountInfo SelectedExpenseBankAccount
+        public BankAccountInfo SelectedBankAccount
         {
-            get => m_SelectedExpenseBankAccount;
+            get => m_SelectedBankAccount;
             set
             {
-                m_SelectedExpenseBankAccount = value;
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(SelectedExpenseBankAccount)));
+                m_SelectedBankAccount = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(SelectedBankAccount)));
             }
         }
-        private BankAccountInfo m_SelectedExpenseBankAccount;
+        private BankAccountInfo m_SelectedBankAccount;
+
+        public DateTime SelectedDate
+        {
+            get => m_SelectedDate;
+            set
+            {
+                m_SelectedDate = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(SelectedDate)));
+            }
+        }
+        private DateTime m_SelectedDate;
         #endregion
 
         #region Methods
         public void RefreshLocalization()
         {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(DateFieldText)));
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(ExpenseNameFieldText)));
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(CurrencyAmountFieldText)));
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(ExpenseCategoryFieldText)));
@@ -176,6 +227,7 @@ namespace ApplicationProject.UserControls.AddExpensePageView
         }
         #endregion
 
+        #region Handled Events
         private void ButtonAdd_Click(object sender, RoutedEventArgs e)
         {
             AddAction?.Invoke(this, EventArgs.Empty);
@@ -186,5 +238,48 @@ namespace ApplicationProject.UserControls.AddExpensePageView
         {
             ExitAction?.Invoke(this, EventArgs.Empty);
         }
+
+        private void DateSelector_Click(object sender, RoutedEventArgs e)
+        {
+            if (e.OriginalSource == DateSelector)
+            {
+                Overlay.AddElement(DateSelectorRoot);
+                DateSelectorRoot.Height = DateSelectorRoot.Width = DateSelector.ActualWidth;
+                Overlay.MoveElement(DateSelectorRoot, DateSelector, new Point(CalendarOffset.X, CalendarOffset.Y + DateSelector.ActualHeight));
+                Overlay.Visible = DateSelector.IsChecked ?? false;
+                DateSelectorRoot.Visibility = (DateSelector.IsChecked ?? false) ? Visibility.Visible : Visibility.Hidden;
+            }
+        }
+
+        private void Overlay_Click(object sender, EventArgs e)
+        {
+            Overlay.Visible = false;
+            DateSelector.IsChecked = false;
+            m_Overlay.RemoveElement(DateSelectorRoot);
+        }
+
+        private void CurrentPage_SizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            if (Overlay.Visible)
+            {
+                DateSelectorRoot.Height = DateSelectorRoot.Width = DateSelector.ActualWidth;
+                Overlay.MoveElement(DateSelectorRoot, DateSelector, new Point(CalendarOffset.X, CalendarOffset.Y + DateSelector.ActualHeight));
+            }
+        }
+
+        private void DateSelectorCalendar_SelectionChanged(object sender, EventArgs e)
+        {
+            if (sender == DateSelectorCalendar)
+            {
+                IEnumerator<RangeSelectorCalendar.DateRange> enumerator = DateSelectorCalendar.SelectedRanges.GetEnumerator();
+                if (enumerator.MoveNext())
+                    SelectedDate = enumerator.Current.Start;
+
+                Overlay_Click(this, e);
+
+                SelectedDateChanged?.Invoke(this, EventArgs.Empty);
+            }
+        }
+        #endregion
     }
 }

@@ -10,11 +10,11 @@ none
 false
 TRACE;DEBUG;NET;NET5_0;NETCOREAPP
 C:\HSE\Курсач\Cursach\ApplicationProject\App.xaml
-9-899871066
+13-2043437070
 
-20939920183
+25-1821454448
 1941964002543
-MainWindow.xaml;UserControls\AddExpensePageView\AddExpensePageView.xaml;UserControls\AnalysisPageView\AnalysisPageView.xaml;UserControls\BarChart.xaml;UserControls\DatedPageView\DatedPageView.xaml;UserControls\InterPageView\InterPageView.xaml;UserControls\PlanPageView\PlanPageView.xaml;UserControls\RangeSelectorCalendar.xaml;UserControls\RoundButton.xaml;
+MainWindow.xaml;UserControls\AddBankAccountPageView\AddBankAccountPageView.xaml;UserControls\AddExpenseCategoryPageView\AddExpenseCategoryPageView.xaml;UserControls\AddExpensePageView\AddExpensePageView.xaml;UserControls\AddIncomeCategoryPageView\AddIncomeCategoryPageView.xaml;UserControls\AddIncomePageView\AddIncomePageView.xaml;UserControls\AnalysisPageView\AnalysisPageView.xaml;UserControls\BarChart.xaml;UserControls\DatedPageView\DatedPageView.xaml;UserControls\InterPageView\InterPageView.xaml;UserControls\PlanPageView\PlanPageView.xaml;UserControls\RangeSelectorCalendar.xaml;UserControls\RoundButton.xaml;
 
 False
 

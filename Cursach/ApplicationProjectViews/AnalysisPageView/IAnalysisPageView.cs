@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 
-using ApplicationProjectViews.DatedPageView;
-
 namespace ApplicationProjectViews.AnalysisPageView
 {
     public interface IAnalysisPageView : IBaseView
@@ -25,6 +23,10 @@ namespace ApplicationProjectViews.AnalysisPageView
         /// Is called when the "add income" action should be executed
         /// </summary>
         event EventHandler AddIncomeAction;
+        /// <summary>
+        /// Is called when the "add income category" action should be executed
+        /// </summary>
+        event EventHandler AddIncomeCategoryAction;
         /// <summary>
         /// Is called when the active mode is changed
         /// </summary>
@@ -57,6 +59,16 @@ namespace ApplicationProjectViews.AnalysisPageView
         /// <summary>
         /// Stores items which are used to build expenses table
         /// </summary>
-        public ICollection<AnalysisPageExpenseEntry> ExpenesItems { get; }
+        public ICollection<AnalysisPageExpenseEntry> ExpensesItems { get; }
+
+
+        /// <summary>
+        /// The total sum of expenses for a given period
+        /// </summary>
+        decimal TotalExpenses { set; }
+        /// <summary>
+        /// The total sum of income for a given period
+        /// </summary>
+        decimal TotalIncome { set; }
     }
 }

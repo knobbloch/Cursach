@@ -54,7 +54,7 @@
                         </ListView.ItemContainerStyle>
                         <ListView.View>
                             <GridView>
-                                <GridViewColumn Header="{Binding ExpensesTableNameHeader}" Width="600">
+                                <GridViewColumn Header="{Binding ExpensesTableNameHeader}" Width="{Binding ActualWidth, RelativeSource={RelativeSource AncestorType=ListView}, Converter={StaticResource FractionConverter}, ConverterParameter=0.6}">
                                     <GridViewColumn.CellTemplate>
                                         <DataTemplate>
                                             <Grid>
@@ -69,7 +69,7 @@
                                         </DataTemplate>
                                     </GridViewColumn.CellTemplate>
                                 </GridViewColumn>
-                                <GridViewColumn Header="{Binding ExpensesTablePlannedValueHeader}" Width="200">
+                                <GridViewColumn Header="{Binding ExpensesTablePlannedValueHeader}" Width="{Binding ActualWidth, RelativeSource={RelativeSource AncestorType=ListView}, Converter={StaticResource FractionConverter}, ConverterParameter=0.2}">
                                     <GridViewColumn.CellTemplate>
                                         <DataTemplate>
                                             <Grid>
@@ -81,7 +81,7 @@
                                         </DataTemplate>
                                     </GridViewColumn.CellTemplate>
                                 </GridViewColumn>
-                                <GridViewColumn Header="{Binding ExpensesTableRealValueHeader}" Width="200">
+                                <GridViewColumn Header="{Binding ExpensesTableRealValueHeader}" Width="{Binding ActualWidth, RelativeSource={RelativeSource AncestorType=ListView}, Converter={StaticResource FractionConverter}, ConverterParameter=0.2}">
                                     <GridViewColumn.CellTemplate>
                                         <DataTemplate>
                                             <Grid>
@@ -118,6 +118,8 @@
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="30" />
                         <RowDefinition Height="Auto" />
+                        <RowDefinition Height="30" />
+                        <RowDefinition Height="Auto" />
                     </Grid.RowDefinitions>
                     <uc:BarChart x:Name="IncomeBarChart" ValueSource="Value" Height="300" Grid.Row="1">
                         <uc:BarChart.BarTitleTemplate>
@@ -137,14 +139,22 @@
                         </ListView.ItemContainerStyle>
                         <ListView.View>
                             <GridView>
-                                <GridViewColumn Header="{Binding IncomeTableNameHeader}" Width="600">
+                                <GridViewColumn Header="{Binding IncomeTableNameHeader}" Width="{Binding ActualWidth, RelativeSource={RelativeSource AncestorType=ListView}, Converter={StaticResource FractionConverter}, ConverterParameter=0.6}">
                                     <GridViewColumn.CellTemplate>
                                         <DataTemplate>
-                                            <TextBlock VerticalAlignment="Center" Text="{Binding Title}" Foreground="Black" Grid.Column="2" FontSize="{StaticResource TableFontSize}"/>
+                                            <Grid>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="Auto"/>
+                                                    <ColumnDefinition Width="20"/>
+                                                    <ColumnDefinition Width="*" />
+                                                </Grid.ColumnDefinitions>
+                                                <Image Source="{Binding ImagePath}" Stretch="Uniform" StretchDirection="DownOnly" MaxHeight="40"/>
+                                                <TextBlock VerticalAlignment="Center" Text="{Binding Title}" Foreground="Black" Grid.Column="2" FontSize="{StaticResource TableFontSize}"/>
+                                            </Grid>
                                         </DataTemplate>
                                     </GridViewColumn.CellTemplate>
                                 </GridViewColumn>
-                                <GridViewColumn Header="{Binding IncomeTablePlannedValueHeader}" Width="200">
+                                <GridViewColumn Header="{Binding IncomeTablePlannedValueHeader}" Width="{Binding ActualWidth, RelativeSource={RelativeSource AncestorType=ListView}, Converter={StaticResource FractionConverter}, ConverterParameter=0.2}">
                                     <GridViewColumn.CellTemplate>
                                         <DataTemplate>
                                             <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" TextAlignment="Center">
@@ -154,7 +164,7 @@
                                         </DataTemplate>
                                     </GridViewColumn.CellTemplate>
                                 </GridViewColumn>
-                                <GridViewColumn Header="{Binding IncomeTableRealValueHeader}" Width="200">
+                                <GridViewColumn Header="{Binding IncomeTableRealValueHeader}" Width="{Binding ActualWidth, RelativeSource={RelativeSource AncestorType=ListView}, Converter={StaticResource FractionConverter}, ConverterParameter=0.2}">
                                     <GridViewColumn.CellTemplate>
                                         <DataTemplate>
                                             <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" TextAlignment="Center">
@@ -167,6 +177,14 @@
                             </GridView>
                         </ListView.View>
                     </ListView>
+                    <Button Grid.Row="5" BorderThickness="0" Name="AddIncomeCategoryButton" Click="AddIncomeCategoryButton_Click" HorizontalContentAlignment="Left" Width="{Binding RelativeSource={RelativeSource AncestorType=ScrollViewer}, Path=ViewportWidth}" Background="Transparent">
+                        <Button.Content>
+                            <StackPanel Orientation="Horizontal">
+                                <Image Source="/Resources/plusSign.png"/>
+                                <TextBlock Text="{Binding AddIncomeCategoryText}" Margin="10" FontSize="60" VerticalAlignment="Center"/>
+                            </StackPanel>
+                        </Button.Content>
+                    </Button>
                 </Grid>
             </ScrollViewer>
         </TabItem>

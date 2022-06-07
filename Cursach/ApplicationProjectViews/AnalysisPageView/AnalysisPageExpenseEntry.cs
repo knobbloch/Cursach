@@ -1,78 +1,56 @@
 ﻿using System;
-using System.ComponentModel;
 
 namespace ApplicationProjectViews.AnalysisPageView
 {
-    public class AnalysisPageExpenseEntry : INotifyPropertyChanged
+    public class AnalysisPageExpenseEntry
     {
-        public event PropertyChangedEventHandler PropertyChanged;
-
         /// <summary>
         /// The displayed value of this entry
         /// </summary>
-        public double Value
-        {
-            get => m_Value;
-            set
-            {
-                m_Value = value;
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Value)));
-            }
-        }
-        private double m_Value;
+        public double Value { get; init; }
 
         /// <summary>
         /// The currency identifier to append to the value
         /// </summary>
-        /// <exception cref="ArgumentNullException" />
         public string CurrencyIdentifier
         {
             get => m_CurrencyIdentifier;
-            set
-            {
-                m_CurrencyIdentifier = value ?? throw new ArgumentNullException(nameof(CurrencyIdentifier));
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(CurrencyIdentifier)));
-            }
+            init => m_CurrencyIdentifier = value ?? throw new ArgumentNullException(nameof(CurrencyIdentifier));
         }
         private string m_CurrencyIdentifier;
 
         /// <summary>
-        /// The text to display as the chart entry's title
+        /// The text to display as the entry's title
         /// </summary>
-        /// <exception cref="ArgumentNullException" />
         public string Title
         {
             get => m_Title;
-            set
-            {
-                m_Title = value ?? throw new ArgumentNullException(nameof(Title));
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Title)));
-            }
+            init => m_Title = value ?? throw new ArgumentNullException(nameof(Title));
         }
         private string m_Title;
 
         /// <summary>
-        /// The path to the image displayed by the text
+        /// The category this entry belongs to
         /// </summary>
-        /// <exception cref="ArgumentNullException" />
-        public string ImagePath
+        public CategoryDescriptor Category
         {
-            get => m_ImagePath;
-            set
-            {
-                m_ImagePath = value ?? throw new ArgumentNullException(nameof(ImagePath));
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(ImagePath)));
-            }
+            get => m_Category;
+            init => m_Category = value ?? throw new ArgumentNullException(nameof(Category));
         }
-        private string m_ImagePath;
+        private CategoryDescriptor m_Category;
 
-        public AnalysisPageExpenseEntry() : this("", "", "", 0) { }
-        public AnalysisPageExpenseEntry(string title, string currencyIdentifier, string imagePath, double value)
+        /// <summary>
+        /// The date of this entry
+        /// </summary>
+        public DateTime Date { get; init; }
+
+        public AnalysisPageExpenseEntry()
         {
-            Value = value;
-            Title = title;
-            CurrencyIdentifier = currencyIdentifier;
-            ImagePath = imagePath;
+            Value = 0;
+            CurrencyIdentifier = "";
+            Title = "";
+            Category = new CategoryDescriptor();
+            Date = default;
         }
     }
 }

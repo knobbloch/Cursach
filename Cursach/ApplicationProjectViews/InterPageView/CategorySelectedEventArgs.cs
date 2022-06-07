@@ -18,6 +18,6 @@ namespace ApplicationProjectViews.InterPageView
             Category = category;
         }
 
-        public CategoryType Category { get; }
+        public CategoryType Category { get; init; }
     }
 }

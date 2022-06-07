@@ -6,7 +6,7 @@ namespace ApplicationProjectViews.AnalysisPageView
 
     public class AnalysisPageModeSelectedEventArgs : EventArgs
     {
-        public IAnalysisPageView.AnalysisPageMode Mode { get; }
+        public IAnalysisPageView.AnalysisPageMode Mode { get; init; }
 
         public AnalysisPageModeSelectedEventArgs(IAnalysisPageView.AnalysisPageMode mode) : base()
         {

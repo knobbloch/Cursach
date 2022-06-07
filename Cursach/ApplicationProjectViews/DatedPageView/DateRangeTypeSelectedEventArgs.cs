@@ -11,6 +11,6 @@ namespace ApplicationProjectViews.DatedPageView
             RangeType = type;
         }
 
-        public DateRangeType RangeType { get; }
+        public DateRangeType RangeType { get; init; }
     }
 }

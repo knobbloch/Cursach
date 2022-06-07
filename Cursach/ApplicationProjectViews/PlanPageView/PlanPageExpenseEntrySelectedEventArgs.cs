@@ -6,11 +6,16 @@ namespace ApplicationProjectViews.PlanPageView
 
     public class PlanPageExpenseEntrySelectedEventArgs : EventArgs
     {
-        public PlanPageExpenseEntry Entry { get; }
+        public PlanPageExpenseEntry Entry
+        {
+            get => m_Entry;
+            init => m_Entry = value ?? throw new ArgumentNullException(nameof(Entry));
+        }
+        private PlanPageExpenseEntry m_Entry;
 
         public PlanPageExpenseEntrySelectedEventArgs(PlanPageExpenseEntry entry) : base()
         {
-            Entry = entry ?? throw new ArgumentNullException(nameof(entry));
+            Entry = entry;
         }
     }
 }

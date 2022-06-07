@@ -6,11 +6,16 @@ namespace ApplicationProjectViews.AnalysisPageView
 
     public class AnalysisPageIncomeEntrySelectedEventArgs : EventArgs
     {
-        public AnalysisPageIncomeEntry Entry { get; }
+        public AnalysisPageIncomeEntry Entry
+        {
+            get => m_Entry;
+            init => m_Entry = value ?? throw new ArgumentNullException(nameof(Entry));
+        }
+        private AnalysisPageIncomeEntry m_Entry;
 
         public AnalysisPageIncomeEntrySelectedEventArgs(AnalysisPageIncomeEntry entry) : base()
         {
-            Entry = entry ?? throw new ArgumentNullException(nameof(entry));
+            Entry = entry;
         }
     }
 }

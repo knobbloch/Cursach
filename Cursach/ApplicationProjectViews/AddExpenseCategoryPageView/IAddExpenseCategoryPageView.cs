@@ -2,9 +2,9 @@
 
 using ApplicationProjectViews.InterPageView;
 
-namespace ApplicationProjectViews.AddRealExpenseCategoryPageView
+namespace ApplicationProjectViews.AddExpenseCategoryPageView
 {
-    public interface IAddPlannedExpenseCategoryPageView : IInterPageView
+    public interface IAddExpenseCategoryPageView : IBaseView
     {
         /// <summary>
         /// Is called when the "add" action should be executed

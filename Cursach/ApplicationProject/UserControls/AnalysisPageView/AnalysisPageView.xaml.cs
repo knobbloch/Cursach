@@ -22,23 +22,30 @@ namespace ApplicationProject.UserControls.AnalysisPageView
         protected const string ExpensesTabNameKey = "PAGE_ANALYSIS_TAB_EXPENSES_NAME";
         protected const string IncomeTabNameKey = "PAGE_ANALYSIS_TAB_INCOME_NAME";
         protected const string ExpensesTableNameHeaderKey = "PAGE_ANALYSIS_TAB_EXPENSES_TABLE_HEADER_NAME";
+        protected const string ExpensesTableCategoryHeaderKey = "PAGE_ANALYSIS_TAB_EXPENSES_TABLE_HEADER_CATEGORY";
+        protected const string ExpensesTableDateHeaderKey = "PAGE_ANALYSIS_TAB_EXPENSES_TABLE_HEADER_DATE";
         protected const string ExpensesTableValueHeaderKey = "PAGE_ANALYSIS_TAB_EXPENSES_TABLE_HEADER_VALUE";
         protected const string IncomeTableNameHeaderKey = "PAGE_ANALYSIS_TAB_INCOME_TABLE_HEADER_NAME";
+        protected const string IncomeTableCategoryHeaderKey = "PAGE_ANALYSIS_TAB_INCOME_TABLE_HEADER_CATEGORY";
+        protected const string IncomeTableDateHeaderKey = "PAGE_ANALYSIS_TAB_INCOME_TABLE_HEADER_DATE";
         protected const string IncomeTableValueHeaderKey = "PAGE_ANALYSIS_TAB_INCOME_TABLE_HEADER_VALUE";
         protected const string AddExpenseTextKey = "PAGE_ANALYSIS_TAB_EXPENSES_BUTTON_ADD";
         protected const string AddExpenseCategoryTextKey = "PAGE_ANALYSIS_TAB_EXPENSES_BUTTON_ADDCATEGORY";
         protected const string AddIncomeTextKey = "PAGE_ANALYSIS_TAB_INCOME_BUTTON_ADD";
+        protected const string AddIncomeCategoryTextKey = "PAGE_ANALYSIS_TAB_INCOME_BUTTON_ADDCATEGORY";
+        protected const string TotalExpensesTextKey = "PAGE_ANALYSIS_TAB_INCOME_TOTALEXPENSES_NAME";
+        protected const string TotalIncomeTextKey = "PAGE_ANALYSIS_TAB_INCOME_TOTALINCOME_NAME";
 
         public AnalysisPageView()
         {
+            IncomeDays = new ObservableCollection<AnalysisPageIncomeDayEntry>();
+            ExpensesDays = new ObservableCollection<AnalysisPageExpenseDayEntry>();
+            IncomeItems = new ObservableCollection<AnalysisPageIncomeEntry>();
+            ExpensesItems = new ObservableCollection<AnalysisPageExpenseEntry>();
+
             InitializeComponent();
 
             CurrentCulture = null;
-
-            IncomeBarChart.BarsSource = IncomeDays = new ObservableCollection<AnalysisPageIncomeDayEntry>();
-            ExpensesBarChart.BarsSource = ExpensesDays = new ObservableCollection<AnalysisPageExpenseDayEntry>();
-            IncomeList.ItemsSource = IncomeItems = new ObservableCollection<AnalysisPageIncomeEntry>();
-            ExpensesList.ItemsSource = ExpenesItems = new ObservableCollection<AnalysisPageExpenseEntry>();
         }
 
         protected CultureInfo CurrentCulture
@@ -98,13 +105,44 @@ namespace ApplicationProject.UserControls.AnalysisPageView
         public string AddExpenseText => GetLocalizedString(AddExpenseTextKey);
         public string AddExpenseCategoryText => GetLocalizedString(AddExpenseCategoryTextKey);
         public string AddIncomeText => GetLocalizedString(AddIncomeTextKey);
+        public string AddIncomeCategoryText => GetLocalizedString(AddIncomeCategoryTextKey);
+        public string TotalExpensesText => GetLocalizedString(TotalExpensesTextKey);
+        public string TotalIncomeText => GetLocalizedString(TotalIncomeTextKey);
+        public string ExpensesTableCategoryHeader => GetLocalizedString(ExpensesTableCategoryHeaderKey);
+        public string ExpensesTableDateHeader => GetLocalizedString(ExpensesTableDateHeaderKey);
+        public string IncomeTableCategoryHeader => GetLocalizedString(IncomeTableCategoryHeaderKey);
+        public string IncomeTableDateHeader => GetLocalizedString(IncomeTableDateHeaderKey);
 
         public event EventHandler AddExpenseAction;
         public event EventHandler AddExpenseCategoryAction;
         public event EventHandler AddIncomeAction;
+        public event EventHandler AddIncomeCategoryAction;
         public event AnalysisPageModeSelectedEventHandler ModeChanged;
         public event AnalysisPageIncomeEntrySelectedEventHandler IncomeEntrySelected;
         public event AnalysisPageExpenseEntrySelectedEventHandler ExpenseEntrySelected;
+
+
+        public decimal TotalExpenses
+        {
+            get => m_TotalExpenses;
+            set
+            {
+                m_TotalExpenses = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(TotalExpenses)));
+            }
+        }
+        private decimal m_TotalExpenses;
+
+        public decimal TotalIncome
+        {
+            get => m_TotalIncome;
+            set
+            {
+                m_TotalIncome = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(TotalIncome)));
+            }
+        }
+        private decimal m_TotalIncome;
 
         public IAnalysisPageView.AnalysisPageMode CurrentMode
         {
@@ -125,7 +163,7 @@ namespace ApplicationProject.UserControls.AnalysisPageView
         public ICollection<AnalysisPageIncomeDayEntry> IncomeDays { get; }
         public ICollection<AnalysisPageExpenseDayEntry> ExpensesDays { get; }
         public ICollection<AnalysisPageIncomeEntry> IncomeItems { get; }
-        public ICollection<AnalysisPageExpenseEntry> ExpenesItems { get; }
+        public ICollection<AnalysisPageExpenseEntry> ExpensesItems { get; }
         #endregion
 
         #region Methods
@@ -144,6 +182,10 @@ namespace ApplicationProject.UserControls.AnalysisPageView
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(AddExpenseCategoryText)));
 
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(AddIncomeText)));
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(AddIncomeCategoryText)));
+
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(TotalExpensesText)));
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(TotalIncomeText)));
         }
 
         private string GetLocalizedString(string key)
@@ -177,6 +219,11 @@ namespace ApplicationProject.UserControls.AnalysisPageView
             AddIncomeAction?.Invoke(this, EventArgs.Empty);
         }
 
+        private void AddIncomeCategoryButton_Click(object sender, RoutedEventArgs e)
+        {
+            AddIncomeCategoryAction?.Invoke(this, EventArgs.Empty);
+        }
+
         private void ExpensesList_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             ExpenseEntrySelected?.Invoke(this, new AnalysisPageExpenseEntrySelectedEventArgs((AnalysisPageExpenseEntry)ExpensesList.SelectedItem));
@@ -187,5 +234,6 @@ namespace ApplicationProject.UserControls.AnalysisPageView
             IncomeEntrySelected?.Invoke(this, new AnalysisPageIncomeEntrySelectedEventArgs((AnalysisPageIncomeEntry)IncomeList.SelectedItem));
         }
         #endregion
+
     }
 }

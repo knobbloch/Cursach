@@ -28,6 +28,7 @@ namespace ApplicationProject.UserControls.PlanPageView
         protected const string IncomeTableRealValueHeaderKey = "PAGE_PLAN_TAB_INCOME_TABLE_HEADER_REALVALUE";
         protected const string IncomeTablePlannedValueHeaderKey = "PAGE_PLAN_TAB_INCOME_TABLE_HEADER_PLANNEDVALUE";
         protected const string AddExpenseCategoryTextKey = "PAGE_PLAN_TAB_EXPENSES_BUTTON_ADDCATEGORY";
+        protected const string AddIncomeCategoryTextKey = "PAGE_PLAN_TAB_INCOME_BUTTON_ADDCATEGORY";
 
         public PlanPageView()
         {
@@ -87,29 +88,22 @@ namespace ApplicationProject.UserControls.PlanPageView
 
         #region IPlanPageView
         public string ExpensesTabName => GetLocalizedString(ExpensesTabNameKey);
-
         public string IncomeTabName => GetLocalizedString(IncomeTabNameKey);
-
         public string ExpensesTableNameHeader => GetLocalizedString(ExpensesTableNameHeaderKey);
-
         public string ExpensesTablePlannedValueHeader => GetLocalizedString(ExpensesTablePlannedValueHeaderKey);
-
         public string ExpensesTableRealValueHeader => GetLocalizedString(ExpensesTableRealValueHeaderKey);
-
         public string IncomeTableNameHeader => GetLocalizedString(IncomeTableNameHeaderKey);
-
         public string IncomeTablePlannedValueHeader => GetLocalizedString(IncomeTablePlannedValueHeaderKey);
-
         public string IncomeTableRealValueHeader => GetLocalizedString(IncomeTableRealValueHeaderKey);
-
         public string AddExpenseCategoryText => GetLocalizedString(AddExpenseCategoryTextKey);
+        public string AddIncomeCategoryText => GetLocalizedString(AddIncomeCategoryTextKey);
 
 
         public event EventHandler AddExpenseCategoryAction;
         public event PlanPageModeSelectedEventHandler ModeChanged;
         public event PlanPageIncomeEntrySelectedEventHandler IncomeEntrySelected;
         public event PlanPageExpenseEntrySelectedEventHandler ExpenseEntrySelected;
-
+        public event EventHandler AddIncomeCategoryAction;
         public IPlanPageView.PlanPageMode CurrentMode
         {
             get => m_CurrentMode;
@@ -177,6 +171,11 @@ namespace ApplicationProject.UserControls.PlanPageView
         private void IncomeList_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             IncomeEntrySelected?.Invoke(this, new PlanPageIncomeEntrySelectedEventArgs((PlanPageIncomeEntry)IncomeList.SelectedItem));
+        }
+
+        private void AddIncomeCategoryButton_Click(object sender, RoutedEventArgs e)
+        {
+            AddIncomeCategoryAction?.Invoke(this, EventArgs.Empty);
         }
         #endregion
     }

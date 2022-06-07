@@ -1,25 +1,13 @@
 ﻿using System;
-using System.ComponentModel;
 
 namespace ApplicationProjectViews.AnalysisPageView
 {
-    public class AnalysisPageIncomeDayEntry : INotifyPropertyChanged
+    public class AnalysisPageIncomeDayEntry
     {
-        public event PropertyChangedEventHandler PropertyChanged;
-
         /// <summary>
         /// The displayed value of this entry
         /// </summary>
-        public double Value
-        {
-            get => m_Value;
-            set
-            {
-                m_Value = value;
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Value)));
-            }
-        }
-        private double m_Value;
+        public double Value { get; init; }
 
         /// <summary>
         /// The text to display as the chart entry's title
@@ -28,19 +16,14 @@ namespace ApplicationProjectViews.AnalysisPageView
         public string PeriodTitle
         {
             get => m_PeriodTitle;
-            set
-            {
-                m_PeriodTitle = value ?? throw new ArgumentNullException(nameof(PeriodTitle));
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(PeriodTitle)));
-            }
+            init => m_PeriodTitle = value ?? throw new ArgumentNullException(nameof(PeriodTitle));
         }
         private string m_PeriodTitle;
 
-        public AnalysisPageIncomeDayEntry() : this("", 0) { }
-        public AnalysisPageIncomeDayEntry(string title, double value)
+        public AnalysisPageIncomeDayEntry()
         {
-            Value = value;
-            PeriodTitle = title;
+            Value = 0;
+            PeriodTitle = "";
         }
     }
 }

@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 
-using ApplicationProjectViews.DatedPageView;
-
 namespace ApplicationProjectViews.PlanPageView
 {
     public interface IPlanPageView : IBaseView
@@ -17,6 +15,10 @@ namespace ApplicationProjectViews.PlanPageView
         /// Is called when the "add expense category" action should be executed
         /// </summary>
         event EventHandler AddExpenseCategoryAction;
+        /// <summary>
+        /// Is called when the "add income category" action should be executed
+        /// </summary>
+        event EventHandler AddIncomeCategoryAction;
         /// <summary>
         /// Is called when the active mode is changed
         /// </summary>

@@ -110,7 +110,7 @@ namespace ApplicationProject.UserControls.DatedPageView
         #endregion
 
         #region IDatedPageView
-        public string DateRangeText => ConvertToDateRangeDisplay(DisplayedDateRange);
+        public string DateRangeText => ConvertToDateRangeDisplay(SelectedDateRange);
 
         public string PageNameTextKey
         {
@@ -125,20 +125,20 @@ namespace ApplicationProject.UserControls.DatedPageView
         public string PageNameText => GetLocalizedString(PageNameTextKey);
 
         public event DateRangeTypeSelectedEventHandler DateRangeTypeSelected;
-        public event DateRangeSelectedEventHandler DateRangeSelected;
+        public event EventHandler SelectedDateRangeChanged;
         public event EventHandler NextDateRangeSelected;
         public event EventHandler PreviousDateRangeSelected;
 
-        public DateRange DisplayedDateRange
+        public DateRange SelectedDateRange
         {
-            get => m_DisplayedDateRange;
+            get => m_SelectedDateRange;
             set
             {
-                m_DisplayedDateRange = value;
+                m_SelectedDateRange = value;
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(DateRangeText)));
             }
         }
-        private DateRange m_DisplayedDateRange;
+        private DateRange m_SelectedDateRange;
 
         public ICollection<DateRangeType> DateRangeTypes { get; }
 
@@ -176,14 +176,18 @@ namespace ApplicationProject.UserControls.DatedPageView
             get => m_Overlay;
             set
             {
-                m_Overlay = value ?? throw new ArgumentNullException(nameof(Overlay));
-                m_Overlay.BackgroundClick += Overlay_Click;
+                m_Overlay = value;
+
+                if (m_Overlay != null)
+                    m_Overlay.BackgroundClick += Overlay_Click;
             }
         }
 
         public void ClearOverlay()
         {
-            Overlay.RemoveElement(DateRangeSelectorRoot);
+            if (Overlay.Visible)
+                Overlay.RemoveElement(DateRangeSelectorRoot);
+
             Overlay.BackgroundClick -= Overlay_Click;
         }
         #endregion
@@ -249,7 +253,6 @@ namespace ApplicationProject.UserControls.DatedPageView
         {
             if (Overlay.Visible)
             {
-                m_Overlay.AddElement(DateRangeSelectorRoot);
                 DateRangeSelectorRoot.Height = DateRangeSelectorRoot.Width = DateRangeSelector.ActualWidth;
                 Overlay.MoveElement(DateRangeSelectorRoot, DateRangeSelector, new Point(CalendarOffset.X, CalendarOffset.Y + DateRangeSelector.ActualHeight));
             }
@@ -270,8 +273,13 @@ namespace ApplicationProject.UserControls.DatedPageView
         {
             if (sender == DateRangeSelectorCalendar)
             {
-                foreach (RangeSelectorCalendar.DateRange range in DateRangeSelectorCalendar.SelectedRanges)
-                    DateRangeSelected?.Invoke(this, new DateRangeSelectedEventArgs(new DateRange(range.Start, range.End)));
+                IEnumerator<RangeSelectorCalendar.DateRange> enumerator = DateRangeSelectorCalendar.SelectedRanges.GetEnumerator();
+                if (enumerator.MoveNext())
+                    SelectedDateRange = new DateRange(enumerator.Current.Start, enumerator.Current.End);
+
+                Overlay_Click(this, EventArgs.Empty);
+
+                SelectedDateRangeChanged?.Invoke(this, EventArgs.Empty);
             }
         }
         #endregion

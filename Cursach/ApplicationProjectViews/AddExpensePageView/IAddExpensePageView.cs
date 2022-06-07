@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 
-using ApplicationProjectViews.InterPageView;
-
 namespace ApplicationProjectViews.AddExpensePageView
 {
     public interface IAddExpensePageView : IBaseView
@@ -16,6 +14,11 @@ namespace ApplicationProjectViews.AddExpensePageView
         /// Is called when the user wants to stop adding a new category
         /// </summary>
         event EventHandler ExitAction;
+
+        /// <summary>
+        /// Is called when selectedDate is changed
+        /// </summary>
+        event EventHandler SelectedDateChanged;
 
         /// <summary>
         /// The name of the expense currently entered
@@ -38,6 +41,11 @@ namespace ApplicationProjectViews.AddExpensePageView
         ValueInputError CurrencyAmountError { set; }
 
         /// <summary>
+        /// The currently selected date for the expense
+        /// </summary>
+        DateTime SelectedDate { set; }
+
+        /// <summary>
         /// The categories to display to select from
         /// </summary>
         ICollection<CategoryDescriptor> ExpenseCategories { get; }
@@ -50,11 +58,11 @@ namespace ApplicationProjectViews.AddExpensePageView
         /// <summary>
         /// The bank accounts to display to select from
         /// </summary>
-        ICollection<BankAccountInfo> ExpenseBankAccounts { get; }
+        ICollection<BankAccountInfo> BankAccounts { get; }
 
         /// <summary>
         /// The currently selected bank account
         /// </summary>
-        BankAccountInfo SelectedExpenseBankAccount { get; set; }
+        BankAccountInfo SelectedBankAccount { get; set; }
     }
 }

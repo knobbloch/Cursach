@@ -13,7 +13,7 @@ namespace ApplicationProjectViews.DatedPageView
         /// <summary>
         /// Is called when a date range is selected for this page
         /// </summary>
-        event DateRangeSelectedEventHandler DateRangeSelected;
+        event EventHandler SelectedDateRangeChanged;
 
         /// <summary>
         /// Is called when the next date range should be set as active
@@ -28,7 +28,7 @@ namespace ApplicationProjectViews.DatedPageView
         /// <summary>
         /// Updates the displayed date range
         /// </summary>
-        DateRange DisplayedDateRange { set; }
+        DateRange SelectedDateRange { set; }
 
         /// <summary>
         /// Sets the allowed bounds for DateRange

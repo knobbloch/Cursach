@@ -123,6 +123,39 @@
   <data name="DATERANGE_TYPENAME_YEAR" xml:space="preserve">
     <value>Year</value>
   </data>
+  <data name="PAGE_ADDBANKACCOUNT_BUTTONADD_NAME" xml:space="preserve">
+    <value>Add</value>
+  </data>
+  <data name="PAGE_ADDBANKACCOUNT_BUTTONEXIT_NAME" xml:space="preserve">
+    <value>Back</value>
+  </data>
+  <data name="PAGE_ADDBANKACCOUNT_CURRENCYAMOUNTFIELD_NAME" xml:space="preserve">
+    <value>Current account balance:</value>
+  </data>
+  <data name="PAGE_ADDBANKACCOUNT_NAMEFIELD_NAME" xml:space="preserve">
+    <value>Account name:</value>
+  </data>
+  <data name="PAGE_ADDEXPENSECATEGORY_BUTTONADD_NAME" xml:space="preserve">
+    <value>Add</value>
+  </data>
+  <data name="PAGE_ADDEXPENSECATEGORY_BUTTONEXIT_NAME" xml:space="preserve">
+    <value>Back</value>
+  </data>
+  <data name="PAGE_ADDEXPENSECATEGORY_CATEGORYIMAGEPATH_NAME" xml:space="preserve">
+    <value>Image:</value>
+  </data>
+  <data name="PAGE_ADDEXPENSECATEGORY_CURRENCYAMOUNTFIELD_NAME" xml:space="preserve">
+    <value>Currency amount:</value>
+  </data>
+  <data name="PAGE_ADDEXPENSECATEGORY_IMAGESELECTOR_NAME" xml:space="preserve">
+    <value>Select image...</value>
+  </data>
+  <data name="PAGE_ADDEXPENSECATEGORY_NAME" xml:space="preserve">
+    <value>Add expense category</value>
+  </data>
+  <data name="PAGE_ADDEXPENSECATEGORY_NAMEFIELD_NAME" xml:space="preserve">
+    <value>Category name:</value>
+  </data>
   <data name="PAGE_ADDEXPENSE_BANKACCOUNTFIELD_NAME" xml:space="preserve">
     <value>Bank account:</value>
   </data>
@@ -135,6 +168,9 @@
   <data name="PAGE_ADDEXPENSE_CURRENCYAMOUNTFIELD_NAME" xml:space="preserve">
     <value>Currency amount:</value>
   </data>
+  <data name="PAGE_ADDEXPENSE_DATEFIELD_NAME" xml:space="preserve">
+    <value>Date:</value>
+  </data>
   <data name="PAGE_ADDEXPENSE_EXPENSECATEGORYFIELD_NAME" xml:space="preserve">
     <value>Expenses category:</value>
   </data>
@@ -143,6 +179,48 @@
   </data>
   <data name="PAGE_ADDEXPENSE_NAMEFIELD_NAME" xml:space="preserve">
     <value>Expense name:</value>
+  </data>
+  <data name="PAGE_ADDINCOMECATEGORY_BUTTONADD_NAME" xml:space="preserve">
+    <value>Add</value>
+  </data>
+  <data name="PAGE_ADDINCOMECATEGORY_BUTTONEXIT_NAME" xml:space="preserve">
+    <value>Back</value>
+  </data>
+  <data name="PAGE_ADDINCOMECATEGORY_CATEGORYIMAGEPATH_NAME" xml:space="preserve">
+    <value>Image:</value>
+  </data>
+  <data name="PAGE_ADDINCOMECATEGORY_CURRENCYAMOUNTFIELD_NAME" xml:space="preserve">
+    <value>Currency amount:</value>
+  </data>
+  <data name="PAGE_ADDINCOMECATEGORY_IMAGESELECTOR_NAME" xml:space="preserve">
+    <value>Select image...</value>
+  </data>
+  <data name="PAGE_ADDINCOMECATEGORY_NAME" xml:space="preserve">
+    <value>Add Income Category</value>
+  </data>
+  <data name="PAGE_ADDINCOMECATEGORY_NAMEFIELD_NAME" xml:space="preserve">
+    <value>Category name:</value>
+  </data>
+  <data name="PAGE_ADDINCOME_BANKACCOUNTFIELD_NAME" xml:space="preserve">
+    <value>Bank account:</value>
+  </data>
+  <data name="PAGE_ADDINCOME_BUTTONADD_NAME" xml:space="preserve">
+    <value>Add</value>
+  </data>
+  <data name="PAGE_ADDINCOME_BUTTONEXIT_NAME" xml:space="preserve">
+    <value>Back</value>
+  </data>
+  <data name="PAGE_ADDINCOME_CURRENCYAMOUNTFIELD_NAME" xml:space="preserve">
+    <value>Currency amount:</value>
+  </data>
+  <data name="PAGE_ADDINCOME_DATEFIELD_NAME" xml:space="preserve">
+    <value>Date:</value>
+  </data>
+  <data name="PAGE_ADDINCOME_INCOMECATEGORYFIELD_NAME" xml:space="preserve">
+    <value>Income category:</value>
+  </data>
+  <data name="PAGE_ADDINCOME_NAMEFIELD_NAME" xml:space="preserve">
+    <value>Income name:</value>
   </data>
   <data name="PAGE_ANALYSIS_BUTTON_ANALYSIS" xml:space="preserve">
     <value>Analysis</value>
@@ -162,6 +240,12 @@
   <data name="PAGE_ANALYSIS_TAB_EXPENSES_NAME" xml:space="preserve">
     <value>Expenses</value>
   </data>
+  <data name="PAGE_ANALYSIS_TAB_EXPENSES_TABLE_HEADER_CATEGORY" xml:space="preserve">
+    <value>Category</value>
+  </data>
+  <data name="PAGE_ANALYSIS_TAB_EXPENSES_TABLE_HEADER_DATE" xml:space="preserve">
+    <value>Date</value>
+  </data>
   <data name="PAGE_ANALYSIS_TAB_EXPENSES_TABLE_HEADER_NAME" xml:space="preserve">
     <value>Name</value>
   </data>
@@ -171,14 +255,29 @@
   <data name="PAGE_ANALYSIS_TAB_INCOME_BUTTON_ADD" xml:space="preserve">
     <value>Add income</value>
   </data>
+  <data name="PAGE_ANALYSIS_TAB_INCOME_BUTTON_ADDCATEGORY" xml:space="preserve">
+    <value>Add income category</value>
+  </data>
   <data name="PAGE_ANALYSIS_TAB_INCOME_NAME" xml:space="preserve">
     <value>Income</value>
+  </data>
+  <data name="PAGE_ANALYSIS_TAB_INCOME_TABLE_HEADER_CATEGORY" xml:space="preserve">
+    <value>Category</value>
+  </data>
+  <data name="PAGE_ANALYSIS_TAB_INCOME_TABLE_HEADER_DATE" xml:space="preserve">
+    <value>Date</value>
   </data>
   <data name="PAGE_ANALYSIS_TAB_INCOME_TABLE_HEADER_NAME" xml:space="preserve">
     <value>Name</value>
   </data>
   <data name="PAGE_ANALYSIS_TAB_INCOME_TABLE_HEADER_VALUE" xml:space="preserve">
     <value>Amount</value>
+  </data>
+  <data name="PAGE_ANALYSIS_TAB_INCOME_TOTALEXPENSES_NAME" xml:space="preserve">
+    <value>Total:</value>
+  </data>
+  <data name="PAGE_ANALYSIS_TAB_INCOME_TOTALINCOME_NAME" xml:space="preserve">
+    <value>Total:</value>
   </data>
   <data name="PAGE_INTER_BANKACCOUNTS_NAME" xml:space="preserve">
     <value>Bank Accounts:</value>
@@ -200,6 +299,9 @@
   </data>
   <data name="PAGE_PLAN_TAB_EXPENSES_TABLE_HEADER_REALVALUE" xml:space="preserve">
     <value>Actual amount</value>
+  </data>
+  <data name="PAGE_PLAN_TAB_INCOME_BUTTON_ADDCATEGORY" xml:space="preserve">
+    <value>Add income category</value>
   </data>
   <data name="PAGE_PLAN_TAB_INCOME_NAME" xml:space="preserve">
     <value>Income</value>
