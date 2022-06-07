@@ -8,33 +8,40 @@ using Microsoft.Data.Sqlite;
 
 namespace WpfMishaLibrary
 {
-    class DbInitializer
+    /// <summary>
+    /// Checks if .db file is created. Checks databes' tables
+    /// </summary>
+    internal class DbInitializer
     {
-        // 1. Check file if exists
-        // 2. Check tables if created
         // Dictionary for initializing tables of the database
         public Dictionary<string, string> tableCreateCommands = new()
         {
-            { "Card", "CREATE TABLE 'Card' ( 'Id' INTEGER NOT NULL UNIQUE, 'Balance'	REAL DEFAULT 0, 'Name' TEXT NOT NULL, PRIMARY KEY('Id' AUTOINCREMENT) )" },
-            { "ExpenditureCategory", "CREATE TABLE IF NOT EXISTS 'ExpenditureCategory' ( 'Id' INTEGER NOT NULL UNIQUE, 'Name' VARCHAR NOT NULL, PRIMARY KEY('Id' AUTOINCREMENT) )" },
-            { "FactExpenditure", "CREATE TABLE 'FactExpenditure' ( 'FactExpenditureId'	INTEGER NOT NULL UNIQUE, 'Date'	TEXT NOT NULL, 'Sum'	REAL DEFAULT 0 CHECK('Sum' >= 0), 'ExpenditureCategoryCategoryId'	INTEGER NOT NULL DEFAULT 1, 'CardId'	INTEGER DEFAULT 1, PRIMARY KEY('FactExpenditureId' AUTOINCREMENT), FOREIGN KEY('CardId') REFERENCES 'Card'('Id') ON DELETE SET DEFAULT )" },
-            { "FactIncome", "CREATE TABLE 'FactIncome' ( 'FactIncomeId'	INTEGER NOT NULL UNIQUE, 'Date'	TEXT NOT NULL, 'Sum'	REAL DEFAULT 0 CHECK('Sum' >= 0), 'IncomeCategoryId'	INTEGER NOT NULL DEFAULT 1, 'CardId'	INTEGER DEFAULT 1, PRIMARY KEY('FactIncomeId' AUTOINCREMENT), FOREIGN KEY('CardId') REFERENCES 'Card'('Id') ON DELETE SET DEFAULT )" },
-            { "IncomeCategory", "CREATE TABLE 'IncomeCategory' ( 'Id'	INTEGER NOT NULL UNIQUE, 'Name'	VARCHAR NOT NULL, PRIMARY KEY('Id' AUTOINCREMENT) )" },
-            { "PlanExpenditure", "CREATE TABLE 'PlanExpenditure' ( 'PlanExId'	INTEGER NOT NULL UNIQUE, 'BeginDate'	TEXT NOT NULL, 'EndDate'	TEXT NOT NULL, 'Sum'	REAL DEFAULT 0 CHECK('Sum'>=0), 'CategoryId'	INTEGER NOT NULL DEFAULT 1, PRIMARY KEY('PlanExId' AUTOINCREMENT), FOREIGN KEY('CategoryId') REFERENCES 'ExpenditureCategory'('Id') ON DELETE SET DEFAULT )" },
-            { "PlanIncome", "CREATE TABLE 'PlanIncome' ( 'PlanInId'	INTEGER NOT NULL UNIQUE, 'BeginDate'	TEXT NOT NULL, 'EndDate'	TEXT NOT NULL, 'Sum'	REAL CHECK('Sum'>=0), 'CategoryId'	INTEGER NOT NULL DEFAULT 1, PRIMARY KEY('PlanInId' AUTOINCREMENT), FOREIGN KEY('CategoryId') REFERENCES 'IncomeCategory'('Id') ON DELETE SET DEFAULT )" }
+            { "Card", "CREATE TABLE 'Card' ( 'Id'	INTEGER NOT NULL UNIQUE, 'CardName'	TEXT NOT NULL DEFAULT 'No name' UNIQUE, 'Balance'	REAL DEFAULT 0, PRIMARY KEY('Id' AUTOINCREMENT) )" },
+            { "FactExpenditure", "CREATE TABLE 'FactExpenditure' ( 'FactExpenditureId'	INTEGER NOT NULL UNIQUE, 'ExpenditureName'	TEXT, 'FactExpenditureCategory'	TEXT NOT NULL DEFAULT 'No category', 'Sum'	REAL DEFAULT 0 CHECK('Sum' >= 0), 'Date'	INTEGER NOT NULL, 'CardName'	TEXT NOT NULL DEFAULT 'No card', PRIMARY KEY('FactExpenditureId' AUTOINCREMENT), FOREIGN KEY('FactExpenditureCategory') REFERENCES 'PlanExpenditure'('ExpenditureCategory') ON DELETE SET DEFAULT, FOREIGN KEY('CardName') REFERENCES 'Card'('CardName') ON DELETE SET DEFAULT )" },
+            { "FactIncome", "CREATE TABLE 'FactIncome' ( 'FactIncomeId'	INTEGER NOT NULL UNIQUE, 'FactIncomeName'	TEXT, 'FactIncomeCategory'	TEXT NOT NULL DEFAULT 'No category', 'Sum'	REAL DEFAULT 0 CHECK('Sum' >= 0), 'Date'	INTEGER NOT NULL, 'CardName'	TEXT NOT NULL DEFAULT 'No card', FOREIGN KEY('CardName') REFERENCES 'Card'('CardName') ON DELETE SET DEFAULT, FOREIGN KEY('FactIncomeCategory') REFERENCES 'PlanIncome'('IncomeCategory') ON DELETE SET DEFAULT, PRIMARY KEY('FactIncomeId' AUTOINCREMENT) )" },
+            { "PlanExpenditure", "CREATE TABLE 'PlanExpenditure' ( 'PlanExId'	INTEGER NOT NULL UNIQUE, 'ExpenditureCategory'	TEXT NOT NULL DEFAULT 'No category' UNIQUE, 'Sum'	REAL DEFAULT 0 CHECK('Sum' >= 0), 'BeginDate'	INTEGER NOT NULL, 'EndDate'	INTEGER NOT NULL, 'PlanExpenditureImagePath'	TEXT, PRIMARY KEY('PlanExId' AUTOINCREMENT) )" },
+            { "PlanIncome", "CREATE TABLE 'PlanIncome' ( 'PlanInId'	INTEGER NOT NULL UNIQUE, 'IncomeCategory'	TEXT NOT NULL DEFAULT 'No category' UNIQUE, 'Sum'	REAL DEFAULT 0 CHECK('Sum' >= 0), 'BeginDate'	INTEGER NOT NULL, 'EndDate'	INTEGER NOT NULL, 'PlanIncomeImagePath'	TEXT, PRIMARY KEY('PlanInId' AUTOINCREMENT) )" }
         };
         public string DbPath { get; private set; }
-        public DbInitializer(string dbPath) => DbPath = dbPath;
+        public string DbConnectionString { get; private set; }
+        public DbInitializer(string dbPath, string dbConnectionString)
+        {
+            DbConnectionString = dbConnectionString;
+            DbPath = dbPath;
+        }
         public void Initialize(DbWorker dbWorker) 
         {
-            // SELECT name FROM sqlite_master WHERE type='table' AND name='table_name';
-            // tableCreateCommands.Keys
-            // Check db file
             try
             {
+                // Gets the directoy of the caller class, not directory of the library!
                 string path = Directory.GetCurrentDirectory();
-                if (!File.Exists("UserData.db")) 
-                    File.Create("UserData.db");
+                if (!File.Exists(dbWorker.DbPath))
+                {
+                    var fileStream = File.Create(dbWorker.DbPath);
+                    // Close stream after creating file so we can open it right after creating.
+                    fileStream.Close();
+                } 
+                // Checking tables or creating new
                 CheckIfTablesExist();
             }
             catch (Exception e)
@@ -42,15 +49,16 @@ namespace WpfMishaLibrary
                 Console.WriteLine("The process failed: {0}", e.ToString());
             }
         }
-        
+
         private void CheckIfTablesExist()
         {
-            using (var connection = new SqliteConnection(DbPath))
+            using (var connection = new SqliteConnection(DbConnectionString))
             {
                 connection.Open();
                 // As much iterations as number of tables
                 foreach (string tableName in tableCreateCommands.Keys)
                 {
+                    // Check expression. Returns table name if exists
                     string sqlExpression = $"SELECT name FROM sqlite_master WHERE type='table' AND name='{tableName}';";
                     SqliteCommand command = new SqliteCommand(sqlExpression, connection);
                     using (SqliteDataReader reader = command.ExecuteReader())
@@ -70,8 +78,8 @@ namespace WpfMishaLibrary
                         {
                             string sqlCreateTableExpression = tableCreateCommands[tableName];
                             SqliteCommand createTableComand = new(sqlCreateTableExpression, connection);
+                            // For checking the success of the operation
                             var result = createTableComand.ExecuteNonQuery();
-                            Console.WriteLine(result);
                         }
                     }
                 }
