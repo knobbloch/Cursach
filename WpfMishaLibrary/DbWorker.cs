@@ -44,31 +44,33 @@ namespace WpfMishaLibrary
         /// </returns>
         public ModelEditDataResultStates.ReturnCardState AddCard(string cardName, double balance)
         {
-            // Creating card object.
+            // Creating Card object.
             var cardObject = new Card
             {
-                CardName = cardName
+                CardName = cardName,
+                Balance = balance
             };
             // If card exists in table => returns ConstraintError type, else tries to add
             if (!CheckCardIfExists(cardObject))
             {
-                // Num of rows that where affected
+                // Num of rows that were affected
                 int numOfRows;
                 using (IDbConnection dbConnection = new SQLiteConnection(DbConnectionString))
                 {
                     numOfRows = dbConnection.Execute(DbQueries.insertCardQuery, cardObject);
                 }
                 // If inserted a row
-                if (numOfRows > 0)
-                    return ModelEditDataResultStates.ReturnCardState.Success;
-                // If not
-                else
-                    return ModelEditDataResultStates.ReturnCardState.ErrorTypeUnrecognized;
+                return numOfRows > 0 ? ModelEditDataResultStates.ReturnCardState.Success : ModelEditDataResultStates.ReturnCardState.ErrorTypeNameConstraint;
             }
             // If the same name is in the database
             else
                 return ModelEditDataResultStates.ReturnCardState.ErrorTypeNameConstraint;
         }
+        /// <summary>
+        /// Checks whether card exists in database.
+        /// </summary>
+        /// <param name="cardObject">Card to find.</param>
+        /// <returns>True, if card is in the database. Else false.</returns>
         private bool CheckCardIfExists(Card cardObject)
         {
             int numOfRows;
@@ -79,12 +81,65 @@ namespace WpfMishaLibrary
             }
             return (numOfRows > 0);
         }
-
-        public bool AddFactExpenditure(string expenditureName, string factExpenditureCategory, double sum, DateTime date, string cardName)
+        /// <summary>
+        /// Returns list of card objects from database
+        /// </summary>
+        /// <returns>List<Card> if Card table isn't empty. Else returns null. </card></returns>
+        public List<Card> GetCards()
         {
-            throw new NotImplementedException();
+            List<Card> cards;
+            using (IDbConnection dbConnection = new SQLiteConnection(DbConnectionString))
+            {
+                cards = dbConnection.Query<Card>(DbQueries.getCardQuery).ToList();
+            }
+            return cards;
         }
-
+        /// <summary>
+        /// Adds FactExpenditure record to the database
+        /// </summary>
+        /// <param name="expenditureName">User's label of the record</param>
+        /// <param name="factExpenditureCategory">Category from category list</param>
+        /// <param name="sum"></param>
+        /// <param name="date">Date of the expenditure</param>
+        /// <param name="cardName">Card from card list</param>
+        /// <returns>
+        /// Success: success!;
+        /// ErrorTypeNameConstraint: some constraint in database raised an error.
+        /// </returns>
+        public ModelEditDataResultStates.ReturnFactExpenditureState AddFactExpenditure(string expenditureName, string factExpenditureCategory, double sum, DateTime date, string cardName)
+        {
+            // Creating FactExpenditure object.
+            // CONVERTING DATETIME DATE TO TICKS, SO TYPEOF(DATE) = LONG
+            var factExpenditureObject = new FactExpenditure
+            {
+                ExpenditureName = expenditureName,
+                FactExpenditureCategory = factExpenditureCategory,
+                Sum = sum,
+                // DateTime to long.
+                Date = date.Ticks,
+                CardName = cardName
+            };
+            // Num of rows that were affected
+            int numOfRows;
+            using (IDbConnection dbConnection = new SQLiteConnection(DbConnectionString))
+            {
+                numOfRows = dbConnection.Execute(DbQueries.insertFactExpenditureQuery, factExpenditureObject);
+            }
+            return numOfRows > 0 ? ModelEditDataResultStates.ReturnFactExpenditureState.Success : ModelEditDataResultStates.ReturnFactExpenditureState.ErrorTypeNameConstraint;
+        }
+        /// <summary>
+        /// Returns list of factExpenditures objects from database
+        /// </summary>
+        /// <returns>List<FactExpenditure> if factExpenditure table isn't empty. Else returns null. </card></returns>
+        public List<FactExpenditure> GetFactExpenditures()
+        {
+            List<FactExpenditure> factExpenditures;
+            using (IDbConnection dbConnection = new SQLiteConnection(DbConnectionString))
+            {
+                factExpenditures = dbConnection.Query<FactExpenditure>(DbQueries.getFactExpenditureQuery).ToList();
+            }
+            return factExpenditures;
+        }
         public bool AddFactIncome(string incomeName, string factIncomeCategory, double sum, DateTime date, string cardName)
         {
             throw new NotImplementedException();

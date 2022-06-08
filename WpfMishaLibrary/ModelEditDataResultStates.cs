@@ -14,5 +14,10 @@ namespace WpfMishaLibrary
             ErrorTypeNameConstraint,
             ErrorTypeUnrecognized
         }
+        public enum ReturnFactExpenditureState
+        {
+            Success,
+            ErrorTypeNameConstraint
+        }
     }
 }
