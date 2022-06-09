@@ -19,6 +19,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\ApplicationProjectViews\ApplicationProjectViews.csproj" />
+    <ProjectReference Include="..\WpfLibrary\WpfLibrary.csproj" />
   </ItemGroup>
 
   <ItemGroup>

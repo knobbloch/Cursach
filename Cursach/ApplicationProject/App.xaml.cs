@@ -1,6 +1,7 @@
 ﻿using System.Windows;
 
 using ApplicationProjectViews;
+using WpfLibrary;
 
 namespace ApplicationProject
 {
@@ -20,6 +21,9 @@ namespace ApplicationProject
 
             ViewsFlowController.IInterPageViewInstance.AccountName = "Тест";
             ViewsFlowController.IDatedPageViewInstance.DateRangeTypes.Add(ApplicationProjectViews.DatedPageView.DateRangeType.MONTH);
+
+            Class1 test = new Class1(ViewsFlowController.IAnalysisPageViewInstance, ViewsFlowController.IDatedPageViewInstance, 
+                ViewsFlowController.IInterPageViewInstance, ViewsFlowController.IPlanPageViewInstance);
 
             _ = ViewsFlowController.Link();
             MainWindow.Show();
