@@ -28,7 +28,7 @@ namespace ApplicationProjectViews.DatedPageView
         /// <summary>
         /// Updates the displayed date range
         /// </summary>
-        DateRange SelectedDateRange { set; }
+        DateRange SelectedDateRange { get; set; }
 
         /// <summary>
         /// Sets the allowed bounds for DateRange

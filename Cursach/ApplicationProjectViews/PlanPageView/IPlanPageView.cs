@@ -44,6 +44,6 @@ namespace ApplicationProjectViews.PlanPageView
         /// <summary>
         /// Stores items which are used to build expenses table
         /// </summary>
-        public ICollection<PlanPageExpenseEntry> ExpenesItems { get; }
+        public ICollection<PlanPageExpenseEntry> ExpensesItems { get; }
     }
 }

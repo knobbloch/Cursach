@@ -38,7 +38,7 @@
                         <RowDefinition Height="30" />
                         <RowDefinition Height="Auto" />
                     </Grid.RowDefinitions>
-                    <uc:BarChart x:Name="ExpensesBarChart" ValueSource="Value" Height="300" Grid.Row="1">
+                    <uc:BarChart x:Name="ExpensesBarChart" BarsSource="{Binding ExpensesItems}" ValueSource="Value" Height="300" Grid.Row="1">
                         <uc:BarChart.BarTitleTemplate>
                             <DataTemplate>
                                 <Image Source="{Binding ImagePath}" MaxWidth="50" MaxHeight="50" Stretch="Uniform"/>
@@ -121,7 +121,7 @@
                         <RowDefinition Height="30" />
                         <RowDefinition Height="Auto" />
                     </Grid.RowDefinitions>
-                    <uc:BarChart x:Name="IncomeBarChart" ValueSource="Value" Height="300" Grid.Row="1">
+                    <uc:BarChart x:Name="IncomeBarChart"  BarsSource="{Binding IncomeItems}" ValueSource="Value" Height="300" Grid.Row="1">
                         <uc:BarChart.BarTitleTemplate>
                             <DataTemplate>
                                 <Viewbox>

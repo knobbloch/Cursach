@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:ApplicationProject.UserControls"
              mc:Ignorable="d" 
-             d:DesignHeight="150" d:DesignWidth="150" Height="{Binding ActualWidth}" MinWidth="150" MaxWidth="150" Background="White" DataContext="{Binding RelativeSource={RelativeSource Self}}">
+             d:DesignHeight="150" d:DesignWidth="150" Height="{Binding ActualWidth, RelativeSource={RelativeSource Self}}" MinWidth="150" MaxWidth="150" Background="White">
     <UserControl.Resources>
         <Style x:Key="HighlightOnHover" TargetType="Polygon">
             <Style.Triggers>
@@ -48,7 +48,7 @@
                     </Style.Triggers>
                 </Style>
             </TextBlock.Style>
-            <Run Text="{Binding LevelHeader, Mode=OneWay}" />
+            <Run Text="{Binding LevelHeader, RelativeSource={RelativeSource AncestorType=local:RangeSelectorCalendar}, Mode=OneWay}" />
         </TextBlock>
         <Polygon HorizontalAlignment="Center" VerticalAlignment="Center" Points="8,5 0,10 0,0" Margin="5" Grid.Row="1" Grid.Column="3" Style="{StaticResource HighlightOnHover}" MouseLeftButtonUp="NextGroup_MouseLeftButtonUp"/>
         <Border BorderBrush="Black" BorderThickness="1" Grid.Row="2" Grid.ColumnSpan="5"/>
@@ -100,13 +100,13 @@
             <Border Grid.Column="9" Grid.Row="1" BorderBrush="Black" BorderThickness="1" Grid.RowSpan="12" />
             <Border Grid.Column="11" Grid.Row="1" BorderBrush="Black" BorderThickness="1" Grid.RowSpan="12" />
 
-            <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Text="{Binding DayOneAbbreviation, Mode=OneWay}"/>
-            <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="2" Text="{Binding DayTwoAbbreviation, Mode=OneWay}"/>
-            <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="4" Text="{Binding DayThreeAbbreviation, Mode=OneWay}"/>
-            <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="6" Text="{Binding DayFourAbbreviation, Mode=OneWay}"/>
-            <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="8" Text="{Binding DayFiveAbbreviation, Mode=OneWay}"/>
-            <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="10" Text="{Binding DaySixAbbreviation, Mode=OneWay}"/>
-            <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="12" Text="{Binding DaySevenAbbreviation, Mode=OneWay}"/>
+            <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Text="{Binding DayOneAbbreviation, RelativeSource={RelativeSource AncestorType=local:RangeSelectorCalendar}, Mode=OneWay}"/>
+            <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="2" Text="{Binding DayTwoAbbreviation, RelativeSource={RelativeSource AncestorType=local:RangeSelectorCalendar}, Mode=OneWay}"/>
+            <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="4" Text="{Binding DayThreeAbbreviation, RelativeSource={RelativeSource AncestorType=local:RangeSelectorCalendar}, Mode=OneWay}"/>
+            <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="6" Text="{Binding DayFourAbbreviation, RelativeSource={RelativeSource AncestorType=local:RangeSelectorCalendar}, Mode=OneWay}"/>
+            <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="8" Text="{Binding DayFiveAbbreviation, RelativeSource={RelativeSource AncestorType=local:RangeSelectorCalendar}, Mode=OneWay}"/>
+            <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="10" Text="{Binding DaySixAbbreviation, RelativeSource={RelativeSource AncestorType=local:RangeSelectorCalendar}, Mode=OneWay}"/>
+            <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="12" Text="{Binding DaySevenAbbreviation, RelativeSource={RelativeSource AncestorType=local:RangeSelectorCalendar}, Mode=OneWay}"/>
             </Grid>
         <Grid Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="3" Name="MonthsYearsGrid" Visibility="Hidden">
             <Grid.ColumnDefinitions>

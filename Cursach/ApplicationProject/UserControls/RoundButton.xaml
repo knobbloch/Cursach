@@ -8,14 +8,14 @@
              d:DesignHeight="450" d:DesignWidth="450">
     <Button Background="Transparent" Click="OnClick" BorderThickness="0" Padding="0">
         <Button.Content>
-            <Grid Width="{Binding ActualWidth, RelativeSource={RelativeSource AncestorType=UserControl}}" Height="{Binding ActualHeight, RelativeSource={RelativeSource AncestorType=UserControl}}">
+            <Grid Width="{Binding ActualWidth, RelativeSource={RelativeSource AncestorType=local:RoundButton}}" Height="{Binding ActualHeight, RelativeSource={RelativeSource AncestorType=UserControl}}">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="*" />
                     <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
-                <Ellipse Fill="{Binding ButtonColor, RelativeSource={RelativeSource AncestorType=UserControl}}" Width="{Binding ActualHeight, RelativeSource={RelativeSource Self}}" />
-                <ContentControl Content="{Binding ButtonContent, RelativeSource={RelativeSource AncestorType=UserControl}}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-                <ContentControl Content="{Binding UnderContent, RelativeSource={RelativeSource AncestorType=UserControl}}" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Row="1" />
+                <Ellipse Fill="{Binding ButtonColor, RelativeSource={RelativeSource AncestorType=local:RoundButton}}" Width="{Binding ActualHeight, RelativeSource={RelativeSource Self}}" />
+                <ContentControl Content="{Binding ButtonContent, RelativeSource={RelativeSource AncestorType=local:RoundButton}}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                <ContentControl Content="{Binding UnderContent, RelativeSource={RelativeSource AncestorType=local:RoundButton}}" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Row="1" />
             </Grid>
         </Button.Content>
     </Button>
