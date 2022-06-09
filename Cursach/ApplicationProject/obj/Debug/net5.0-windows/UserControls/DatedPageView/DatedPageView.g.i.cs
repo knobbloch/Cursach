@@ -72,13 +72,14 @@ namespace ApplicationProject.UserControls.DatedPageView {
         /// InitializeComponent
         /// </summary>
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [System.CodeDom.Compiler.GeneratedCodeAttribute("PresentationBuildTasks", "5.0.13.0")]
+        [System.CodeDom.Compiler.GeneratedCodeAttribute("PresentationBuildTasks", "5.0.17.0")]
         public void InitializeComponent() {
             if (_contentLoaded) {
                 return;
             }
             _contentLoaded = true;
-            System.Uri resourceLocater = new System.Uri("/ApplicationProject;component/usercontrols/datedpageview/datedpageview.xaml", System.UriKind.Relative);
+            System.Uri resourceLocater = new System.Uri("/ApplicationProject;V1.0.0.0;component/usercontrols/datedpageview/datedpageview.x" +
+                    "aml", System.UriKind.Relative);
             
             #line 1 "..\..\..\..\..\UserControls\DatedPageView\DatedPageView.xaml"
             System.Windows.Application.LoadComponent(this, resourceLocater);
@@ -88,7 +89,7 @@ namespace ApplicationProject.UserControls.DatedPageView {
         }
         
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [System.CodeDom.Compiler.GeneratedCodeAttribute("PresentationBuildTasks", "5.0.13.0")]
+        [System.CodeDom.Compiler.GeneratedCodeAttribute("PresentationBuildTasks", "5.0.17.0")]
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
         [System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Design", "CA1033:InterfaceMethodsShouldBeCallableByChildTypes")]
         [System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Maintainability", "CA1502:AvoidExcessiveComplexity")]
