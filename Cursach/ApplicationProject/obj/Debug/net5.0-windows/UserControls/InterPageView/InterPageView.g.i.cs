@@ -102,8 +102,7 @@ namespace ApplicationProject.UserControls.InterPageView {
                 return;
             }
             _contentLoaded = true;
-            System.Uri resourceLocater = new System.Uri("/ApplicationProject;V1.0.0.0;component/usercontrols/interpageview/interpageview.x" +
-                    "aml", System.UriKind.Relative);
+            System.Uri resourceLocater = new System.Uri("/ApplicationProject;component/usercontrols/interpageview/interpageview.xaml", System.UriKind.Relative);
             
             #line 1 "..\..\..\..\..\UserControls\InterPageView\InterPageView.xaml"
             System.Windows.Application.LoadComponent(this, resourceLocater);

@@ -78,8 +78,7 @@ namespace ApplicationProject.UserControls.DatedPageView {
                 return;
             }
             _contentLoaded = true;
-            System.Uri resourceLocater = new System.Uri("/ApplicationProject;V1.0.0.0;component/usercontrols/datedpageview/datedpageview.x" +
-                    "aml", System.UriKind.Relative);
+            System.Uri resourceLocater = new System.Uri("/ApplicationProject;component/usercontrols/datedpageview/datedpageview.xaml", System.UriKind.Relative);
             
             #line 1 "..\..\..\..\..\UserControls\DatedPageView\DatedPageView.xaml"
             System.Windows.Application.LoadComponent(this, resourceLocater);

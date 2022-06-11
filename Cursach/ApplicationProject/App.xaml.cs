@@ -22,8 +22,16 @@ namespace ApplicationProject
             ViewsFlowController.IInterPageViewInstance.AccountName = "Тест";
             ViewsFlowController.IDatedPageViewInstance.DateRangeTypes.Add(ApplicationProjectViews.DatedPageView.DateRangeType.MONTH);
 
-            Class1 test = new Class1(ViewsFlowController.IAnalysisPageViewInstance, ViewsFlowController.IDatedPageViewInstance, 
-                ViewsFlowController.IInterPageViewInstance, ViewsFlowController.IPlanPageViewInstance);
+            PrezenterInitializer test = new PrezenterInitializer(ViewsFlowController.IAnalysisPageViewInstance,
+                                            ViewsFlowController.IDatedPageViewInstance,
+                                            ViewsFlowController.IInterPageViewInstance,
+                                            ViewsFlowController.IPlanPageViewInstance,
+
+                                            ViewsFlowController.IAddBankAccountPageViewInstance,            //IAddBankAccountPageView
+                                            ViewsFlowController.IAddExpenseCategoryPageViewInstance,        //IAddExpenseCategoryPageView
+                                            ViewsFlowController.IAddExpensePageViewInstance,                //IAddExpensePageView
+                                            ViewsFlowController.IAddIncomeCategoryPageViewInstance,         //IAddIncomeCategoryPageView
+                                            ViewsFlowController.IAddIncomePageViewInstance);                //IAddIncomePageView
 
             _ = ViewsFlowController.Link();
             MainWindow.Show();

@@ -69,7 +69,7 @@ namespace ApplicationProject.UserControls {
                 return;
             }
             _contentLoaded = true;
-            System.Uri resourceLocater = new System.Uri("/ApplicationProject;V1.0.0.0;component/usercontrols/rangeselectorcalendar.xaml", System.UriKind.Relative);
+            System.Uri resourceLocater = new System.Uri("/ApplicationProject;component/usercontrols/rangeselectorcalendar.xaml", System.UriKind.Relative);
             
             #line 1 "..\..\..\..\UserControls\RangeSelectorCalendar.xaml"
             System.Windows.Application.LoadComponent(this, resourceLocater);
