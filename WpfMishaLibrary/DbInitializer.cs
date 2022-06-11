@@ -69,8 +69,7 @@ namespace WpfMishaLibrary
                             // Read data by line
                             while (reader.Read())
                             {
-                                var res = reader.GetValue(0);
-                                Console.WriteLine(res);
+                                var log = reader.GetValue(0);
                             }
                         }
                         // If not - creates table
