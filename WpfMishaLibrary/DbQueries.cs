@@ -29,5 +29,19 @@ namespace WpfMishaLibrary
         public static readonly string getFactExpenditureQuery =
             $"SELECT * FROM FactExpenditure;";
         #endregion
+        #region FactIncome
+        public static readonly string insertFactIncomeQuery =
+            $"INSERT INTO FactIncome " +
+            $"(FactIncomeName, FactIncomeCategory, Sum, Date, CardName) " +
+            $"VALUES " +
+            $"(@{nameof(FactIncome.FactIncomeName)}, @{nameof(FactIncome.FactIncomeCategory)}, @{nameof(FactIncome.Sum)}, @{nameof(FactIncome.Date)}, @{nameof(FactIncome.CardName)});";
+        public static readonly string getFactIncomeQuery =
+            $"SELECT * FROM FactIncome;";
+        #endregion
+        #region PlanExpenditure
+        public static readonly string checkPlanExpenditureQuery =
+            $"SELECT * FROM PlanExpenditure" +
+            $" WHERE ExpenditureCategory = @{nameof(PlanExpenditure.ExpenditureCategory)};";
+        #endregion
     }
 }
