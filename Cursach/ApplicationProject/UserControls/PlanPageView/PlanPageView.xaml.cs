@@ -32,12 +32,12 @@ namespace ApplicationProject.UserControls.PlanPageView
 
         public PlanPageView()
         {
+            IncomeItems = new ObservableCollection<PlanPageIncomeEntry>();
+            ExpensesItems = new ObservableCollection<PlanPageExpenseEntry>();
+
             InitializeComponent();
 
             CurrentCulture = null;
-
-            IncomeBarChart.BarsSource = IncomeList.ItemsSource = IncomeItems = new ObservableCollection<PlanPageIncomeEntry>();
-            ExpensesBarChart.BarsSource = ExpensesList.ItemsSource = ExpenesItems = new ObservableCollection<PlanPageExpenseEntry>();
         }
 
         private CultureInfo m_CurrentCulture;
@@ -121,7 +121,7 @@ namespace ApplicationProject.UserControls.PlanPageView
         }
         private IPlanPageView.PlanPageMode m_CurrentMode;
         public ICollection<PlanPageIncomeEntry> IncomeItems { get; }
-        public ICollection<PlanPageExpenseEntry> ExpenesItems { get; }
+        public ICollection<PlanPageExpenseEntry> ExpensesItems { get; }
         #endregion
 
         #region Methods
