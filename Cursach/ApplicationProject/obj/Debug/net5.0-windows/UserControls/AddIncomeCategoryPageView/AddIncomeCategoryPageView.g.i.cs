@@ -54,8 +54,8 @@ namespace ApplicationProject.UserControls.AddIncomeCategoryPageView {
                 return;
             }
             _contentLoaded = true;
-            System.Uri resourceLocater = new System.Uri("/ApplicationProject;V1.0.0.0;component/usercontrols/addincomecategorypageview/add" +
-                    "incomecategorypageview.xaml", System.UriKind.Relative);
+            System.Uri resourceLocater = new System.Uri("/ApplicationProject;component/usercontrols/addincomecategorypageview/addincomecat" +
+                    "egorypageview.xaml", System.UriKind.Relative);
             
             #line 1 "..\..\..\..\..\UserControls\AddIncomeCategoryPageView\AddIncomeCategoryPageView.xaml"
             System.Windows.Application.LoadComponent(this, resourceLocater);

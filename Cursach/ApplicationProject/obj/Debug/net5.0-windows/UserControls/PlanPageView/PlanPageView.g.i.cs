@@ -126,8 +126,7 @@ namespace ApplicationProject.UserControls.PlanPageView {
                 return;
             }
             _contentLoaded = true;
-            System.Uri resourceLocater = new System.Uri("/ApplicationProject;V1.0.0.0;component/usercontrols/planpageview/planpageview.xam" +
-                    "l", System.UriKind.Relative);
+            System.Uri resourceLocater = new System.Uri("/ApplicationProject;component/usercontrols/planpageview/planpageview.xaml", System.UriKind.Relative);
             
             #line 1 "..\..\..\..\..\UserControls\PlanPageView\PlanPageView.xaml"
             System.Windows.Application.LoadComponent(this, resourceLocater);

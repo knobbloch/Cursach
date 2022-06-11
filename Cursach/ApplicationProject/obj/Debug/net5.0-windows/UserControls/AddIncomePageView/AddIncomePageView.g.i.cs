@@ -62,8 +62,8 @@ namespace ApplicationProject.UserControls.AddIncomePageView {
                 return;
             }
             _contentLoaded = true;
-            System.Uri resourceLocater = new System.Uri("/ApplicationProject;V1.0.0.0;component/usercontrols/addincomepageview/addincomepa" +
-                    "geview.xaml", System.UriKind.Relative);
+            System.Uri resourceLocater = new System.Uri("/ApplicationProject;component/usercontrols/addincomepageview/addincomepageview.xa" +
+                    "ml", System.UriKind.Relative);
             
             #line 1 "..\..\..\..\..\UserControls\AddIncomePageView\AddIncomePageView.xaml"
             System.Windows.Application.LoadComponent(this, resourceLocater);

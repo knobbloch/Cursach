@@ -54,8 +54,8 @@ namespace ApplicationProject.UserControls.AddExpenseCategoryPageView {
                 return;
             }
             _contentLoaded = true;
-            System.Uri resourceLocater = new System.Uri("/ApplicationProject;V1.0.0.0;component/usercontrols/addexpensecategorypageview/ad" +
-                    "dexpensecategorypageview.xaml", System.UriKind.Relative);
+            System.Uri resourceLocater = new System.Uri("/ApplicationProject;component/usercontrols/addexpensecategorypageview/addexpensec" +
+                    "ategorypageview.xaml", System.UriKind.Relative);
             
             #line 1 "..\..\..\..\..\UserControls\AddExpenseCategoryPageView\AddExpenseCategoryPageView.xaml"
             System.Windows.Application.LoadComponent(this, resourceLocater);

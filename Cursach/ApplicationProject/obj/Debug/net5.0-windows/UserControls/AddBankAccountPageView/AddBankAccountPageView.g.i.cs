@@ -54,8 +54,8 @@ namespace ApplicationProject.UserControls.AddBankAccountPageView {
                 return;
             }
             _contentLoaded = true;
-            System.Uri resourceLocater = new System.Uri("/ApplicationProject;V1.0.0.0;component/usercontrols/addbankaccountpageview/addban" +
-                    "kaccountpageview.xaml", System.UriKind.Relative);
+            System.Uri resourceLocater = new System.Uri("/ApplicationProject;component/usercontrols/addbankaccountpageview/addbankaccountp" +
+                    "ageview.xaml", System.UriKind.Relative);
             
             #line 1 "..\..\..\..\..\UserControls\AddBankAccountPageView\AddBankAccountPageView.xaml"
             System.Windows.Application.LoadComponent(this, resourceLocater);

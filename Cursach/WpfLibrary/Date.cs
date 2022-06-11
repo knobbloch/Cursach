@@ -14,6 +14,7 @@ namespace WpfLibrary
 
         public Date(IDatedPageView date)
         {
+            //date.DispatchUpdate(view => { IDatedPageView dateView = (IDatedPageView)view; });
             date.DateRangeTypeSelected += ClickTypeSelected;
             date.SelectedDateRangeChanged += ClickDateRangeChanged;
             date.NextDateRangeSelected += ClickNEXTDateSelected;
@@ -25,46 +26,60 @@ namespace WpfLibrary
         }
         public void ClickTypeSelected(object source, DateRangeTypeSelectedEventArgs a)//месяц/год изменился
         {
-            ((IDatedPageView)source).SelectedRangeType = a.RangeType;
-            if (!dateType){
-                dateType = true;
-                ((IDatedPageView)source).SelectedDateRange = new DateRange(new DateTime(2022, 1, 1), new DateTime(2022, 12, 31));
-                currentDataRange = new DateRange(new DateTime(2022, 1, 1), new DateTime(2022, 12, 31));
-            }
-            else { 
-                dateType = false;
-                ((IDatedPageView)source).SelectedDateRange = new DateRange(new DateTime(2022, 6, 1), new DateTime(2022, 6, 30));
-                currentDataRange = new DateRange(new DateTime(2022, 6, 1), new DateTime(2022, 6, 30));
-            }
+            ((IDatedPageView)source).DispatchUpdate(view => {
+                IDatedPageView dateView = (IDatedPageView)view;
+                dateView.SelectedRangeType = a.RangeType;
+                if (!dateType)
+                {
+                    dateType = true;
+                    dateView.SelectedDateRange = new DateRange(new DateTime(2022, 1, 1), new DateTime(2022, 12, 31));
+                    currentDataRange = new DateRange(new DateTime(2022, 1, 1), new DateTime(2022, 12, 31));
+                }
+                else
+                {
+                    dateType = false;
+                    dateView.SelectedDateRange = new DateRange(new DateTime(2022, 6, 1), new DateTime(2022, 6, 30));
+                    currentDataRange = new DateRange(new DateTime(2022, 6, 1), new DateTime(2022, 6, 30));
+                }
+            });
         }
         public void ClickDateRangeChanged(object source, EventArgs a)//сам промежуток поменялся
         {
-            currentDataRange = ((IDatedPageView)source).SelectedDateRange;
+            ((IDatedPageView)source).DispatchUpdate(view => { IDatedPageView dateView = (IDatedPageView)view; currentDataRange = dateView.SelectedDateRange; });
         }
         public void ClickNEXTDateSelected(object source, EventArgs a)//стрелка вправо
         {
-            if (dateType) {
-                currentDataRange = new DateRange(currentDataRange.Start.AddYears(1), currentDataRange.End.AddYears(1));
-                ((IDatedPageView)source).SelectedDateRange = currentDataRange;
-            }
-            else
+            ((IDatedPageView)source).DispatchUpdate(view =>
             {
-                currentDataRange = new DateRange(currentDataRange.Start.AddMonths(1), currentDataRange.End.AddMonths(1)); 
-                ((IDatedPageView)source).SelectedDateRange = currentDataRange;
-            }
+                IDatedPageView dateView = (IDatedPageView)view;
+                if (dateType)
+                {
+                    currentDataRange = new DateRange(currentDataRange.Start.AddYears(1), currentDataRange.End.AddYears(1));
+                    dateView.SelectedDateRange = currentDataRange;
+                }
+                else
+                {
+                    currentDataRange = new DateRange(currentDataRange.Start.AddMonths(1), currentDataRange.End.AddMonths(1));
+                    dateView.SelectedDateRange = currentDataRange;
+                }
+            });
         }
         public void ClickPREVIOUSDateSelected(object source, EventArgs a)//стрелка влево
         {
-            if (dateType)
+            ((IDatedPageView)source).DispatchUpdate(view =>
             {
-                currentDataRange = new DateRange(currentDataRange.Start.AddYears(-1), currentDataRange.End.AddYears(-1));
-                ((IDatedPageView)source).SelectedDateRange = currentDataRange;
-            }
-            else
-            {
-                currentDataRange = new DateRange(currentDataRange.Start.AddMonths(-1), currentDataRange.End.AddMonths(-1));
-                ((IDatedPageView)source).SelectedDateRange = currentDataRange;
-            }
+                IDatedPageView dateView = (IDatedPageView)view;
+                if (dateType)
+                {
+                    currentDataRange = new DateRange(currentDataRange.Start.AddYears(-1), currentDataRange.End.AddYears(-1));
+                    dateView.SelectedDateRange = currentDataRange;
+                }
+                else
+                {
+                    currentDataRange = new DateRange(currentDataRange.Start.AddMonths(-1), currentDataRange.End.AddMonths(-1));
+                    dateView.SelectedDateRange = currentDataRange;
+                }
+            });
         }
-    }  
+    }
 }

@@ -62,8 +62,8 @@ namespace ApplicationProject.UserControls.AddExpensePageView {
                 return;
             }
             _contentLoaded = true;
-            System.Uri resourceLocater = new System.Uri("/ApplicationProject;V1.0.0.0;component/usercontrols/addexpensepageview/addexpense" +
-                    "pageview.xaml", System.UriKind.Relative);
+            System.Uri resourceLocater = new System.Uri("/ApplicationProject;component/usercontrols/addexpensepageview/addexpensepageview." +
+                    "xaml", System.UriKind.Relative);
             
             #line 1 "..\..\..\..\..\UserControls\AddExpensePageView\AddExpensePageView.xaml"
             System.Windows.Application.LoadComponent(this, resourceLocater);

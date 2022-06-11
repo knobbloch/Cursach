@@ -150,8 +150,8 @@ namespace ApplicationProject.UserControls.AnalysisPageView {
                 return;
             }
             _contentLoaded = true;
-            System.Uri resourceLocater = new System.Uri("/ApplicationProject;V1.0.0.0;component/usercontrols/analysispageview/analysispage" +
-                    "view.xaml", System.UriKind.Relative);
+            System.Uri resourceLocater = new System.Uri("/ApplicationProject;component/usercontrols/analysispageview/analysispageview.xaml" +
+                    "", System.UriKind.Relative);
             
             #line 1 "..\..\..\..\..\UserControls\AnalysisPageView\AnalysisPageView.xaml"
             System.Windows.Application.LoadComponent(this, resourceLocater);
