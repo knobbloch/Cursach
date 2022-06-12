@@ -1,6 +1,7 @@
 ﻿using System.Windows;
 
 using ApplicationProjectViews;
+using WpfLibrary;
 
 namespace ApplicationProject
 {
@@ -20,6 +21,17 @@ namespace ApplicationProject
 
             ViewsFlowController.IInterPageViewInstance.AccountName = "Тест";
             ViewsFlowController.IDatedPageViewInstance.DateRangeTypes.Add(ApplicationProjectViews.DatedPageView.DateRangeType.MONTH);
+
+            PrezenterInitializer test = new PrezenterInitializer(ViewsFlowController.IAnalysisPageViewInstance,
+                                            ViewsFlowController.IDatedPageViewInstance,
+                                            ViewsFlowController.IInterPageViewInstance,
+                                            ViewsFlowController.IPlanPageViewInstance,
+
+                                            ViewsFlowController.IAddBankAccountPageViewInstance,            //IAddBankAccountPageView
+                                            ViewsFlowController.IAddExpenseCategoryPageViewInstance,        //IAddExpenseCategoryPageView
+                                            ViewsFlowController.IAddExpensePageViewInstance,                //IAddExpensePageView
+                                            ViewsFlowController.IAddIncomeCategoryPageViewInstance,         //IAddIncomeCategoryPageView
+                                            ViewsFlowController.IAddIncomePageViewInstance);                //IAddIncomePageView
 
             _ = ViewsFlowController.Link();
             MainWindow.Show();
