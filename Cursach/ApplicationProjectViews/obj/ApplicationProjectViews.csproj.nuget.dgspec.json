@@ -1,33 +1,28 @@
 {
   "format": 1,
   "restore": {
-    "C:\\other\\hse\\prog\\курсовой\\Cursach\\ApplicationProjectViews\\ApplicationProjectViews.csproj": {}
+    "C:\\HSE\\Курсач\\Cursach\\ApplicationProjectViews\\ApplicationProjectViews.csproj": {}
   },
   "projects": {
-    "C:\\other\\hse\\prog\\курсовой\\Cursach\\ApplicationProjectViews\\ApplicationProjectViews.csproj": {
+    "C:\\HSE\\Курсач\\Cursach\\ApplicationProjectViews\\ApplicationProjectViews.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\other\\hse\\prog\\курсовой\\Cursach\\ApplicationProjectViews\\ApplicationProjectViews.csproj",
+        "projectUniqueName": "C:\\HSE\\Курсач\\Cursach\\ApplicationProjectViews\\ApplicationProjectViews.csproj",
         "projectName": "ApplicationProjectViews",
-        "projectPath": "C:\\other\\hse\\prog\\курсовой\\Cursach\\ApplicationProjectViews\\ApplicationProjectViews.csproj",
-        "packagesPath": "C:\\Users\\кноблоч\\.nuget\\packages\\",
-        "outputPath": "C:\\other\\hse\\prog\\курсовой\\Cursach\\ApplicationProjectViews\\obj\\",
+        "projectPath": "C:\\HSE\\Курсач\\Cursach\\ApplicationProjectViews\\ApplicationProjectViews.csproj",
+        "packagesPath": "C:\\Users\\user\\.nuget\\packages\\",
+        "outputPath": "C:\\HSE\\Курсач\\Cursach\\ApplicationProjectViews\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",
-          "C:\\Program Files (x86)\\Microsoft\\Xamarin\\NuGet\\"
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
         ],
         "configFilePaths": [
-          "C:\\Users\\кноблоч\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
+          "C:\\Users\\user\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net5.0"
         ],
         "sources": {
-          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -60,7 +55,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.408\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.404\\RuntimeIdentifierGraph.json"
         }
       }
     }
