@@ -7,7 +7,7 @@
              xmlns:core="clr-namespace:System;assembly=mscorlib"
              xmlns:uc="clr-namespace:ApplicationProject.UserControls"
              mc:Ignorable="d"
-             d:DesignHeight="800" d:DesignWidth="800" DataContext="{Binding RelativeSource={RelativeSource Self}}" Name="AnalysisPageViewRoot">
+             d:DesignHeight="800" d:DesignWidth="800" DataContext="{Binding RelativeSource={RelativeSource Self}}">
     <UserControl.Resources>
         <uc:FractionConverter x:Key="FractionConverter" />
         <uc:UniformTabSizeConverter x:Key="TabSizeConverter" />
@@ -45,7 +45,7 @@
                         <Run Text="{Binding TotalExpensesText, Mode=OneWay}" />
                         <Run Text="{Binding TotalExpenses}" />
                     </TextBlock>
-                    <uc:BarChart x:Name="ExpensesBarChart" ValueSource="Value" BarsSource="{Binding ExpensesDays, ElementName=AnalysisPageViewRoot}" Height="300" Grid.Row="3">
+                    <uc:BarChart x:Name="ExpensesBarChart" ValueSource="Value" BarsSource="{Binding ExpensesDays}" Height="300" Grid.Row="3">
                         <uc:BarChart.BarTitleTemplate>
                             <DataTemplate>
                                 <Viewbox>
@@ -147,9 +147,7 @@
                         <Run Text="{Binding TotalIncomeText, Mode=OneWay}" />
                         <Run Text="{Binding TotalIncome}" />
                     </TextBlock>
-                    <uc:BarChart x:Name="IncomeBarChart" ValueSource="Value" BarsSource="{Binding IncomeDays, ElementName=AnalysisPageViewRoot
-                        
-                        }" Height="300" Grid.Row="3">
+                    <uc:BarChart x:Name="IncomeBarChart" ValueSource="Value" BarsSource="{Binding IncomeDays}" Height="300" Grid.Row="3">
                         <uc:BarChart.BarTitleTemplate>
                             <DataTemplate>
                                 <Viewbox>
