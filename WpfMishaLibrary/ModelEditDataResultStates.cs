@@ -33,7 +33,17 @@ namespace WpfMishaLibrary
             // DateOfBegin > DateOfEnd
             ErrorTypeDateConstraint,
             // Plan expenditure name(category) is already in the table
-            ErrorTypeNameConstraint
+            ErrorTypeNameConstraint,
+            ErrorTypeUnrecognized
+        }
+        public enum ReturnPlanIncomeState
+        {
+            Success,
+            // DateOfBegin > DateOfEnd
+            ErrorTypeDateConstraint,
+            // Plan expenditure name(category) is already in the table
+            ErrorTypeNameConstraint,
+            ErrorTypeUnrecognized
         }
     }
 }

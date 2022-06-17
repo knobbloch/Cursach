@@ -4,12 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace WpfMishaLibrary.DbEntities
+namespace WpfMishaLibrary.VisibleEntities
 {
-    public abstract class Record
+    public abstract class DateRecordExtendedVisible
     {
         // Store date in db as INT format. Return date as DateTime and long.
-        public DateTime DateDateTime;
-        public long Date;
+        public DateTime BeginDateDateTime { get; set; }
+        public DateTime EndDateDateTime { get; set; }
     }
 }
