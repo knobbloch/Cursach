@@ -1,13 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.Data.Sqlite;
 using Dapper;
 using System.Data;
 using System.Data.SQLite;
 using WpfMishaLibrary.DbEntities;
+using WpfMishaLibrary.VisibleEntities;
 
 namespace WpfMishaLibrary
 {
@@ -81,7 +79,7 @@ namespace WpfMishaLibrary
         /// Success: success!;
         /// ErrorTypeSumConstraint: sum less than 0.
         /// </returns>
-        public ModelEditDataResultStates.ReturnFactExpenditureState AddFactExpenditure(string expenditureName, string factExpenditureCategory, double sum, DateTime date, string cardName)
+        public ModelEditDataResultStates.ReturnFactExpenditureState AddFactExpenditure(string expenditureName, string factExpenditureCategory, double sum, DateTime date, string cardName, PlanExpenditureVisible planExpenditureVisible)
         {
             // Creating FactExpenditure object.
             // CONVERTING DATETIME DATE TO TICKS, SO TYPEOF(DATE) = LONG
@@ -89,6 +87,7 @@ namespace WpfMishaLibrary
             {
                 ExpenditureName = expenditureName,
                 FactExpenditureCategory = factExpenditureCategory,
+                FactExpenditureCategoryId = ((PlanExpenditure)planExpenditureVisible).PlanExpenditureId,
                 Sum = sum,
                 // DateTime to long.
                 Date = date.Ticks,
@@ -114,12 +113,16 @@ namespace WpfMishaLibrary
         /// Success: success!;
         /// ErrorTypeSumConstraint: sum less than 0.
         /// </returns>
-        public ModelEditDataResultStates.ReturnFactIncomeState AddFactIncome(string incomeName, string factIncomeCategory, double sum, DateTime date, string cardName)
+        public ModelEditDataResultStates.ReturnFactIncomeState AddFactIncome(string incomeName, string factIncomeCategory, double sum, DateTime date, string cardName, PlanIncome planIncomeVisible)
         {
+            int factIncomeCategoryId = planIncomeVisible.PlanIncomeId;
+
             var factIncomeObject = new FactIncome
             {
                 FactIncomeName = incomeName,
                 FactIncomeCategory = factIncomeCategory,
+                // Cast object to unpack Id
+                FactIncomeCategoryId = ((PlanIncome)planIncomeVisible).PlanIncomeId,
                 Sum = sum,
                 // DateTime to long.
                 Date = date.Ticks,
@@ -133,6 +136,20 @@ namespace WpfMishaLibrary
             }
             return numOfRows > 0 ? ModelEditDataResultStates.ReturnFactIncomeState.Success : ModelEditDataResultStates.ReturnFactIncomeState.ErrorTypeSumConstraint;
         }
+        /// <summary>
+        /// Adds PlanExpenditure to the database
+        /// </summary>
+        /// <param name="expenditureCategory"> Category </param>
+        /// <param name="sum"> Has to be more than 0 or equal 0 </param>
+        /// <param name="beginDate"> Value of begin date is less than value of endDate</param>
+        /// <param name="endDate"> Value of endDate is more than value of beginDate </param>
+        /// <param name="planExpenditureImagePath"> Src to image's local path </param>
+        /// <returns>
+        /// Success : success!;
+        /// ErrorTypeDateConstraint : DateOfBegin > DateOfEnd;
+        /// ErrorTypeNameConstraint : PlanExpenditure name(category) is already in the table;
+        /// ErrorTypeUnrecognized : call the tech guy....
+        /// </returns>
         public ModelEditDataResultStates.ReturnPlanExpenditureState AddPlanExpenditure(string expenditureCategory, double sum, DateTime beginDate, DateTime endDate, string planExpenditureImagePath)
         {
             // Creating PlanExpenditure object
@@ -144,7 +161,60 @@ namespace WpfMishaLibrary
                 EndDate = endDate.Ticks,
                 PlanExpenditureImagePath = planExpenditureImagePath
             };
-            throw new NotImplementedException("В разработке");
+            if (!CheckPlanExpenditureIfExists(planExpenditureObject))
+            {
+                if (!CheckDateBorder(beginDate, endDate))
+                    return ModelEditDataResultStates.ReturnPlanExpenditureState.ErrorTypeDateConstraint;
+                // Num of rows that were affected
+                int numOfRows;
+                using (IDbConnection dbConnection = new SQLiteConnection(DbConnectionString))
+                {
+                    numOfRows = dbConnection.Execute(DbQueries.insertPlanExpenditureQuery, planExpenditureObject);
+                }
+                return numOfRows > 0 ? ModelEditDataResultStates.ReturnPlanExpenditureState.Success : ModelEditDataResultStates.ReturnPlanExpenditureState.ErrorTypeUnrecognized;
+            }
+            else
+                return ModelEditDataResultStates.ReturnPlanExpenditureState.ErrorTypeNameConstraint;
+        }
+        /// <summary>
+        /// Adds PlanIncome to the database
+        /// </summary>
+        /// <param name="incomeCategory"> Category </param>
+        /// <param name="sum"> Has to be more than 0 or equal 0 </param>
+        /// <param name="beginDate"> Value of begin date is less than value of endDate</param>
+        /// <param name="endDate"> Value of endDate is more than value of beginDate </param>
+        /// <param name="planIncomeImagePath"> Src to image's local path </param>
+        /// <returns>
+        /// Success : success!;
+        /// ErrorTypeDateConstraint : DateOfBegin > DateOfEnd;
+        /// ErrorTypeNameConstraint : PlanIncome name(category) is already in the table;
+        /// ErrorTypeUnrecognized : call the tech guy....
+        /// </returns>
+        public ModelEditDataResultStates.ReturnPlanIncomeState AddPlanIncome(string incomeCategory, double sum, DateTime beginDate, DateTime endDate, string planIncomeImagePath)
+        {
+            // Creating PlanIncome object
+            var planIncomeObject = new PlanIncome
+            {
+                IncomeCategory = incomeCategory,
+                Sum = sum,
+                BeginDate = beginDate.Ticks,
+                EndDate = endDate.Ticks,
+                PlanIncomeImagePath = planIncomeImagePath
+            };
+            if (!CheckPlanIncomeIfExists(planIncomeObject))
+            {
+                if (!CheckDateBorder(beginDate, endDate))
+                    return ModelEditDataResultStates.ReturnPlanIncomeState.ErrorTypeDateConstraint;
+                // Num of rows that were affected
+                int numOfRows;
+                using (IDbConnection dbConnection = new SQLiteConnection(DbConnectionString))
+                {
+                    numOfRows = dbConnection.Execute(DbQueries.insertPlanIncomeQuery, planIncomeObject);
+                }
+                return numOfRows > 0 ? ModelEditDataResultStates.ReturnPlanIncomeState.Success : ModelEditDataResultStates.ReturnPlanIncomeState.ErrorTypeUnrecognized;
+            }
+            else
+                return ModelEditDataResultStates.ReturnPlanIncomeState.ErrorTypeNameConstraint;
         }
         #endregion
         #region ReturnMethods
@@ -152,12 +222,12 @@ namespace WpfMishaLibrary
         /// Returns list of card objects from database
         /// </summary>
         /// <returns>List typeof(Card) if Card table isn't empty. Else returns empty list.</returns>
-        public List<Card> GetCards()
+        public List<CardVisible> GetCards()
         {
-            List<Card> cards;
+            List<CardVisible> cards;
             using (IDbConnection dbConnection = new SQLiteConnection(DbConnectionString))
             {
-                cards = dbConnection.Query<Card>(DbQueries.getCardQuery).ToList();
+                cards = dbConnection.Query<Card>(DbQueries.getCardQuery).Select(x => x as CardVisible).ToList();
             }
             return cards;
         }
@@ -165,54 +235,104 @@ namespace WpfMishaLibrary
         /// Returns list of factExpenditures objects from database
         /// </summary>
         /// <returns>List typeof(FactExpenditure) if factExpenditure table isn't empty. Else returns empty list.</returns>
-        public List<FactExpenditure> GetFactExpenditures()
+        public List<FactExpenditureVisible> GetFactExpenditures()
         {
-            List<FactExpenditure> factExpenditures;
+            List<FactExpenditureVisible> factExpenditures;
             using (IDbConnection dbConnection = new SQLiteConnection(DbConnectionString))
             {
-                factExpenditures = dbConnection.Query<FactExpenditure>(DbQueries.getFactExpenditureQuery).ToList();
+                // Gets IEnumerable<FactExpenditure>
+                // Transforms ticks to DateTime
+                // UpCast to FactExpenditureVisible
+                // Converting to List<FactExpenditureVisible>
+                factExpenditures = dbConnection.Query<FactExpenditure>(DbQueries.getFactExpenditureQuery)
+                    .Select(x => 
+                    { 
+                        x.DateDateTime =  new DateTime(x.Date);
+                        return x as FactExpenditureVisible; 
+                    }).ToList();
             }
             // Converting from ticks to DateTime format
-            foreach (var elem in factExpenditures)
-                elem.DateDateTime = new DateTime(elem.Date);
             return factExpenditures;
         }
         /// <summary>
         /// Returns list of FactIncomes objects from database
         /// </summary>
+        /// 
         /// <returns> 
         /// List typeof(FactIncome) if FactIncome table isn't empty. Else returns empty list.
         /// </returns>
-        public List<FactIncome> GetFactIncomes()
+        public List<FactIncomeVisible> GetFactIncomes()
         {
-            List<FactIncome> factIncomes;
+            List<FactIncomeVisible> factIncomes;
             using (IDbConnection dbConnection = new SQLiteConnection(DbConnectionString))
             {
-                factIncomes = dbConnection.Query<FactIncome>(DbQueries.getFactIncomeQuery).ToList();
+                // Gets IEnumerable<FactIncome>
+                // Transforms ticks to DateTime
+                // UpCast to FactIncomeVisible
+                // Converting to List<FactIncomeVisible>
+                factIncomes = dbConnection.Query<FactIncome>(DbQueries.getFactIncomeQuery)
+                    .Select(x => 
+                    { 
+                        x.DateDateTime = new DateTime(x.Date);
+                        return x as FactIncomeVisible;
+                    }).ToList();
             }
-            // Converting from ticks to DateTime format
-            foreach (var elem in factIncomes)
-                elem.DateDateTime = new DateTime(elem.Date);
             return factIncomes;
         }
-        #endregion
-        public bool AddPlanIncome(string incomeCategory, double sum, DateTime beginDate, DateTime endDate, string planIncomeImagePath)
+        /// <summary>
+        /// Returns list of PlanExpenditures objects from database
+        /// </summary>
+        /// 
+        /// <returns> 
+        /// List typeof(PlanExpenditures) if PlanExpenditure table isn't empty. Else returns empty list.
+        /// </returns>
+        public List<PlanExpenditureVisible> GetPlanExpenditures()
         {
-            throw new NotImplementedException();
-        }
-        #region PrivateMethods
-        private List<T> ConvertObjectDate<T>(List<T> objList)
-            where T : Record, IEnumerable<T>
-        {
-            foreach (var elem in objList)
-                elem.DateDateTime = new DateTime(elem.Date);
-            return objList;
+            List<PlanExpenditureVisible> planExpenditures;
+            using (IDbConnection dbConnection = new SQLiteConnection(DbConnectionString))
+            {
+                // Gets IEnumerable<PlanExpenditure>
+                // Transforms ticks to DateTime
+                // UpCast to PlanExpenditureVisible
+                // Converting to List<PlanExpenditureVisible>
+                planExpenditures = dbConnection.Query<PlanExpenditure>(DbQueries.getPlanExpenditureQuery)
+                    .Select(x => 
+                    {
+                        x.BeginDateDateTime = new DateTime(x.BeginDate);
+                        x.EndDateDateTime = new DateTime(x.EndDate);
+                        return x as PlanExpenditureVisible; 
+                    }).ToList();
+            }
+            return planExpenditures;
         }
         /// <summary>
-        /// Checks whether card exists in database.
+        /// Returns list of PlanIncomes objects from database
         /// </summary>
-        /// <param name="cardObject">Card to find.</param>
-        /// <returns>True, if card is in the database. Else false.</returns>
+        /// 
+        /// <returns> 
+        /// List typeof(PlanIncomes) if PlanIncome table isn't empty. Else returns empty list.
+        /// </returns>
+        public List<PlanIncomeVisible> GetPlanIncomes()
+        {
+            List<PlanIncomeVisible> planIncomes;
+            using (IDbConnection dbConnection = new SQLiteConnection(DbConnectionString))
+            {
+                // Gets IEnumerable<PlanIncome>
+                // Transforms ticks to DateTime
+                // UpCast to PlanIncomeVisible
+                // Converting to List<PlanIncomeVisible>
+                planIncomes = dbConnection.Query<PlanIncome>(DbQueries.getPlanIncomeQuery)
+                    .Select(x =>
+                    {
+                        x.BeginDateDateTime = new DateTime(x.BeginDate);
+                        x.EndDateDateTime = new DateTime(x.EndDate);
+                        return x as PlanIncomeVisible;
+                    }).ToList();
+            }
+            return planIncomes;
+        }
+        #endregion
+        #region PrivateMethods
         private bool CheckCardIfExists(Card cardObject)
         {
             int numOfRows;
@@ -226,8 +346,14 @@ namespace WpfMishaLibrary
         /// <summary>
         /// Checks whether PlanExpenditure(expenditure categoty) exists in database.
         /// </summary>
-        /// <param name="cardObject">PlanExpenditure to find.</param>
-        /// <returns>True, if PlanExpenditure is in the database. Else false.</returns>
+        /// 
+        /// <param name="planExpenditureObject">
+        /// PlanExpenditure to find.
+        /// </param>
+        /// 
+        /// <returns>
+        /// True, if PlanExpenditure is in the database. Else false.
+        /// </returns>
         private bool CheckPlanExpenditureIfExists(PlanExpenditure planExpenditureObject)
         {
             int numOfRows;
@@ -238,6 +364,38 @@ namespace WpfMishaLibrary
             }
             return (numOfRows > 0);
         }
+        /// <summary>
+        /// Checks whether PlanIncome(income categoty) exists in database.
+        /// </summary>
+        /// 
+        /// <param name="planIncomeObject">
+        /// PlanIncome to find.
+        /// </param>
+        /// 
+        /// <returns>
+        /// True, if PlanIncome is in the database. Else false.
+        /// </returns>
+        private bool CheckPlanIncomeIfExists(PlanIncome planIncomeObject)
+        {
+            int numOfRows;
+            using (IDbConnection dbConnection = new SQLiteConnection(DbConnectionString))
+            {
+                var planExpenditures = dbConnection.Query<PlanIncome>(DbQueries.checkPlanIncomeQuery, planIncomeObject);
+                numOfRows = planExpenditures.Count();
+            }
+            return (numOfRows > 0);
+        }
+        /// <summary>
+        /// t1 must be more than t2
+        /// </summary>
+        /// 
+        /// <param name="beginDate"></param>
+        /// <param name="endDate"></param>
+        /// 
+        /// <returns>
+        /// True, if t1 less than t2. Else false.
+        /// </returns>
+        private bool CheckDateBorder(DateTime beginDate, DateTime endDate) => beginDate <= endDate;
         #endregion
     }
 }
