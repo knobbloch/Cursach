@@ -37,8 +37,8 @@
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="30" />
                         <RowDefinition Height="Auto" />
-                        <RowDefinition Height="30" />
                         <RowDefinition Height="Auto" />
+                        <RowDefinition Height="30" />
                         <RowDefinition Height="Auto" />
                     </Grid.RowDefinitions>
                     <TextBlock Grid.Row="1" FontSize="30">
@@ -54,7 +54,7 @@
                             </DataTemplate>
                         </uc:BarChart.BarTitleTemplate>
                     </uc:BarChart>
-                    <ListView Name="ExpensesList" ItemsSource="{Binding ExpensesItems}" ScrollViewer.VerticalScrollBarVisibility="Auto" Grid.Row="5" SelectionChanged="ExpensesList_SelectionChanged">
+                    <ListView Name="ExpensesList" ItemsSource="{Binding ExpensesItems}" ScrollViewer.VerticalScrollBarVisibility="Auto" Grid.Row="8" SelectionChanged="ExpensesList_SelectionChanged">
                         <ListView.ItemContainerStyle>
                             <Style TargetType="ListViewItem">
                                 <Setter Property="HorizontalContentAlignment" Value="Stretch" />
@@ -107,7 +107,7 @@
                             </GridView>
                         </ListView.View>
                     </ListView>
-                    <Button Grid.Row="7" BorderThickness="0" Name="AddExpenseButton" Click="AddExpenseButton_Click" HorizontalContentAlignment="Left" Width="{Binding RelativeSource={RelativeSource AncestorType=ScrollViewer}, Path=ViewportWidth}" Background="Transparent">
+                    <Button Grid.Row="5" BorderThickness="0" Name="AddExpenseButton" Click="AddExpenseButton_Click" HorizontalContentAlignment="Left" Width="{Binding RelativeSource={RelativeSource AncestorType=ScrollViewer}, Path=ViewportWidth}" Background="Transparent">
                         <Button.Content>
                             <StackPanel Orientation="Horizontal">
                                 <Image Source="/Resources/plusSign.png"/>
@@ -115,7 +115,7 @@
                             </StackPanel>
                         </Button.Content>
                     </Button>
-                    <Button Grid.Row="8" BorderThickness="0" Name="AddExpenseCategoryButton" Click="AddExpenseCategoryButton_Click" HorizontalContentAlignment="Left" Width="{Binding RelativeSource={RelativeSource AncestorType=ScrollViewer}, Path=ViewportWidth}" Background="Transparent">
+                    <Button Grid.Row="6" BorderThickness="0" Name="AddExpenseCategoryButton" Click="AddExpenseCategoryButton_Click" HorizontalContentAlignment="Left" Width="{Binding RelativeSource={RelativeSource AncestorType=ScrollViewer}, Path=ViewportWidth}" Background="Transparent">
                         <Button.Content>
                             <StackPanel Orientation="Horizontal">
                                 <Image Source="/Resources/plusSign.png"/>
@@ -139,8 +139,8 @@
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="30" />
                         <RowDefinition Height="Auto" />
-                        <RowDefinition Height="30" />
                         <RowDefinition Height="Auto" />
+                        <RowDefinition Height="30" />
                         <RowDefinition Height="Auto" />
                     </Grid.RowDefinitions>
                     <TextBlock Grid.Row="1" FontSize="30">
@@ -156,7 +156,7 @@
                             </DataTemplate>
                         </uc:BarChart.BarTitleTemplate>
                     </uc:BarChart>
-                    <ListView Name="IncomeList" ItemsSource="{Binding IncomeItems}" ScrollViewer.VerticalScrollBarVisibility="Auto" Grid.Row="5" SelectionChanged="IncomeList_SelectionChanged">
+                    <ListView Name="IncomeList" ItemsSource="{Binding IncomeItems}" ScrollViewer.VerticalScrollBarVisibility="Auto" Grid.Row="8" SelectionChanged="IncomeList_SelectionChanged">
                         <ListView.ItemContainerStyle>
                             <Style TargetType="ListViewItem">
                                 <Setter Property="HorizontalContentAlignment" Value="Stretch" />
@@ -209,7 +209,7 @@
                             </GridView>
                         </ListView.View>
                     </ListView>
-                    <Button Grid.Row="7" BorderThickness="0" Name="AddIncomeButton" Click="AddIncomeButton_Click" HorizontalContentAlignment="Left" Width="{Binding RelativeSource={RelativeSource AncestorType=ScrollViewer}, Path=ViewportWidth}" Background="Transparent">
+                    <Button Grid.Row="5" BorderThickness="0" Name="AddIncomeButton" Click="AddIncomeButton_Click" HorizontalContentAlignment="Left" Width="{Binding RelativeSource={RelativeSource AncestorType=ScrollViewer}, Path=ViewportWidth}" Background="Transparent">
                         <Button.Content>
                             <StackPanel Orientation="Horizontal">
                                 <Image Source="/Resources/plusSign.png"/>
@@ -217,7 +217,7 @@
                             </StackPanel>
                         </Button.Content>
                     </Button>
-                    <Button Grid.Row="8" BorderThickness="0" Name="AddIncomeCategoryButton" Click="AddIncomeCategoryButton_Click" HorizontalContentAlignment="Left" Width="{Binding RelativeSource={RelativeSource AncestorType=ScrollViewer}, Path=ViewportWidth}" Background="Transparent">
+                    <Button Grid.Row="6" BorderThickness="0" Name="AddIncomeCategoryButton" Click="AddIncomeCategoryButton_Click" HorizontalContentAlignment="Left" Width="{Binding RelativeSource={RelativeSource AncestorType=ScrollViewer}, Path=ViewportWidth}" Background="Transparent">
                         <Button.Content>
                             <StackPanel Orientation="Horizontal">
                                 <Image Source="/Resources/plusSign.png"/>
