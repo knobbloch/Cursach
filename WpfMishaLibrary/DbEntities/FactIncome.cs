@@ -3,17 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using WpfMishaLibrary.VisibleEntities;
 
 namespace WpfMishaLibrary.DbEntities
 {
-    public class FactIncome: Record
+    public class FactIncome: FactIncomeVisible
     {
-        public string FactIncomeName { get; set; }
-        public string FactIncomeCategory { get; set; }
-        public double Sum { get; set; }
-        // Date stored with INT value in the database!!! Storing Ticks.
+        public int FactIncomeCategoryId { get; set; }
+        // Goes to the db as the number of Ticks (int)!!!
         public long Date { get; set; }
-        public DateTime DateDateTime { get; set; }
-        public string CardName { get; set; }
     }
 }
