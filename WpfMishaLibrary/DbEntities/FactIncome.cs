@@ -11,6 +11,6 @@ namespace WpfMishaLibrary.DbEntities
     {
         public int FactIncomeCategoryId { get; set; }
         // Goes to the db as the number of Ticks (int)!!!
-        public long Date;
+        public long Date { get; set; }
     }
 }
