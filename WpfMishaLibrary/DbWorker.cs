@@ -113,10 +113,8 @@ namespace WpfMishaLibrary
         /// Success: success!;
         /// ErrorTypeSumConstraint: sum less than 0.
         /// </returns>
-        public ModelEditDataResultStates.ReturnFactIncomeState AddFactIncome(string incomeName, string factIncomeCategory, double sum, DateTime date, string cardName, PlanIncome planIncomeVisible)
+        public ModelEditDataResultStates.ReturnFactIncomeState AddFactIncome(string incomeName, string factIncomeCategory, double sum, DateTime date, string cardName, PlanIncomeVisible planIncomeVisible)
         {
-            int factIncomeCategoryId = planIncomeVisible.PlanIncomeId;
-
             var factIncomeObject = new FactIncome
             {
                 FactIncomeName = incomeName,
