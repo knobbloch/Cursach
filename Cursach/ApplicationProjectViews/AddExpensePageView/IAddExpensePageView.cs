@@ -43,7 +43,7 @@ namespace ApplicationProjectViews.AddExpensePageView
         /// <summary>
         /// The currently selected date for the expense
         /// </summary>
-        DateTime SelectedDate { set; }
+        DateTime SelectedDate { get; set; }
 
         /// <summary>
         /// The categories to display to select from
