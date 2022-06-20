@@ -65,7 +65,7 @@
                 <ComboBox.ItemTemplate>
                     <DataTemplate>
                         <StackPanel Orientation="Horizontal">
-                            <Image Source="{Binding ImagePath}" Stretch="Uniform" />
+                            <Image Source="{Binding ImagePath}" Stretch="Uniform" MaxHeight="15"/>
                             <TextBlock Text="{Binding DisplayName}" />
                         </StackPanel>
                     </DataTemplate>
