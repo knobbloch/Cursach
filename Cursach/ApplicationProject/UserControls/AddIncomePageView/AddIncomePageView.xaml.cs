@@ -244,7 +244,7 @@ namespace ApplicationProject.UserControls.AddIncomePageView
             if (e.OriginalSource == DateSelector)
             {
                 Overlay.AddElement(DateSelectorRoot);
-                DateSelectorRoot.Height = DateSelectorRoot.Width = DateSelector.ActualWidth;
+                DateSelectorRoot.Height = DateSelectorRoot.Width = Math.Min(DateSelector.ActualWidth, 300);
                 Overlay.MoveElement(DateSelectorRoot, DateSelector, new Point(CalendarOffset.X, CalendarOffset.Y + DateSelector.ActualHeight));
                 Overlay.Visible = DateSelector.IsChecked ?? false;
                 DateSelectorRoot.Visibility = (DateSelector.IsChecked ?? false) ? Visibility.Visible : Visibility.Hidden;
@@ -262,7 +262,7 @@ namespace ApplicationProject.UserControls.AddIncomePageView
         {
             if (Overlay.Visible)
             {
-                DateSelectorRoot.Height = DateSelectorRoot.Width = DateSelector.ActualWidth;
+                DateSelectorRoot.Height = DateSelectorRoot.Width = Math.Min(DateSelector.ActualWidth, 300);
                 Overlay.MoveElement(DateSelectorRoot, DateSelector, new Point(CalendarOffset.X, CalendarOffset.Y + DateSelector.ActualHeight));
             }
         }
