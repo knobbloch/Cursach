@@ -79,19 +79,18 @@ namespace WpfMishaLibrary
         /// Success: success!;
         /// ErrorTypeSumConstraint: sum less than 0.
         /// </returns>
-        public ModelEditDataResultStates.ReturnFactExpenditureState AddFactExpenditure(string expenditureName, string factExpenditureCategory, double sum, DateTime date, string cardName, PlanExpenditureVisible planExpenditureVisible)
+        public ModelEditDataResultStates.ReturnFactExpenditureState AddFactExpenditure(string expenditureName, double sum, DateTime date, PlanExpenditureVisible planExpenditureVisible, CardVisible cardVisible)
         {
             // Creating FactExpenditure object.
             // CONVERTING DATETIME DATE TO TICKS, SO TYPEOF(DATE) = LONG
             var factExpenditureObject = new FactExpenditure
             {
                 ExpenditureName = expenditureName,
-                FactExpenditureCategory = factExpenditureCategory,
                 FactExpenditureCategoryId = ((PlanExpenditure)planExpenditureVisible).PlanExpenditureId,
                 Sum = sum,
                 // DateTime to long.
                 Date = date.Ticks,
-                CardName = cardName
+                CardId = ((Card)cardVisible).Id
             };
             // Num of rows that were affected
             int numOfRows;
@@ -99,7 +98,16 @@ namespace WpfMishaLibrary
             {
                 numOfRows = dbConnection.Execute(DbQueries.insertFactExpenditureQuery, factExpenditureObject);
             }
-            return numOfRows > 0 ? ModelEditDataResultStates.ReturnFactExpenditureState.Success : ModelEditDataResultStates.ReturnFactExpenditureState.ErrorTypeSumConstraint;
+            // Record was added successfully
+            if (numOfRows > 0)
+            {
+                // Subtracting 
+                cardVisible.Balance -= factExpenditureObject.Sum;
+                // Updating balance
+                return UpdateBalance(cardVisible) == true ? ModelEditDataResultStates.ReturnFactExpenditureState.Success : ModelEditDataResultStates.ReturnFactExpenditureState.ErrorTypeUpdatingBalance;
+            }
+            else
+                return ModelEditDataResultStates.ReturnFactExpenditureState.ErrorTypeUnrecognized;
         }
         /// <summary>
         /// Adds FactIncome record to the database
@@ -113,18 +121,17 @@ namespace WpfMishaLibrary
         /// Success: success!;
         /// ErrorTypeSumConstraint: sum less than 0.
         /// </returns>
-        public ModelEditDataResultStates.ReturnFactIncomeState AddFactIncome(string incomeName, string factIncomeCategory, double sum, DateTime date, string cardName, PlanIncomeVisible planIncomeVisible)
+        public ModelEditDataResultStates.ReturnFactIncomeState AddFactIncome(string incomeName, double sum, DateTime date, PlanIncomeVisible planIncomeVisible, CardVisible cardVisible)
         {
             var factIncomeObject = new FactIncome
             {
                 FactIncomeName = incomeName,
-                FactIncomeCategory = factIncomeCategory,
                 // Cast object to unpack Id
                 FactIncomeCategoryId = ((PlanIncome)planIncomeVisible).PlanIncomeId,
                 Sum = sum,
                 // DateTime to long.
                 Date = date.Ticks,
-                CardName = cardName
+                CardId = ((Card)cardVisible).Id
             };
             // Num of rows that were affected
             int numOfRows;
@@ -132,7 +139,15 @@ namespace WpfMishaLibrary
             {
                 numOfRows = dbConnection.Execute(DbQueries.insertFactIncomeQuery, factIncomeObject);
             }
-            return numOfRows > 0 ? ModelEditDataResultStates.ReturnFactIncomeState.Success : ModelEditDataResultStates.ReturnFactIncomeState.ErrorTypeSumConstraint;
+            if (numOfRows > 0)
+            {
+                // Subtracting 
+                cardVisible.Balance += factIncomeObject.Sum;
+                // Updating balance
+                return UpdateBalance(cardVisible) == true ? ModelEditDataResultStates.ReturnFactIncomeState.Success : ModelEditDataResultStates.ReturnFactIncomeState.ErrorTypeSumConstraint;
+            }
+            else
+                return ModelEditDataResultStates.ReturnFactIncomeState.ErrorTypeUnrecognized;
         }
         /// <summary>
         /// Adds PlanExpenditure to the database
@@ -225,7 +240,7 @@ namespace WpfMishaLibrary
             List<CardVisible> cards;
             using (IDbConnection dbConnection = new SQLiteConnection(DbConnectionString))
             {
-                cards = dbConnection.Query<Card>(DbQueries.getCardQuery).Select(x => x as CardVisible).ToList();
+                cards = dbConnection.Query<Card>(DbQueries.getCardsQuery).Select(x => x as CardVisible).ToList();
             }
             return cards;
         }
@@ -470,6 +485,16 @@ namespace WpfMishaLibrary
         }
 
         #endregion
+
+        #region Special methods
+
+        public void ClearTable(string tableName)
+        {
+            throw new NotImplementedException();
+        }
+
+        #endregion
+
         #region PrivateMethods
         private bool CheckCardIfExists(Card cardObject)
         {
@@ -534,6 +559,22 @@ namespace WpfMishaLibrary
         /// True, if t1 less than t2. Else false.
         /// </returns>
         private bool CheckDateBorder(DateTime beginDate, DateTime endDate) => beginDate <= endDate;
+        private bool UpdateBalance(CardVisible card)
+        {
+            // Casting to get Id
+            var cardObject = (Card)card;
+            // Getting values
+            int Id = cardObject.Id;
+            double Balance = cardObject.Balance;
+            int rows = 0;
+            // Udpating balance
+            using (IDbConnection dbConnection = new SQLiteConnection(DbConnectionString))
+            {
+                rows = dbConnection.Execute(DbQueries.updateCardBalance,
+                    param: new { Balance, Id });
+            }
+            return rows > 0;
+        }
 
         #endregion
     }

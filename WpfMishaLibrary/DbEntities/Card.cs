@@ -9,5 +9,6 @@ namespace WpfMishaLibrary.DbEntities
 {
     public class Card : CardVisible
     {
+        public int Id { get; set; }
     }
 }
