@@ -225,12 +225,16 @@ namespace ApplicationProject
                     {
                         _ = DatedPageViewInstance.Present(IAnalysisPageViewInstance);
                         DatedPageViewInstance.PageNameTextKey = AnalysisPageNameKey;
+                        if (InterPageViewInstance.PresentedView != IDatedPageViewInstance)
+                            _ = InterPageViewInstance.Present(IDatedPageViewInstance);
                         break;
                     }
                 case CategorySelectedEventArgs.CategoryType.Plan:
                     {
                         _ = DatedPageViewInstance.Present(IPlanPageViewInstance);
                         DatedPageViewInstance.PageNameTextKey = PlanPageNameKey;
+                        if (InterPageViewInstance.PresentedView != IDatedPageViewInstance)
+                            _ = InterPageViewInstance.Present(IDatedPageViewInstance);
                         break;
                     }
                 case CategorySelectedEventArgs.CategoryType.NewEntry:
