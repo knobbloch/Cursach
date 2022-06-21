@@ -84,7 +84,7 @@
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
             <Border Grid.Row="1" BorderThickness="2" BorderBrush="Black"/>
-            <TextBlock Grid.Row="2" Text="{Binding BankAccountsText}" Background="Azure"/>
+            <TextBlock Grid.Row="2" Text="{Binding BankAccountsText}" Background="Azure" FontSize="35"/>
             <ListView Grid.Row="3" x:Name="BankAccountsDisplayer" Background="Azure" Margin="0" Padding="0" BorderThickness="0" ScrollViewer.VerticalScrollBarVisibility="Auto">
                 <ListView.ItemContainerStyle>
                     <Style TargetType="ListViewItem">
@@ -104,10 +104,10 @@
                                 <RowDefinition Height="Auto"/>
                                 <RowDefinition Height="Auto"/>
                             </Grid.RowDefinitions>
-                            <TextBlock Text="{Binding AccountName}" FontWeight="Bold"/>
+                            <TextBlock Text="{Binding AccountName}" FontWeight="Bold" FontSize="35"/>
                             <TextBlock Grid.Row="1">
-                                <Run Text="{Binding AccountBalance}" FontWeight="Bold" />
-                                <Run Text="{Binding CurrencyIdentifier}" FontWeight="Bold" />
+                                <Run Text="{Binding AccountBalance}" FontWeight="Bold" FontSize="35"/>
+                                <Run Text="{Binding CurrencyIdentifier}" FontWeight="Bold" FontSize="35"/>
                             </TextBlock>
                             <Border Grid.Row="2" BorderThickness="2" BorderBrush="Black"/>
                         </Grid>

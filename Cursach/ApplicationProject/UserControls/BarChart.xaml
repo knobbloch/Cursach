@@ -15,7 +15,7 @@
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
                 <StackPanel Orientation="Vertical" VerticalAlignment="Bottom" Grid.Column="1">
-                    <TextBlock Foreground="Gray" Name="BarText" HorizontalAlignment="Center"/>
+                    <TextBlock Foreground="Gray" Name="BarText" HorizontalAlignment="Center" FontSize="{Binding FontSize, RelativeSource={RelativeSource AncestorType=UserControl}}"/>
                     <Rectangle Fill="Green" Width="50" Height="50" Name="BarRectangle"/>
                 </StackPanel>
             </Grid> 
@@ -29,7 +29,7 @@
                 </Grid.ColumnDefinitions>
                 <StackPanel Orientation="Vertical" Grid.Column="1">
                     <Rectangle Fill="Red" Width="50" Height="50" Name="BarRectangle"/>
-                    <TextBlock Foreground="Gray" Name="BarText" HorizontalAlignment="Center"/>
+                    <TextBlock Foreground="Gray" Name="BarText" HorizontalAlignment="Center" FontSize="{Binding FontSize, RelativeSource={RelativeSource AncestorType=UserControl}}"/>
                 </StackPanel>
             </Grid>
         </DataTemplate>
