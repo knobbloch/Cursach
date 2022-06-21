@@ -24,7 +24,7 @@ namespace ApplicationProjectViews.AddExpenseCategoryPageView
         /// <summary>
         /// ValueInputError for CategoryName
         /// </summary>
-        ValueInputError CategoryNameError { get; }
+        ValueInputError CategoryNameError { set; }
 
         /// <summary>
         /// A path to an image for the category
@@ -34,7 +34,7 @@ namespace ApplicationProjectViews.AddExpenseCategoryPageView
         /// <summary>
         /// ValueInputError for CategoryImagePath
         /// </summary>
-        ValueInputError CategoryImagePathError { get; }
+        ValueInputError CategoryImagePathError { set; }
 
         /// <summary>
         /// The planned amount of money
@@ -44,6 +44,6 @@ namespace ApplicationProjectViews.AddExpenseCategoryPageView
         /// <summary>
         /// ValueInputError for CurrencyAmount
         /// </summary>
-        ValueInputError CurrencyAmountError { get; }
+        ValueInputError CurrencyAmountError { set; }
     }
 }

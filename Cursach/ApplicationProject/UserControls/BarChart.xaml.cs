@@ -501,8 +501,9 @@ namespace ApplicationProject.UserControls
                 BarsGrid.Children.Remove(b.BarDisplay);
                 BarsGrid.Children.Remove(b.BarTitle);
             }
-
+            
             Bars.Clear();
+            BarsGrid.ColumnDefinitions.Clear();
 
             if (BarsSource != null)
             {
