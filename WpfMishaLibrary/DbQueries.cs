@@ -55,7 +55,7 @@ namespace WpfMishaLibrary
         #region PlanExpenditure
         public static readonly string checkPlanExpenditureQuery =
             $"SELECT * FROM PlanExpenditure" +
-            $" WHERE ExpenditureCategory = @{nameof(PlanExpenditure.ExpenditureCategory)};";
+            $" WHERE ExpenditureCategory = @{nameof(PlanExpenditure.ExpenditureCategory)} AND BeginDate = @{nameof(PlanExpenditure.BeginDate)} AND EndDate = @{nameof(PlanExpenditure.EndDate)};";
 
         public static readonly string insertPlanExpenditureQuery =
             $"INSERT INTO PlanExpenditure " +
@@ -72,7 +72,7 @@ namespace WpfMishaLibrary
 
         public static readonly string checkPlanIncomeQuery =
             $"SELECT * FROM PlanIncome" +
-            $" WHERE IncomeCategory = @{nameof(PlanIncome.IncomeCategory)};";
+            $" WHERE IncomeCategory = @{nameof(PlanIncome.IncomeCategory)} AND BeginDate = @{nameof(PlanIncome.BeginDate)} AND EndDate = @{nameof(PlanIncome.EndDate)};";
 
         public static readonly string insertPlanIncomeQuery =
             $"INSERT INTO PlanIncome " +
@@ -124,5 +124,6 @@ namespace WpfMishaLibrary
             $"WHERE Date >= @beginDate AND Date <= @endDate;";
 
         #endregion
+
     }
 }
