@@ -22,7 +22,7 @@ namespace ApplicationProjectViews.AddBankAccountPageView
         /// <summary>
         /// ValueInputError for AccountName
         /// </summary>
-        ValueInputError AccountNameError { get; }
+        ValueInputError AccountNameError { set; }
 
         /// <summary>
         /// The current amount of currency
@@ -32,6 +32,6 @@ namespace ApplicationProjectViews.AddBankAccountPageView
         /// <summary>
         /// ValueInputError for CurrencyAmount
         /// </summary>
-        ValueInputError CurrencyAmountError { get; }
+        ValueInputError CurrencyAmountError { set; }
     }
 }
