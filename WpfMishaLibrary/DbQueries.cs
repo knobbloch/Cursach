@@ -84,5 +84,45 @@ namespace WpfMishaLibrary
             $"SELECT * FROM PlanIncome;";
 
         #endregion
+
+        #region WHERE queries
+
+        // Date comes from method params
+        public static readonly string getPlanExpendituresSelectedDay =
+            $"SELECT * " +
+            $"FROM PlanExpenditure " +
+            $"WHERE BeginDate <= @date AND EndDate >= @date;";
+
+        // Date comes from method params
+        public static readonly string getPlanIncomesSelectedDay =
+            $"SELECT * " +
+            $"FROM PlanIncome " +
+            $"WHERE BeginDate <= @date AND EndDate >= @date;";
+
+        // beginDate and endDate come from method params
+        public static readonly string getPlanExpendituresDiapason =
+            $"SELECT * " +
+            $"FROM PlanExpenditure " +
+            $"WHERE BeginDate = @beginDate AND EndDate = @endDate;";
+
+        // beginDate and endDate come from method params
+        public static readonly string getPlanIncomesDiapason =
+            $"SELECT * " +
+            $"FROM PlanIncome " +
+            $"WHERE BeginDate = @beginDate AND EndDate = @endDate;";
+
+        // beginDate and endDate come from method params
+        public static readonly string getFactExpendituresDiapason =
+            $"SELECT * " +
+            $"FROM FactExpenditure " +
+            $"WHERE Date >= @beginDate AND Date <= @endDate;";
+
+        // beginDate and endDate come from method params
+        public static readonly string getFactIncomesDiapason =
+            $"SELECT * " +
+            $"FROM FactIncome " +
+            $"WHERE Date >= @beginDate AND Date <= @endDate;";
+
+        #endregion
     }
 }
