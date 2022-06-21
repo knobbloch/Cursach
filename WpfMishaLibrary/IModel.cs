@@ -11,8 +11,8 @@ namespace WpfMishaLibrary
     public interface IModel
     {
         public ModelEditDataResultStates.ReturnCardState AddCard(string cardName, double balance);
-        public ModelEditDataResultStates.ReturnFactExpenditureState AddFactExpenditure(string expenditureName, string factExpenditureCategory, double sum, DateTime date, string cardName, PlanExpenditureVisible planExpenditure);
-        public ModelEditDataResultStates.ReturnFactIncomeState AddFactIncome(string incomeName, string factIncomeCategory, double sum, DateTime date, string cardName, PlanIncomeVisible planIncome);
+        public ModelEditDataResultStates.ReturnFactExpenditureState AddFactExpenditure(string expenditureName, double sum, DateTime date, PlanExpenditureVisible planExpenditure, CardVisible card);
+        public ModelEditDataResultStates.ReturnFactIncomeState AddFactIncome(string incomeName, double sum, DateTime date, PlanIncomeVisible planIncome, CardVisible card);
         public ModelEditDataResultStates.ReturnPlanExpenditureState AddPlanExpenditure(string expenditureCategory, double sum, DateTime beginDate, DateTime endDate, string planExpenditureImagePath);
         public ModelEditDataResultStates.ReturnPlanIncomeState AddPlanIncome(string incomeCategory, double sum, DateTime beginDate, DateTime endDate, string planIncomeImagePath);
         // Returns all records from tables

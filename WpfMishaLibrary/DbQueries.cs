@@ -21,18 +21,20 @@ namespace WpfMishaLibrary
             $"(CardName, Balance) " +
             $"VALUES (@{nameof(Card.CardName)}, @{nameof(Card.Balance)});";
         
-        public static readonly string getCardQuery = 
+        public static readonly string getCardsQuery = 
             $"SELECT * FROM Card;";
 
+        public static readonly string updateCardBalance =
+            $"UPDATE Card SET Balance = @Balance WHERE Id = @Id;";
         #endregion
-        
+
         #region FactExpenditure
-        
+
         public static readonly string insertFactExpenditureQuery = 
             $"INSERT INTO FactExpenditure " +
-            $"(ExpenditureName, FactExpenditureCategory, FactExpenditureCategoryId, Sum, Date, CardName) " +
+            $"(ExpenditureName, FactExpenditureCategoryId, Sum, Date, CardId) " +
             $"VALUES " +
-            $"(@{nameof(FactExpenditure.ExpenditureName)}, @{nameof(FactExpenditure.FactExpenditureCategory)}, @{nameof(FactExpenditure.FactExpenditureCategoryId)}, @{nameof(FactExpenditure.Sum)}, @{nameof(FactExpenditure.Date)}, @{nameof(FactExpenditure.CardName)});";
+            $"(@{nameof(FactExpenditure.ExpenditureName)}, @{nameof(FactExpenditure.FactExpenditureCategoryId)}, @{nameof(FactExpenditure.Sum)}, @{nameof(FactExpenditure.Date)}, @{nameof(FactExpenditure.CardId)});";
         
         public static readonly string getFactExpenditureQuery =
             $"SELECT * FROM FactExpenditure;";
@@ -43,9 +45,9 @@ namespace WpfMishaLibrary
 
         public static readonly string insertFactIncomeQuery =
             $"INSERT INTO FactIncome " +
-            $"(FactIncomeName, FactIncomeCategory, FactIncomeCategoryId, Sum, Date, CardName) " +
+            $"(FactIncomeName, FactIncomeCategoryId, Sum, Date, CardId) " +
             $"VALUES " +
-            $"(@{nameof(FactIncome.FactIncomeName)}, @{nameof(FactIncome.FactIncomeCategory)}, @{nameof(FactIncome.FactIncomeCategoryId)}, @{nameof(FactIncome.Sum)}, @{nameof(FactIncome.Date)}, @{nameof(FactIncome.CardName)});";
+            $"(@{nameof(FactIncome.FactIncomeName)}, @{nameof(FactIncome.FactIncomeCategoryId)}, @{nameof(FactIncome.Sum)}, @{nameof(FactIncome.Date)}, @{nameof(FactIncome.CardId)});";
         
         public static readonly string getFactIncomeQuery =
             $"SELECT * FROM FactIncome;";
@@ -125,5 +127,10 @@ namespace WpfMishaLibrary
 
         #endregion
 
+        #region Special queries
+
+        public static readonly string clearTableQuery = "DELETE FROM @TableNaeme";
+
+        #endregion
     }
 }

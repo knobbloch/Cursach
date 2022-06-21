@@ -19,13 +19,15 @@ namespace WpfMishaLibrary
         {
             Success,
             // Sum < 0
-            ErrorTypeSumConstraint
+            ErrorTypeUnrecognized,
+            ErrorTypeUpdatingBalance
         }
         public enum ReturnFactIncomeState
         {
             Success,
             // Sum < 0
-            ErrorTypeSumConstraint
+            ErrorTypeSumConstraint,
+            ErrorTypeUnrecognized
         }
         public enum ReturnPlanExpenditureState
         {
