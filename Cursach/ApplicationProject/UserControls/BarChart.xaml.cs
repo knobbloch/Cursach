@@ -2,17 +2,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Collections.Specialized;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Collections.ObjectModel;
+
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
+
 using System.Windows.Shapes;
 using System.ComponentModel;
 using System.Reflection;
@@ -148,7 +142,7 @@ namespace ApplicationProject.UserControls
         #endregion
 
         #region DependencyProperties
-        public static readonly DependencyProperty BarsSourceProperty = DependencyProperty.Register("BarsSource", typeof(IEnumerable), typeof(BarChart));
+        public static readonly DependencyProperty BarsSourceProperty = DependencyProperty.Register("BarsSource", typeof(IEnumerable), typeof(BarChart), new PropertyMetadata(null, new PropertyChangedCallback(SetBarsSource)));
         #endregion
 
         public BarChart() : this(null) { }
@@ -199,22 +193,24 @@ namespace ApplicationProject.UserControls
         public IEnumerable BarsSource
         {
             get => (IEnumerable)GetValue(BarsSourceProperty);
-            set
-            {
-                if (m_BarsSource is INotifyCollectionChanged col)
-                    col.CollectionChanged -= Self_OnCollectionChanged;
-
-                m_BarsSource = value;
-
-                if (m_BarsSource is INotifyCollectionChanged col2)
-                    col2.CollectionChanged += Self_OnCollectionChanged;
-
-                SetValue(BarsSourceProperty, value);
-
-                Rebuild();
-            }
+            set => SetValue(BarsSourceProperty, value);
         }
         private IEnumerable m_BarsSource;
+        private static void SetBarsSource(DependencyObject obj, DependencyPropertyChangedEventArgs e)
+        {
+            if (obj is BarChart chart)
+            {
+                if (chart.m_BarsSource is INotifyCollectionChanged col)
+                    col.CollectionChanged -= chart.Self_OnCollectionChanged;
+
+                chart.m_BarsSource = (IEnumerable)e.NewValue;
+
+                if (chart.m_BarsSource is INotifyCollectionChanged col2)
+                    col2.CollectionChanged += chart.Self_OnCollectionChanged;
+
+                chart.Rebuild();
+            }
+        }
         /// <summary>
         /// A function applied to the values before they are used to determine the height of the bars.
         /// Can be used to distort the bars.
