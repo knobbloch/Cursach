@@ -329,6 +329,146 @@ namespace WpfMishaLibrary
             }
             return planIncomes;
         }
+        public List<PlanExpenditureVisible> GetPlanExpendituresSelectedDay(DateTime day)
+        {
+            List<PlanExpenditureVisible> planExpenditures;
+            using (IDbConnection dbConnection = new SQLiteConnection(DbConnectionString))
+            {
+                // Gets IEnumerable<PlanExpenditure> specified by !date.Ticks! param
+                // Transforms ticks to DateTime
+                // UpCast to PlanExpenditureVisible
+                // Converting to List<PlanExpenditureVisible>
+                long date = day.Ticks;
+                planExpenditures = dbConnection.Query<PlanExpenditure>(DbQueries.getPlanExpendituresSelectedDay,
+                    param: new { date })
+                    .Select(x =>
+                    {
+                        x.BeginDateDateTime = new DateTime(x.BeginDate);
+                        x.EndDateDateTime = new DateTime(x.EndDate);
+                        return x as PlanExpenditureVisible;
+                    }).ToList();
+            }
+            return planExpenditures;
+        }
+
+        public List<PlanIncomeVisible> GetPlanIncomesSelectedDay(DateTime day)
+        {
+            List<PlanIncomeVisible> planIncomes;
+            using (IDbConnection dbConnection = new SQLiteConnection(DbConnectionString))
+            {
+                // Gets IEnumerable<PlanIncome> specified by !date.Ticks! param
+                // Transforms ticks to DateTime
+                // UpCast to PlanIncomeVisible
+                // Converting to List<PlanIncomeVisible>
+                long date = day.Ticks;
+                planIncomes = dbConnection.Query<PlanIncome>(DbQueries.getPlanIncomesSelectedDay,
+                    param: new { date })
+                    .Select(x =>
+                    {
+                        x.BeginDateDateTime = new DateTime(x.BeginDate);
+                        x.EndDateDateTime = new DateTime(x.EndDate);
+                        return x as PlanIncomeVisible;
+                    }).ToList();
+            }
+            return planIncomes;
+        }
+        public List<PlanExpenditureVisible> GetPlanExpendituresDiapason(DateTime start, DateTime end)
+        {
+            if (start > end)
+                throw new Exception("Error: 'start' parameter can't be > than 'end' parameter");
+            using (IDbConnection dbConnection = new SQLiteConnection(DbConnectionString))
+            {
+                // Gets IEnumerable<PlanExpenditure> specified by !date.Ticks! param
+                // Transforms ticks to DateTime
+                // UpCast to PlanExpenditureVisible
+                // Converting to List<PlanExpenditureVisible>
+                List<PlanExpenditureVisible> planExpenditures;
+                long beginDate = start.Ticks;
+                long endDate = end.Ticks;
+                planExpenditures = dbConnection.Query<PlanExpenditure>(DbQueries.getPlanExpendituresDiapason,
+                    param: new { beginDate, endDate })
+                    .Select(x =>
+                    {
+                        x.BeginDateDateTime = new DateTime(x.BeginDate);
+                        x.EndDateDateTime = new DateTime(x.EndDate);
+                        return x as PlanExpenditureVisible;
+                    }).ToList();
+                return planExpenditures;
+            }
+        }
+
+        public List<PlanIncomeVisible> GetPlanIncomesDiapason(DateTime start, DateTime end)
+        {
+            if (start > end)
+                throw new Exception("Error: 'start' parameter can't be > than 'end' parameter");
+            using (IDbConnection dbConnection = new SQLiteConnection(DbConnectionString))
+            {
+                // Gets IEnumerable<PlanExpenditure> specified by !date.Ticks! param
+                // Transforms ticks to DateTime
+                // UpCast to PlanExpenditureVisible
+                // Converting to List<PlanExpenditureVisible>
+                List<PlanIncomeVisible> planIncomes;
+                long beginDate = start.Ticks;
+                long endDate = end.Ticks;
+                planIncomes = dbConnection.Query<PlanIncome>(DbQueries.getPlanIncomesDiapason,
+                    param: new { beginDate, endDate })
+                    .Select(x =>
+                    {
+                        x.BeginDateDateTime = new DateTime(x.BeginDate);
+                        x.EndDateDateTime = new DateTime(x.EndDate);
+                        return x as PlanIncomeVisible;
+                    }).ToList();
+                return planIncomes;
+            }
+        }
+        public List<FactExpenditureVisible> GetFactExpendituresDiapason(DateTime start, DateTime end)
+        {
+            if (start > end)
+                throw new Exception("Error: 'start' parameter can't be > than 'end' parameter");
+            using (IDbConnection dbConnection = new SQLiteConnection(DbConnectionString))
+            {
+                // Gets IEnumerable<PlanExpenditure> specified by !date.Ticks! param
+                // Transforms ticks to DateTime
+                // UpCast to PlanExpenditureVisible
+                // Converting to List<PlanExpenditureVisible>
+                List<FactExpenditureVisible> factExpenditures;
+                long beginDate = start.Ticks;
+                long endDate = end.Ticks;
+                factExpenditures = dbConnection.Query<FactExpenditure>(DbQueries.getFactExpendituresDiapason,
+                    param: new { beginDate, endDate })
+                    .Select(x =>
+                    {
+                        x.DateDateTime = new DateTime(x.Date);
+                        return x as FactExpenditureVisible;
+                    }).ToList();
+                return factExpenditures;
+            }
+        }
+
+        public List<FactIncomeVisible> GetFactIncomesDiapason(DateTime start, DateTime end)
+        {
+            if (start > end)
+                throw new Exception("Error: 'start' parameter can't be > than 'end' parameter");
+            using (IDbConnection dbConnection = new SQLiteConnection(DbConnectionString))
+            {
+                // Gets IEnumerable<PlanExpenditure> specified by !date.Ticks! param
+                // Transforms ticks to DateTime
+                // UpCast to PlanExpenditureVisible
+                // Converting to List<PlanExpenditureVisible>
+                List<FactIncomeVisible> factIncomes;
+                long beginDate = start.Ticks;
+                long endDate = end.Ticks;
+                factIncomes = dbConnection.Query<FactIncome>(DbQueries.getFactIncomesDiapason,
+                    param: new { beginDate, endDate })
+                    .Select(x =>
+                    {
+                        x.DateDateTime = new DateTime(x.Date);
+                        return x as FactIncomeVisible;
+                    }).ToList();
+                return factIncomes;
+            }
+        }
+
         #endregion
         #region PrivateMethods
         private bool CheckCardIfExists(Card cardObject)
@@ -394,6 +534,7 @@ namespace WpfMishaLibrary
         /// True, if t1 less than t2. Else false.
         /// </returns>
         private bool CheckDateBorder(DateTime beginDate, DateTime endDate) => beginDate <= endDate;
+
         #endregion
     }
 }
