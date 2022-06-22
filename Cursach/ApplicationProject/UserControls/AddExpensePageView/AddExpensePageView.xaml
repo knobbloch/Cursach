@@ -63,7 +63,7 @@
             </Grid.RowDefinitions>
 
             <TextBlock Text="{Binding ExpenseCategoryFieldText}" FontSize="{StaticResource DefaultFontSize}"/>
-            <ComboBox Grid.Row="1" SelectedItem="{Binding SelectedExpenseCategory}" FontSize="{StaticResource DefaultFontSize}" ItemsSource="{Binding ExpenseCategories}">
+            <ComboBox Grid.Row="1" SelectedItem="{Binding SelectedExpenseCategory, Mode=TwoWay}" FontSize="{StaticResource DefaultFontSize}" ItemsSource="{Binding ExpenseCategories}">
                 <ComboBox.ItemTemplate>
                     <DataTemplate>
                         <StackPanel Orientation="Horizontal">
@@ -82,7 +82,7 @@
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
             <TextBlock Text="{Binding BankAccountFieldText}" FontSize="{StaticResource DefaultFontSize}"/>
-            <ComboBox Grid.Row="1" SelectedItem="{Binding SelectedBankAccount}" FontSize="{StaticResource DefaultFontSize}" ItemsSource="{Binding BankAccounts}">
+            <ComboBox Grid.Row="1" SelectedItem="{Binding SelectedBankAccount, Mode=TwoWay}" FontSize="{StaticResource DefaultFontSize}" ItemsSource="{Binding BankAccounts}">
                 <ComboBox.ItemTemplate>
                     <DataTemplate>
                         <StackPanel Orientation="Vertical">
