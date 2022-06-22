@@ -51,6 +51,16 @@
                                 </Grid>
                             </DataTemplate>
                         </uc:BarChart.BarTitleTemplate>
+                        <uc:BarChart.PositiveBarStyle>
+                            <Style TargetType="Rectangle">
+                                <Setter Property="Fill" Value="Red" />
+                            </Style>
+                        </uc:BarChart.PositiveBarStyle>
+                        <uc:BarChart.NegativeBarStyle>
+                            <Style TargetType="Rectangle">
+                                <Setter Property="Fill" Value="Green" />
+                            </Style>
+                        </uc:BarChart.NegativeBarStyle>
                     </uc:BarChart>
                     <ListView Name="ExpensesList" ScrollViewer.VerticalScrollBarVisibility="Auto" Grid.Row="5" SelectionChanged="ExpensesList_SelectionChanged" ItemsSource="{Binding ExpensesItems}">
                         <ListView.ItemContainerStyle>

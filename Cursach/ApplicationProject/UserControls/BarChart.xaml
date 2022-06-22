@@ -7,6 +7,12 @@
              mc:Ignorable="d"
              d:DesignHeight="450" d:DesignWidth="800" Background="White">
     <UserControl.Resources>
+        <Style TargetType="Rectangle" x:Key="PositiveRectangleStyle">
+            <Setter Property="Fill" Value="Green" />
+        </Style>
+        <Style TargetType="Rectangle" x:Key="NegativeRectangleStyle">
+            <Setter Property="Fill" Value="Red" />
+        </Style>
         <DataTemplate x:Key="PositiveBarTemplate">
             <Grid>
                 <Grid.ColumnDefinitions>
@@ -16,7 +22,7 @@
                 </Grid.ColumnDefinitions>
                 <StackPanel Orientation="Vertical" VerticalAlignment="Bottom" Grid.Column="1">
                     <TextBlock Foreground="Gray" Name="BarText" HorizontalAlignment="Center" FontSize="{Binding FontSize, RelativeSource={RelativeSource AncestorType=UserControl}}"/>
-                    <Rectangle Fill="Green" Width="50" Height="50" Name="BarRectangle"/>
+                    <Rectangle Width="50" Height="50" Name="BarRectangle"/>
                 </StackPanel>
             </Grid> 
         </DataTemplate>
@@ -28,7 +34,7 @@
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
                 <StackPanel Orientation="Vertical" Grid.Column="1">
-                    <Rectangle Fill="Red" Width="50" Height="50" Name="BarRectangle"/>
+                    <Rectangle Width="50" Height="50" Name="BarRectangle"/>
                     <TextBlock Foreground="Gray" Name="BarText" HorizontalAlignment="Center" FontSize="{Binding FontSize, RelativeSource={RelativeSource AncestorType=UserControl}}"/>
                 </StackPanel>
             </Grid>
