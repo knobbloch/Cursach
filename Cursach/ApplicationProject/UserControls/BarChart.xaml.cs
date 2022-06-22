@@ -345,7 +345,7 @@ namespace ApplicationProject.UserControls
             BarsGrid.Measure(new Size(double.PositiveInfinity, double.PositiveInfinity));
 
             _ = BarsGrid.Children.Add(bar.BarDisplay = (FrameworkElement)(bar.IsPositive ? PositiveBarTemplate.LoadContent() : NegativeBarTemplate.LoadContent()));
-            bar.BarRectangle.Style = bar.IsPositive ? PositiveBarStyle : NegativeBarStyle;
+            bar.BarDisplay.Style = bar.IsPositive ? PositiveBarStyle : NegativeBarStyle;
             bar.BarRectangle.Width = BarWidth;
             bar.BarText.Text = string.Format(System.Threading.Thread.CurrentThread.CurrentUICulture, BarValueFormat, value);
             bar.BarDisplay.SetValue(Grid.RowProperty, bar.IsPositive ? PositiveBarRow : NegativeBarRow);
@@ -475,7 +475,7 @@ namespace ApplicationProject.UserControls
                     _ = BarsGrid.Children.Add(bar.BarDisplay = (FrameworkElement)PositiveBarTemplate.LoadContent());
                     bar.BarDisplay.SetValue(Grid.RowProperty, PositiveBarRow);
                     bar.BarDisplay.SetValue(Grid.ColumnProperty, barIndex);
-                    bar.BarRectangle.Style = PositiveBarStyle;
+                    bar.BarDisplay.Style = PositiveBarStyle;
                     bar.IsPositive = true;
                 }
                 else if (value < 0 && bar.IsPositive)
@@ -485,7 +485,7 @@ namespace ApplicationProject.UserControls
                     _ = BarsGrid.Children.Add(bar.BarDisplay = (FrameworkElement)NegativeBarTemplate.LoadContent());
                     bar.BarDisplay.SetValue(Grid.RowProperty, NegativeBarRow);
                     bar.BarDisplay.SetValue(Grid.ColumnProperty, barIndex);
-                    bar.BarRectangle.Style = NegativeBarStyle;
+                    bar.BarDisplay.Style = NegativeBarStyle;
                     bar.IsPositive = false;
                 }
                 bar.BarText.Text = string.Format(System.Threading.Thread.CurrentThread.CurrentUICulture, BarValueFormat, value);
