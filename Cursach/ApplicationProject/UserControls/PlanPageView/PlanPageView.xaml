@@ -144,7 +144,7 @@
                             </DataTemplate>
                         </uc:BarChart.BarTitleTemplate>
                     </uc:BarChart>
-                    <ListView Name="IncomeList" ScrollViewer.VerticalScrollBarVisibility="Auto" Grid.Row="5" SelectionChanged="IncomeList_SelectionChanged" ItemsSource="{Binding ExpensesItems}">
+                    <ListView Name="IncomeList" ScrollViewer.VerticalScrollBarVisibility="Auto" Grid.Row="5" SelectionChanged="IncomeList_SelectionChanged" ItemsSource="{Binding IncomeItems}">
                         <ListView.ItemContainerStyle>
                             <Style TargetType="ListViewItem">
                                 <Setter Property="HorizontalContentAlignment" Value="Stretch" />
