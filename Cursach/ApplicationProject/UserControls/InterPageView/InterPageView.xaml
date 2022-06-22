@@ -98,16 +98,16 @@
                 </ListView.ItemContainerStyle>
                 <ListView.ItemTemplate>
                     <DataTemplate>
-                        <Grid Background="Azure" Margin="0" Height="50">
+                        <Grid Background="Azure" Margin="0">
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="Auto"/>
                                 <RowDefinition Height="Auto"/>
                                 <RowDefinition Height="Auto"/>
                             </Grid.RowDefinitions>
-                            <TextBlock Text="{Binding AccountName}" FontWeight="Bold" FontSize="35"/>
+                            <TextBlock Text="{Binding AccountName}" FontWeight="Bold" FontSize="15"/>
                             <TextBlock Grid.Row="1">
-                                <Run Text="{Binding AccountBalance}" FontWeight="Bold" FontSize="35"/>
-                                <Run Text="{Binding CurrencyIdentifier}" FontWeight="Bold" FontSize="35"/>
+                                <Run Text="{Binding AccountBalance}" FontWeight="Bold" FontSize="15"/>
+                                <Run Text="{Binding CurrencyIdentifier}" FontWeight="Bold" FontSize="15"/>
                             </TextBlock>
                             <Border Grid.Row="2" BorderThickness="2" BorderBrush="Black"/>
                         </Grid>
