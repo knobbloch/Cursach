@@ -24,7 +24,7 @@
         <core:Double x:Key="TableFontSize">35</core:Double>
     </UserControl.Resources>
     <TabControl Name="TabsControl" SelectionChanged="TabsControl_SelectionChanged" Height="{Binding ActualHeight}">
-        <TabItem Header="{Binding ExpensesTabName}" Style="{StaticResource UniformTabStyle}" Name="ExpensesRoot">
+        <TabItem Header="{Binding ExpensesTabName}" FontSize="{StaticResource TableFontSize}" Style="{StaticResource UniformTabStyle}" Name="ExpensesRoot">
             <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" Padding="0">
                 <Grid Width="{Binding ViewportWidth, RelativeSource={RelativeSource AncestorType=ScrollViewer}}">
                     <Grid.ColumnDefinitions>
@@ -45,14 +45,17 @@
                         <Run Text="{Binding TotalExpensesText, Mode=OneWay}" />
                         <Run Text="{Binding TotalExpenses}" />
                     </TextBlock>
-                    <uc:BarChart x:Name="ExpensesBarChart" ValueSource="Value" BarsSource="{Binding ExpensesDays, ElementName=AnalysisPageViewRoot}" Height="300" Grid.Row="3">
+                    <uc:BarChart x:Name="ExpensesBarChart" ValueSource="Value" BarsSource="{Binding ExpensesDays}" FontSize="15" Height="300" Grid.Row="3">
                         <uc:BarChart.BarTitleTemplate>
                             <DataTemplate>
-                                <Viewbox>
-                                    <TextBlock Text="{Binding PeriodTitle}" Foreground="Black" HorizontalAlignment="Center" />
-                                </Viewbox>
+                                <TextBlock Text="{Binding PeriodTitle}" Foreground="Black" HorizontalAlignment="Center" FontSize="{StaticResource TableFontSize}"/>
                             </DataTemplate>
                         </uc:BarChart.BarTitleTemplate>
+                        <uc:BarChart.PositiveBarStyle>
+                            <Style TargetType="Rectangle">
+                                <Setter Property="Fill" Value="Red" />
+                            </Style>
+                        </uc:BarChart.PositiveBarStyle>
                     </uc:BarChart>
                     <ListView Name="ExpensesList" ItemsSource="{Binding ExpensesItems}" ScrollViewer.VerticalScrollBarVisibility="Auto" Grid.Row="8" SelectionChanged="ExpensesList_SelectionChanged">
                         <ListView.ItemContainerStyle>
@@ -63,14 +66,20 @@
                         </ListView.ItemContainerStyle>
                         <ListView.View>
                             <GridView>
-                                <GridViewColumn Header="{Binding ExpensesTableNameHeader}" Width="{Binding ActualWidth, RelativeSource={RelativeSource AncestorType=ListView}, Converter={StaticResource FractionConverter}, ConverterParameter=0.3}">
+                                <GridViewColumn Width="{Binding ActualWidth, RelativeSource={RelativeSource AncestorType=ListView}, Converter={StaticResource FractionConverter}, ConverterParameter=0.3}">
+                                    <GridViewColumn.Header>
+                                        <TextBlock Text="{Binding ExpensesTableNameHeader}" FontSize="{StaticResource TableFontSize}" />
+                                    </GridViewColumn.Header>
                                     <GridViewColumn.CellTemplate>
                                         <DataTemplate>
-                                            <TextBlock Text="{Binding Title}" />
+                                            <TextBlock Text="{Binding Title}" FontSize="{StaticResource TableFontSize}"/>
                                         </DataTemplate>
                                     </GridViewColumn.CellTemplate>
                                 </GridViewColumn>
-                                <GridViewColumn Header="{Binding ExpensesTableCategoryHeader}" Width="{Binding ActualWidth, RelativeSource={RelativeSource AncestorType=ListView}, Converter={StaticResource FractionConverter}, ConverterParameter=0.3}">
+                                <GridViewColumn Width="{Binding ActualWidth, RelativeSource={RelativeSource AncestorType=ListView}, Converter={StaticResource FractionConverter}, ConverterParameter=0.3}">
+                                    <GridViewColumn.Header>
+                                        <TextBlock Text="{Binding ExpensesTableCategoryHeader}" FontSize="{StaticResource TableFontSize}" />
+                                    </GridViewColumn.Header>
                                     <GridViewColumn.CellTemplate>
                                         <DataTemplate>
                                             <Grid>
@@ -85,14 +94,20 @@
                                         </DataTemplate>
                                     </GridViewColumn.CellTemplate>
                                 </GridViewColumn>
-                                <GridViewColumn Header="{Binding ExpensesTableDateHeader}" Width="{Binding ActualWidth, RelativeSource={RelativeSource AncestorType=ListView}, Converter={StaticResource FractionConverter}, ConverterParameter=0.2}">
+                                <GridViewColumn Width="{Binding ActualWidth, RelativeSource={RelativeSource AncestorType=ListView}, Converter={StaticResource FractionConverter}, ConverterParameter=0.2}">
+                                    <GridViewColumn.Header>
+                                        <TextBlock Text="{Binding ExpensesTableDateHeader}" FontSize="{StaticResource TableFontSize}" />
+                                    </GridViewColumn.Header>
                                     <GridViewColumn.CellTemplate>
                                         <DataTemplate>
-                                            <TextBlock Text="{Binding Date, StringFormat={}{0:d MMMM yyyy}}" />
+                                            <TextBlock Text="{Binding Date, StringFormat={}{0:d MMMM yyyy}}" FontSize="{StaticResource TableFontSize}" />
                                         </DataTemplate>
                                     </GridViewColumn.CellTemplate>
                                 </GridViewColumn>
-                                <GridViewColumn Header="{Binding ExpensesTableValueHeader}" Width="{Binding ActualWidth, RelativeSource={RelativeSource AncestorType=ListView}, Converter={StaticResource FractionConverter}, ConverterParameter=0.2}">
+                                <GridViewColumn Width="{Binding ActualWidth, RelativeSource={RelativeSource AncestorType=ListView}, Converter={StaticResource FractionConverter}, ConverterParameter=0.2}">
+                                    <GridViewColumn.Header>
+                                        <TextBlock Text="{Binding ExpensesTableValueHeader}" FontSize="{StaticResource TableFontSize}" />
+                                    </GridViewColumn.Header>
                                     <GridViewColumn.CellTemplate>
                                         <DataTemplate>
                                             <Grid>
@@ -126,7 +141,7 @@
                 </Grid>
             </ScrollViewer>
         </TabItem>
-        <TabItem Header="{Binding IncomeTabName}" Style="{StaticResource UniformTabStyle}" Name="IncomeRoot">
+        <TabItem Header="{Binding IncomeTabName}" FontSize="{StaticResource TableFontSize}" Style="{StaticResource UniformTabStyle}" Name="IncomeRoot">
             <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" Padding="0">
                 <Grid Width="{Binding ViewportWidth, RelativeSource={RelativeSource AncestorType=ScrollViewer}}">
                     <Grid.ColumnDefinitions>
@@ -147,14 +162,10 @@
                         <Run Text="{Binding TotalIncomeText, Mode=OneWay}" />
                         <Run Text="{Binding TotalIncome}" />
                     </TextBlock>
-                    <uc:BarChart x:Name="IncomeBarChart" ValueSource="Value" BarsSource="{Binding IncomeDays, ElementName=AnalysisPageViewRoot
-                        
-                        }" Height="300" Grid.Row="3">
+                    <uc:BarChart x:Name="IncomeBarChart" ValueSource="Value" BarsSource="{Binding IncomeDays}" FontSize="15" Height="300" Grid.Row="3">
                         <uc:BarChart.BarTitleTemplate>
                             <DataTemplate>
-                                <Viewbox>
-                                    <TextBlock Text="{Binding PeriodTitle}" Foreground="Black" HorizontalAlignment="Center" />
-                                </Viewbox>
+                                <TextBlock Text="{Binding PeriodTitle}" Foreground="Black" HorizontalAlignment="Center" FontSize="{StaticResource TableFontSize}"/>
                             </DataTemplate>
                         </uc:BarChart.BarTitleTemplate>
                     </uc:BarChart>
@@ -167,14 +178,20 @@
                         </ListView.ItemContainerStyle>
                         <ListView.View>
                             <GridView>
-                                <GridViewColumn Header="{Binding IncomeTableNameHeader}" Width="{Binding ActualWidth, RelativeSource={RelativeSource AncestorType=ListView}, Converter={StaticResource FractionConverter}, ConverterParameter=0.3}">
+                                <GridViewColumn Width="{Binding ActualWidth, RelativeSource={RelativeSource AncestorType=ListView}, Converter={StaticResource FractionConverter}, ConverterParameter=0.3}">
+                                    <GridViewColumn.Header>
+                                        <TextBlock Text="{Binding IncomeTableNameHeader}" FontSize="{StaticResource TableFontSize}"/> 
+                                    </GridViewColumn.Header>
                                     <GridViewColumn.CellTemplate>
                                         <DataTemplate>
-                                            <TextBlock Text="{Binding Title}" />
+                                            <TextBlock Text="{Binding Title}" FontSize="{StaticResource TableFontSize}"/>
                                         </DataTemplate>
                                     </GridViewColumn.CellTemplate>
                                 </GridViewColumn>
-                                <GridViewColumn Header="{Binding IncomeTableCategoryHeader}" Width="{Binding ActualWidth, RelativeSource={RelativeSource AncestorType=ListView}, Converter={StaticResource FractionConverter}, ConverterParameter=0.3}">
+                                <GridViewColumn Width="{Binding ActualWidth, RelativeSource={RelativeSource AncestorType=ListView}, Converter={StaticResource FractionConverter}, ConverterParameter=0.3}">
+                                    <GridViewColumn.Header>
+                                        <TextBlock Text="{Binding IncomeTableCategoryHeader}" FontSize="{StaticResource TableFontSize}"/>
+                                    </GridViewColumn.Header>
                                     <GridViewColumn.CellTemplate>
                                         <DataTemplate>
                                             <Grid>
@@ -189,14 +206,20 @@
                                         </DataTemplate>
                                     </GridViewColumn.CellTemplate>
                                 </GridViewColumn>
-                                <GridViewColumn Header="{Binding IncomeTableDateHeader}" Width="{Binding ActualWidth, RelativeSource={RelativeSource AncestorType=ListView}, Converter={StaticResource FractionConverter}, ConverterParameter=0.2}">
+                                <GridViewColumn Width="{Binding ActualWidth, RelativeSource={RelativeSource AncestorType=ListView}, Converter={StaticResource FractionConverter}, ConverterParameter=0.2}">
+                                    <GridViewColumn.Header>
+                                        <TextBlock Text="{Binding IncomeTableDateHeader}" FontSize="{StaticResource TableFontSize}"/>
+                                    </GridViewColumn.Header>
                                     <GridViewColumn.CellTemplate>
                                         <DataTemplate>
-                                            <TextBlock Text="{Binding Date, StringFormat={}{0:d MMMM yyyy}}" />
+                                            <TextBlock Text="{Binding Date, StringFormat={}{0:d MMMM yyyy}}" FontSize="{StaticResource TableFontSize}"/>
                                         </DataTemplate>
                                     </GridViewColumn.CellTemplate>
                                 </GridViewColumn>
-                                <GridViewColumn Header="{Binding IncomeTableValueHeader}" Width="{Binding ActualWidth, RelativeSource={RelativeSource AncestorType=ListView}, Converter={StaticResource FractionConverter}, ConverterParameter=0.2}">
+                                <GridViewColumn Width="{Binding ActualWidth, RelativeSource={RelativeSource AncestorType=ListView}, Converter={StaticResource FractionConverter}, ConverterParameter=0.2}">
+                                    <GridViewColumn.Header>
+                                        <TextBlock Text="{Binding IncomeTableValueHeader}" FontSize="{StaticResource TableFontSize}"/>
+                                    </GridViewColumn.Header>
                                     <GridViewColumn.CellTemplate>
                                         <DataTemplate>
                                             <Grid>

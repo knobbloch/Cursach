@@ -5,11 +5,13 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:ApplicationProject.UserControls.AddBankAccountPageView"
              xmlns:uc="clr-namespace:ApplicationProject.UserControls"
+             xmlns:core="clr-namespace:System;assembly=mscorlib"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800" DataContext="{Binding RelativeSource={RelativeSource Self}}">
     <UserControl.Resources>
         <uc:FractionConverter x:Key="FractionConverter" />
         <uc:ValueErrorTypeLocale x:Key="ValueErrorConverter" />
+        <core:Double x:Key="DefaultFontSize">35</core:Double>
     </UserControl.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
@@ -35,9 +37,9 @@
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
-            <TextBlock Text="{Binding AccountNameFieldText}"/>
-            <uc:TextBoxNoResize Grid.Row="1" Text="{Binding AccountName}"/>
-            <TextBlock Grid.Row="2" Text="{Binding AccountNameError, Converter={StaticResource ValueErrorConverter}}" Foreground="Red"/>
+            <TextBlock Text="{Binding AccountNameFieldText}" FontSize="{StaticResource DefaultFontSize}"/>
+            <uc:TextBoxNoResize Grid.Row="1" Text="{Binding AccountName}" FontSize="{StaticResource DefaultFontSize}"/>
+            <TextBlock Grid.Row="2" Text="{Binding AccountNameError, Converter={StaticResource ValueErrorConverter}}" FontSize="{StaticResource DefaultFontSize}" Foreground="Red"/>
         </Grid>
 
         <Grid Grid.Row="3" Grid.Column="3">
@@ -46,12 +48,12 @@
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
-            <TextBlock Text="{Binding CurrencyAmountFieldText}"/>
-            <uc:TextBoxNoResize Grid.Row="1" Text="{Binding CurrencyAmount}"/>
-            <TextBlock Grid.Row="2" Text="{Binding CurrencyAmountError, Converter={StaticResource ValueErrorConverter}}" Foreground="Red"/>
+            <TextBlock Text="{Binding CurrencyAmountFieldText}" FontSize="{StaticResource DefaultFontSize}"/>
+            <uc:TextBoxNoResize Grid.Row="1" Text="{Binding CurrencyAmount}" FontSize="{StaticResource DefaultFontSize}"/>
+            <TextBlock Grid.Row="2" Text="{Binding CurrencyAmountError, Converter={StaticResource ValueErrorConverter}}" FontSize="{StaticResource DefaultFontSize}" Foreground="Red"/>
         </Grid>
         
-        <Button Grid.Row="5" Grid.Column="3" Background="LightGray" Content="{Binding ButtonAddText}" Click="ButtonAdd_Click"/>
-        <Button Grid.Row="5" Grid.Column="1" Background="LightGray" Content="{Binding ButtonExitText}" Click="ButtonExit_Click"/>
+        <Button Grid.Row="5" Grid.Column="3" Background="LightGray" Content="{Binding ButtonAddText}" FontSize="{StaticResource DefaultFontSize}" Click="ButtonAdd_Click"/>
+        <Button Grid.Row="5" Grid.Column="1" Background="LightGray" Content="{Binding ButtonExitText}" FontSize="{StaticResource DefaultFontSize}" Click="ButtonExit_Click"/>
     </Grid>
 </UserControl>

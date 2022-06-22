@@ -5,11 +5,13 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:ApplicationProject.UserControls.AddExpensePageView"
              xmlns:uc="clr-namespace:ApplicationProject.UserControls"
+             xmlns:core="clr-namespace:System;assembly=mscorlib"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800" DataContext="{Binding RelativeSource={RelativeSource Self}}" SizeChanged="CurrentPage_SizeChanged">
     <UserControl.Resources>
         <uc:FractionConverter x:Key="FractionConverter" />
         <uc:ValueErrorTypeLocale x:Key="ValueErrorConverter" />
+        <core:Double x:Key="DefaultFontSize">35</core:Double>
     </UserControl.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
@@ -37,9 +39,9 @@
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
-            <TextBlock Text="{Binding ExpenseNameFieldText}"/>
-            <TextBox Grid.Row="1" Text="{Binding ExpenseName}"/>
-            <TextBlock Grid.Row="2" Text="{Binding ExpenseNameError, Converter={StaticResource ValueErrorConverter}}" Foreground="Red"/>
+            <TextBlock Text="{Binding ExpenseNameFieldText}" FontSize="{StaticResource DefaultFontSize}"/>
+            <TextBox Grid.Row="1" Text="{Binding ExpenseName}" FontSize="{StaticResource DefaultFontSize}"/>
+            <TextBlock Grid.Row="2" Text="{Binding ExpenseNameError, Converter={StaticResource ValueErrorConverter}}" FontSize="{StaticResource DefaultFontSize}" Foreground="Red"/>
         </Grid>
 
         <Grid Grid.Row="3" Grid.Column="3">
@@ -48,9 +50,9 @@
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
-            <TextBlock Text="{Binding CurrencyAmountFieldText}"/>
-            <TextBox Grid.Row="1" Text="{Binding CurrencyAmount}"/>
-            <TextBlock Grid.Row="2" Text="{Binding CurrencyAmountError, Converter={StaticResource ValueErrorConverter}}" Foreground="Red"/>
+            <TextBlock Text="{Binding CurrencyAmountFieldText}" FontSize="{StaticResource DefaultFontSize}"/>
+            <TextBox Grid.Row="1" Text="{Binding CurrencyAmount}" FontSize="{StaticResource DefaultFontSize}"/>
+            <TextBlock Grid.Row="2" Text="{Binding CurrencyAmountError, Converter={StaticResource ValueErrorConverter}}" FontSize="{StaticResource DefaultFontSize}" Foreground="Red"/>
         </Grid>
 
         <Grid Grid.Row="5" Grid.Column="1">
@@ -59,14 +61,14 @@
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
-            
-            <TextBlock Text="{Binding ExpenseCategoryFieldText}"/>
-            <ComboBox Grid.Row="1" SelectedItem="{Binding SelectedExpenseCategory}" ItemsSource="{Binding ExpenseCategories}">
+
+            <TextBlock Text="{Binding ExpenseCategoryFieldText}" FontSize="{StaticResource DefaultFontSize}"/>
+            <ComboBox Grid.Row="1" SelectedItem="{Binding SelectedExpenseCategory}" FontSize="{StaticResource DefaultFontSize}" ItemsSource="{Binding ExpenseCategories}">
                 <ComboBox.ItemTemplate>
                     <DataTemplate>
                         <StackPanel Orientation="Horizontal">
-                            <Image Source="{Binding ImagePath}" Stretch="Uniform" MaxHeight="15"/>
-                            <TextBlock Text="{Binding DisplayName}" />
+                            <Image Source="{Binding ImagePath}" Stretch="Uniform" MaxHeight="40"/>
+                            <TextBlock Text="{Binding DisplayName}" FontSize="{StaticResource DefaultFontSize}" />
                         </StackPanel>
                     </DataTemplate>
                 </ComboBox.ItemTemplate>
@@ -79,15 +81,15 @@
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
-            <TextBlock Text="{Binding BankAccountFieldText}"/>
-            <ComboBox Grid.Row="1" SelectedItem="{Binding SelectedBankAccount}" ItemsSource="{Binding BankAccounts}">
+            <TextBlock Text="{Binding BankAccountFieldText}" FontSize="{StaticResource DefaultFontSize}"/>
+            <ComboBox Grid.Row="1" SelectedItem="{Binding SelectedBankAccount}" FontSize="{StaticResource DefaultFontSize}" ItemsSource="{Binding BankAccounts}">
                 <ComboBox.ItemTemplate>
                     <DataTemplate>
                         <StackPanel Orientation="Vertical">
-                            <TextBlock Text="{Binding AccountName}" />
+                            <TextBlock Text="{Binding AccountName}" FontSize="{StaticResource DefaultFontSize}"/>
                             <TextBlock>
-                                <Run Text="{Binding AccountBalance}" />
-                                <Run Text="{Binding CurrencyIdentifier}" />
+                                <Run Text="{Binding AccountBalance}" FontSize="{StaticResource DefaultFontSize}"/>
+                                <Run Text="{Binding CurrencyIdentifier}" FontSize="{StaticResource DefaultFontSize}"/>
                             </TextBlock>
                         </StackPanel>
                     </DataTemplate>
@@ -101,13 +103,13 @@
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
-            <TextBlock Text="{Binding DateFieldText}"/>
+            <TextBlock Text="{Binding DateFieldText}" FontSize="{StaticResource DefaultFontSize}"/>
             <ToggleButton Grid.Column="1" Grid.Row="1" Name="DateSelector" Foreground="Black" Click="DateSelector_Click">
-                <TextBlock Text="{Binding SelectedDate, StringFormat={}{0:d MMMM yyyy}}" Foreground="Black" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                <TextBlock Text="{Binding SelectedDate, StringFormat={}{0:d MMMM yyyy}}" FontSize="{StaticResource DefaultFontSize}" Foreground="Black" VerticalAlignment="Center" HorizontalAlignment="Center" />
             </ToggleButton>
         </Grid>
 
-        <Button Grid.Row="7" Grid.Column="3" Background="LightGray" Content="{Binding ButtonAddText}" Click="ButtonAdd_Click"/>
-        <Button Grid.Row="7" Grid.Column="1" Background="LightGray" Content="{Binding ButtonExitText}" Click="ButtonExit_Click"/>
+        <Button Grid.Row="7" Grid.Column="3" Background="LightGray" Content="{Binding ButtonAddText}" FontSize="{StaticResource DefaultFontSize}" Click="ButtonAdd_Click"/>
+        <Button Grid.Row="7" Grid.Column="1" Background="LightGray" Content="{Binding ButtonExitText}" FontSize="{StaticResource DefaultFontSize}" Click="ButtonExit_Click"/>
     </Grid>
 </UserControl>
