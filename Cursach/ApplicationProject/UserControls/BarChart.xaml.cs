@@ -162,6 +162,8 @@ namespace ApplicationProject.UserControls
             PositiveBarTemplate = (DataTemplate)FindResource("PositiveBarTemplate");
             NegativeBarTemplate = (DataTemplate)FindResource("NegativeBarTemplate");
             BarTitleTemplate = (DataTemplate)FindResource("DefaultTitleTemplate");
+            PositiveBarStyle = (Style)FindResource("PositiveRectangleStyle");
+            NegativeBarStyle = (Style)FindResource("NegativeRectangleStyle");
         }
 
         #region Control Properties
