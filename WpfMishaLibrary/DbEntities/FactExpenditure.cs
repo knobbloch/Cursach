@@ -10,6 +10,7 @@ namespace WpfMishaLibrary.DbEntities
     public class FactExpenditure: FactExpenditureVisible
     {
         public int FactExpenditureCategoryId{ get; set; }
+        public int CardId { get; set; }
         // Goes to the db as the number of Ticks (int)!!!
         public long Date { get; set; }
     }

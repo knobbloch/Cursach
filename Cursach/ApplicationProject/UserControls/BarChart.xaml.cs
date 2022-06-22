@@ -339,6 +339,8 @@ namespace ApplicationProject.UserControls
             bar.BarTitle.SetValue(Grid.RowProperty, TitleBarRow);
             bar.BarTitle.SetValue(Grid.ColumnProperty, index);
 
+            UpdateLayout();
+
             //A dirty but necessary fix to ensure that the grid updates its columns' actual sizes correctly for the bars to have correct height
             BarsGrid.Measure(new Size(double.PositiveInfinity, double.PositiveInfinity));
 
