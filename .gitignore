@@ -141,3 +141,5 @@ _NCrunch*
 Cursach/ApplicationProject/bin
 *.sln
 .editorconfig
+
+*.cd
