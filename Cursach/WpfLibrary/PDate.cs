@@ -7,12 +7,22 @@ using ApplicationProjectViews.DatedPageView;
 
 namespace WpfLibrary
 {
-    public class Date
+    public class PDate
     {
-        private bool dateType = false;
-        private DateRange currentDataRange = new DateRange(new DateTime(2022, 6, 1), new DateTime(2022, 6, 30));
+        public static bool dateType = false;
+        static DateRange currentDataRange = new DateRange(new DateTime(2022, 6, 1), new DateTime(2022, 6, 30));
 
-        public Date(IDatedPageView date)
+        public static DateRange DateBounds
+        {
+            get { return currentDataRange; }
+        }
+
+        public bool DateType
+        {
+            get { return dateType; }
+        }
+
+        public PDate(IDatedPageView date)
         {
             //date.DispatchUpdate(view => { IDatedPageView dateView = (IDatedPageView)view; });
             date.DateRangeTypeSelected += ClickTypeSelected;
@@ -42,10 +52,15 @@ namespace WpfLibrary
                     currentDataRange = new DateRange(new DateTime(2022, 6, 1), new DateTime(2022, 6, 30));
                 }
             });
+            PAnalysis.Update();
+            PPlan.Update();
         }
         public void ClickDateRangeChanged(object source, EventArgs a)//сам промежуток поменялся
         {
             ((IDatedPageView)source).DispatchUpdate(view => { IDatedPageView dateView = (IDatedPageView)view; currentDataRange = dateView.SelectedDateRange; });
+            currentDataRange = ((IDatedPageView)source).SelectedDateRange;
+            PAnalysis.Update();
+            PPlan.Update();
         }
         public void ClickNEXTDateSelected(object source, EventArgs a)//стрелка вправо
         {
@@ -62,6 +77,9 @@ namespace WpfLibrary
                     currentDataRange = new DateRange(currentDataRange.Start.AddMonths(1), currentDataRange.End.AddMonths(1));
                     dateView.SelectedDateRange = currentDataRange;
                 }
+                currentDataRange = ((IDatedPageView)source).SelectedDateRange;
+                PAnalysis.Update();
+                PPlan.Update();
             });
         }
         public void ClickPREVIOUSDateSelected(object source, EventArgs a)//стрелка влево
@@ -79,6 +97,9 @@ namespace WpfLibrary
                     currentDataRange = new DateRange(currentDataRange.Start.AddMonths(-1), currentDataRange.End.AddMonths(-1));
                     dateView.SelectedDateRange = currentDataRange;
                 }
+                currentDataRange = ((IDatedPageView)source).SelectedDateRange;
+                PAnalysis.Update();
+                PPlan.Update();
             });
         }
     }
