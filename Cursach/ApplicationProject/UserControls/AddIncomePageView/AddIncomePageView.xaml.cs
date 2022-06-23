@@ -52,6 +52,17 @@ namespace ApplicationProject.UserControls.AddIncomePageView
         protected Viewbox DateSelectorRoot { get; }
         protected RangeSelectorCalendar DateSelectorCalendar { get; }
 
+        public bool IsValid
+        {
+            get
+            {
+                return IncomeNameError == null &&
+                       CurrencyAmountError == null &&
+                       !Validation.GetHasError(CurrencyAmountBox) &&
+                       !Validation.GetHasError(IncomeNameBox);
+            }
+        }
+
         protected CultureInfo CurrentCulture
         {
             get => m_CurrentCulture;

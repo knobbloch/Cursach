@@ -38,7 +38,7 @@
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
             <TextBlock Text="{Binding AccountNameFieldText}" FontSize="{StaticResource DefaultFontSize}"/>
-            <uc:TextBoxNoResize Grid.Row="1" Text="{Binding AccountName}" FontSize="{StaticResource DefaultFontSize}"/>
+            <uc:TextBoxNoResize Grid.Row="1" Text="{Binding AccountName}" FontSize="{StaticResource DefaultFontSize}" x:Name="AccountNameBox"/>
             <TextBlock Grid.Row="2" Text="{Binding AccountNameError, Converter={StaticResource ValueErrorConverter}}" FontSize="{StaticResource DefaultFontSize}" Foreground="Red"/>
         </Grid>
 
@@ -49,7 +49,7 @@
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
             <TextBlock Text="{Binding CurrencyAmountFieldText}" FontSize="{StaticResource DefaultFontSize}"/>
-            <uc:TextBoxNoResize Grid.Row="1" Text="{Binding CurrencyAmount}" FontSize="{StaticResource DefaultFontSize}"/>
+            <uc:TextBoxNoResize Grid.Row="1" Text="{Binding CurrencyAmount}" FontSize="{StaticResource DefaultFontSize}" x:Name="CurrencyAmountBox"/>
             <TextBlock Grid.Row="2" Text="{Binding CurrencyAmountError, Converter={StaticResource ValueErrorConverter}}" FontSize="{StaticResource DefaultFontSize}" Foreground="Red"/>
         </Grid>
         
