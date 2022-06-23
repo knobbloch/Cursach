@@ -52,6 +52,17 @@ namespace ApplicationProject.UserControls.AddExpensePageView
         protected Viewbox DateSelectorRoot { get; }
         protected RangeSelectorCalendar DateSelectorCalendar { get; }
 
+        public bool IsValid
+        {
+            get
+            {
+                return ExpenseNameError == null &&
+                       CurrencyAmountError == null &&
+                       !Validation.GetHasError(CurrencyAmountBox) &&
+                       !Validation.GetHasError(ExpenseNameBox);
+            }
+        }
+
         protected CultureInfo CurrentCulture
         {
             get => m_CurrentCulture;

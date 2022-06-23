@@ -38,7 +38,7 @@
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
             <TextBlock Text="{Binding CategoryNameFieldText}" FontSize="{StaticResource DefaultFontSize}"/>
-            <uc:TextBoxNoResize Grid.Row="1" Text="{Binding CategoryName}" FontSize="{StaticResource DefaultFontSize}"/>
+            <uc:TextBoxNoResize Grid.Row="1" Text="{Binding CategoryName}" FontSize="{StaticResource DefaultFontSize}" x:Name="CategoryNameBox"/>
             <TextBlock Grid.Row="2" Text="{Binding CategoryNameError, Converter={StaticResource ValueErrorConverter}}" FontSize="{StaticResource DefaultFontSize}" Foreground="Red"/>
         </Grid>
 
@@ -49,7 +49,7 @@
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
             <TextBlock Text="{Binding CurrencyAmountFieldText}" FontSize="{StaticResource DefaultFontSize}"/>
-            <uc:TextBoxNoResize Grid.Row="1" Text="{Binding CurrencyAmount}" FontSize="{StaticResource DefaultFontSize}"/>
+            <uc:TextBoxNoResize Grid.Row="1" Text="{Binding CurrencyAmount}" FontSize="{StaticResource DefaultFontSize}" x:Name="CurrencyAmountBox"/>
             <TextBlock Grid.Row="2" Text="{Binding CurrencyAmountError, Converter={StaticResource ValueErrorConverter}}" FontSize="{StaticResource DefaultFontSize}" Foreground="Red"/>
         </Grid>
 
@@ -65,7 +65,7 @@
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
-                <uc:TextBoxNoResize Text="{Binding CategoryImagePath}" FontSize="{StaticResource DefaultFontSize}" HorizontalAlignment="Stretch"/>
+                <uc:TextBoxNoResize Text="{Binding CategoryImagePath}" FontSize="{StaticResource DefaultFontSize}" HorizontalAlignment="Stretch" x:Name="CategoryImagePathBox"/>
                 <Button Grid.Column="1" Click="ImagePathButton_Click">
                     <Button.Content>
                         <Image Source="/Resources/folder.png" Stretch="Uniform" Height="40"/>

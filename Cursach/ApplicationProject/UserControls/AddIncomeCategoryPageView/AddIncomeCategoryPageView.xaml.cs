@@ -34,6 +34,19 @@ namespace ApplicationProject.UserControls.AddIncomeCategoryPageView
             InitializeComponent();
         }
 
+        public bool IsValid
+        {
+            get
+            {
+                return CategoryNameError == null &&
+                       CurrencyAmountError == null &&
+                       CategoryImagePathError == null &&
+                       !Validation.GetHasError(CurrencyAmountBox) &&
+                       !Validation.GetHasError(CategoryNameBox) &&
+                       !Validation.GetHasError(CategoryImagePathBox);
+            }
+        }
+
         protected CultureInfo CurrentCulture
         {
             get => m_CurrentCulture;

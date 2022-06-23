@@ -105,8 +105,7 @@ namespace ApplicationProject
 
         private void AddBankAccountPageViewInstance_AddActionPost(object sender, EventArgs e)
         {
-            if ((AddBankAccountPageViewInstance.CurrencyAmountError ??
-                AddBankAccountPageViewInstance.AccountNameError) == null)
+            if (AddBankAccountPageViewInstance.IsValid)
             {
                 AddPageViewInstance_ExitAction(sender, e);
             }
@@ -137,8 +136,7 @@ namespace ApplicationProject
 
         private void AddIncomePageViewInstance_AddActionPost(object sender, EventArgs e)
         {
-            if ((AddIncomePageViewInstance.CurrencyAmountError ??
-                AddIncomePageViewInstance.IncomeNameError) == null)
+            if (AddIncomePageViewInstance.IsValid)
             {
                 AddPageViewInstance_ExitAction(sender, e);
             }
@@ -146,9 +144,7 @@ namespace ApplicationProject
 
         private void AddIncomeCategoryPageViewInstance_AddActionPost(object sender, EventArgs e)
         {
-            if ((AddIncomeCategoryPageViewInstance.CurrencyAmountError ??
-                AddIncomeCategoryPageViewInstance.CategoryNameError ??
-                AddIncomeCategoryPageViewInstance.CategoryImagePathError) == null)
+            if (AddIncomeCategoryPageViewInstance.IsValid)
             {
                 AddCategoryPageViewInstance_ExitAction(sender, e);
             }
@@ -165,9 +161,7 @@ namespace ApplicationProject
 
         private void AddExpenseCategoryPageViewInstance_AddActionPost(object sender, EventArgs e)
         {
-            if ((AddExpenseCategoryPageViewInstance.CurrencyAmountError ??
-                AddExpenseCategoryPageViewInstance.CategoryNameError ??
-                AddExpenseCategoryPageViewInstance.CategoryImagePathError) == null)
+            if (AddExpenseCategoryPageViewInstance.IsValid)
             {
                 AddCategoryPageViewInstance_ExitAction(sender, e);
             }
@@ -180,8 +174,7 @@ namespace ApplicationProject
 
         private void AddExpensePageViewInstance_AddActionPost(object sender, EventArgs e)
         {
-            if ((AddExpensePageViewInstance.CurrencyAmountError ??
-                AddExpensePageViewInstance.ExpenseNameError) == null)
+            if (AddExpensePageViewInstance.IsValid)
             {
                 AddPageViewInstance_ExitAction(sender, e);
             }

@@ -31,6 +31,16 @@ namespace ApplicationProject.UserControls.AddBankAccountPageView
             InitializeComponent();
         }
 
+        public bool IsValid
+        {
+            get
+            {
+                return AccountNameError == null &&
+                       CurrencyAmountError == null &&
+                       !Validation.GetHasError(AccountNameBox) &&
+                       !Validation.GetHasError(CurrencyAmountBox);
+            }
+        }
         protected CultureInfo CurrentCulture
         {
             get => m_CurrentCulture;
