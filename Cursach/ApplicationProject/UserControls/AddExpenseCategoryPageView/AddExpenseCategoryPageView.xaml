@@ -72,6 +72,7 @@
                     </Button.Content>
                 </Button>
             </Grid>
+            <TextBlock Grid.Row="2" Text="{Binding CategoryImagePathError, Converter={StaticResource ValueErrorConverter}}" Foreground="Red" FontSize="{StaticResource DefaultFontSize}"/>
         </Grid>
 
         <Button Grid.Row="5" Grid.Column="3" Background="LightGray" Content="{Binding ButtonAddText}" FontSize="{StaticResource DefaultFontSize}" Click="ButtonAdd_Click"/>
