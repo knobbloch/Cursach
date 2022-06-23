@@ -322,7 +322,7 @@
     <value>The input box is empty.</value>
   </data>
   <data name="VALUE_INPUT_ERROR_INVALID_SYMBOL" xml:space="preserve">
-    <value>The value contains invalid symbol(s): </value>
+    <value>Invalid value.</value>
   </data>
   <data name="VALUE_INPUT_ERROR_OUT_OF_BOUNDS" xml:space="preserve">
     <value>The value is outside of expected bounds: </value>

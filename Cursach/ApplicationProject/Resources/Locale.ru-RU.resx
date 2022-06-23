@@ -322,7 +322,7 @@
     <value>Ничего не введено.</value>
   </data>
   <data name="VALUE_INPUT_ERROR_INVALID_SYMBOL" xml:space="preserve">
-    <value>Значение содержит некорректные символ(ы): </value>
+    <value>Неверное значение.</value>
   </data>
   <data name="VALUE_INPUT_ERROR_OUT_OF_BOUNDS" xml:space="preserve">
     <value>Значение находится вне границ: </value>
