@@ -27,7 +27,7 @@ namespace ApplicationProjectViews.AddBankAccountPageView
         /// <summary>
         /// The current amount of currency
         /// </summary>
-        decimal CurrencyAmount { get; set; }
+        string CurrencyAmount { get; set; }
 
         /// <summary>
         /// ValueInputError for CurrencyAmount

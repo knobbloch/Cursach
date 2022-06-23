@@ -118,7 +118,7 @@ namespace ApplicationProject.UserControls.AddExpenseCategoryPageView
         }
         private ValueInputError m_CategoryNameError;
 
-        public decimal CurrencyAmount
+        public string CurrencyAmount
         {
             get => m_CurrencyAmount;
             set
@@ -127,7 +127,7 @@ namespace ApplicationProject.UserControls.AddExpenseCategoryPageView
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(CurrencyAmount)));
             }
         }
-        private decimal m_CurrencyAmount;
+        private string m_CurrencyAmount;
 
         public ValueInputError CurrencyAmountError
         {

@@ -37,7 +37,7 @@ namespace ApplicationProjectViews.AddIncomeCategoryPageView
         /// <summary>
         /// The planned amount of money
         /// </summary>
-        decimal CurrencyAmount { get; set; }
+        string CurrencyAmount { get; set; }
 
         /// <summary>
         /// ValueInputError for CurrencyAmount
