@@ -28,7 +28,7 @@ namespace ApplicationProject.UserControls.AddIncomeCategoryPageView
         {
             m_CategoryName = "";
             m_CategoryImagePath = "";
-            m_CurrencyAmount = 0;
+            m_CurrencyAmount = "0";
             CurrentCulture = null;
 
             InitializeComponent();

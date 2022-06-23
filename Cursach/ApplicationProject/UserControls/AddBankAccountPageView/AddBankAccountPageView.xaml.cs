@@ -25,7 +25,7 @@ namespace ApplicationProject.UserControls.AddBankAccountPageView
         public AddBankAccountPageView()
         {
             m_AccountName = "";
-            m_CurrencyAmount = 0;
+            m_CurrencyAmount = "0";
             CurrentCulture = null;
 
             InitializeComponent();

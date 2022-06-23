@@ -28,7 +28,7 @@ namespace ApplicationProject.UserControls.AddExpenseCategoryPageView
         {
             m_CategoryName = "";
             m_CategoryImagePath = "";
-            m_CurrencyAmount = 0;
+            m_CurrencyAmount = "0";
             CurrentCulture = null;
 
             InitializeComponent();
