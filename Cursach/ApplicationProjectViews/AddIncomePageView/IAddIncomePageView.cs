@@ -33,7 +33,7 @@ namespace ApplicationProjectViews.AddIncomePageView
         /// <summary>
         /// The planned amount of money
         /// </summary>
-        decimal CurrencyAmount { get; set; }
+        string CurrencyAmount { get; set; }
 
         /// <summary>
         /// TheValueInputError for CurrencyAmount

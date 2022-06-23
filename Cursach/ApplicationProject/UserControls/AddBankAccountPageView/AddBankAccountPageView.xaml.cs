@@ -111,7 +111,7 @@ namespace ApplicationProject.UserControls.AddBankAccountPageView
         }
         private ValueInputError m_AccountNameError;
 
-        public decimal CurrencyAmount
+        public string CurrencyAmount
         {
             get => m_CurrencyAmount;
             set
@@ -120,7 +120,7 @@ namespace ApplicationProject.UserControls.AddBankAccountPageView
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(CurrencyAmount)));
             }
         }
-        private decimal m_CurrencyAmount;
+        private string m_CurrencyAmount;
 
         public ValueInputError CurrencyAmountError
         {

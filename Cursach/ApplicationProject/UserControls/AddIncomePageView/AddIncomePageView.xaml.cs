@@ -160,7 +160,7 @@ namespace ApplicationProject.UserControls.AddIncomePageView
         }
         private ValueInputError m_IncomeNameError;
 
-        public decimal CurrencyAmount
+        public string CurrencyAmount
         {
             get => m_CurrencyAmount;
             set
@@ -169,7 +169,7 @@ namespace ApplicationProject.UserControls.AddIncomePageView
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(CurrencyAmount)));
             }
         }
-        private decimal m_CurrencyAmount;
+        private string m_CurrencyAmount;
 
         public ValueInputError CurrencyAmountError
         {
