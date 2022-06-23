@@ -131,6 +131,16 @@ namespace WpfMishaLibrary
 
         public static readonly string clearTableQuery = "DELETE FROM @TableNaeme";
 
+        public static readonly string getPlanIncomeById =
+            $"SELECT * " +
+            $"FROM PlanIncome " +
+            $"WHERE PlanIncomeId = @Id;";
+
+        public static readonly string getPlanExpenditureById =
+            $"SELECT * " +
+            $"FROM PlanExpenditure " +
+            $"WHERE PlanExpenditureId = @Id;";
+
         #endregion
     }
 }
