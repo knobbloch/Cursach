@@ -55,6 +55,8 @@ namespace ApplicationProjectViews.AddExpensePageView
         /// </summary>
         CategoryDescriptor SelectedExpenseCategory { get; set; }
 
+        ValueInputError SelectedExpenseCategoryError { set; }
+
         /// <summary>
         /// The bank accounts to display to select from
         /// </summary>
@@ -64,5 +66,7 @@ namespace ApplicationProjectViews.AddExpensePageView
         /// The currently selected bank account
         /// </summary>
         BankAccountInfo SelectedBankAccount { get; set; }
+
+        ValueInputError SelectedBankAccountError { set; }
     }
 }

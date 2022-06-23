@@ -31,7 +31,7 @@ namespace ApplicationProject.UserControls.AddExpensePageView
         public AddExpensePageView()
         {
             m_ExpenseName = "";
-            m_CurrencyAmount = 0;
+            m_CurrencyAmount = "0";
             CurrentCulture = null;
 
             DateSelectorRoot = new Viewbox
@@ -59,7 +59,9 @@ namespace ApplicationProject.UserControls.AddExpensePageView
                 return ExpenseNameError == null &&
                        CurrencyAmountError == null &&
                        !Validation.GetHasError(CurrencyAmountBox) &&
-                       !Validation.GetHasError(ExpenseNameBox);
+                       !Validation.GetHasError(ExpenseNameBox) &&
+                       SelectedBankAccountError == null &&
+                       SelectedExpenseCategoryError == null;
             }
         }
 
@@ -195,6 +197,17 @@ namespace ApplicationProject.UserControls.AddExpensePageView
         }
         private CategoryDescriptor m_SelectedExpenseCategory;
 
+        public ValueInputError SelectedExpenseCategoryError
+        {
+            get => m_SelectedExpenseCategoryError;
+            set
+            {
+                m_SelectedExpenseCategoryError = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(SelectedExpenseCategoryError)));
+            }
+        }
+        private ValueInputError m_SelectedExpenseCategoryError;
+
         public ICollection<BankAccountInfo> BankAccounts { get; }
 
         public BankAccountInfo SelectedBankAccount
@@ -207,6 +220,17 @@ namespace ApplicationProject.UserControls.AddExpensePageView
             }
         }
         private BankAccountInfo m_SelectedBankAccount;
+
+        public ValueInputError SelectedBankAccountError
+        {
+            get => m_SelectedBankAccountError;
+            set
+            {
+                m_SelectedBankAccountError = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(SelectedBankAccountError)));
+            }
+        }
+        private ValueInputError m_SelectedBankAccountError;
 
         public DateTime SelectedDate
         {

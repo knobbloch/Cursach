@@ -55,6 +55,8 @@ namespace ApplicationProjectViews.AddIncomePageView
         /// </summary>
         CategoryDescriptor SelectedIncomeCategory { get; set; }
 
+        ValueInputError SelectedIncomeCategoryError { set; }
+
         /// <summary>
         /// The bank accounts to display to select from
         /// </summary>
@@ -64,5 +66,7 @@ namespace ApplicationProjectViews.AddIncomePageView
         /// The currently selected bank account
         /// </summary>
         BankAccountInfo SelectedBankAccount { get; set; }
+
+        ValueInputError SelectedBankAccountError { set; }
     }
 }

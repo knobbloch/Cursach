@@ -73,6 +73,7 @@
                     </DataTemplate>
                 </ComboBox.ItemTemplate>
             </ComboBox>
+            <TextBlock Grid.Row="2" Text="{Binding SelectedExpenseCategoryError, Converter={StaticResource ValueErrorConverter}}" FontSize="{StaticResource DefaultFontSize}" Foreground="Red"/>
         </Grid>
 
         <Grid Grid.Row="5" Grid.Column="3">
@@ -95,6 +96,7 @@
                     </DataTemplate>
                 </ComboBox.ItemTemplate>
             </ComboBox>
+            <TextBlock Grid.Row="2" Text="{Binding SelectedBankAccountError, Converter={StaticResource ValueErrorConverter}}" FontSize="{StaticResource DefaultFontSize}" Foreground="Red"/>
         </Grid>
 
         <Grid Grid.Row="1" Grid.Column="1">
