@@ -673,7 +673,7 @@ namespace ApplicationProject.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The value contains invalid symbol(s): .
+        ///   Looks up a localized string similar to Invalid value..
         /// </summary>
         internal static string VALUE_INPUT_ERROR_INVALID_SYMBOL {
             get {
