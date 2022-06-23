@@ -454,6 +454,10 @@ namespace WpfMishaLibrary
                     .Select(x =>
                     {
                         x.DateDateTime = new DateTime(x.Date);
+                        //Getting PlanIncome record to set image path and category name
+                        var record = GetPlanExpenditureRecord(x.FactExpenditureCategoryId);
+                        x.FactExpenditureCategory = record.ExpenditureCategory;
+                        x.CategoryImagePath = record.PlanExpenditureImagePath;
                         return x as FactExpenditureVisible;
                     }).ToList();
                 return factExpenditures;
@@ -478,6 +482,10 @@ namespace WpfMishaLibrary
                     .Select(x =>
                     {
                         x.DateDateTime = new DateTime(x.Date);
+                        //Getting PlanIncome record to set image path and category name
+                        var record = GetPlanIncomeRecord(x.FactIncomeCategoryId);
+                        x.FactIncomeCategory = record.IncomeCategory;
+                        x.CategoryImagePath = record.PlanIncomeImagePath;
                         return x as FactIncomeVisible;
                     }).ToList();
                 return factIncomes;
@@ -575,7 +583,26 @@ namespace WpfMishaLibrary
             }
             return rows > 0;
         }
-
+        private PlanIncome GetPlanIncomeRecord(int Id)
+        {
+            PlanIncome planIncome;
+            using (IDbConnection dbConnection = new SQLiteConnection(DbConnectionString))
+            {
+                planIncome = dbConnection.QueryFirst<PlanIncome>(DbQueries.getPlanIncomeById,
+                    param: new { Id });
+            }
+            return planIncome;
+        }
+        private PlanExpenditure GetPlanExpenditureRecord(int Id)
+        {
+            PlanExpenditure planExpenditure;
+            using (IDbConnection dbConnection = new SQLiteConnection(DbConnectionString))
+            {
+                planExpenditure = dbConnection.QueryFirst<PlanExpenditure>(DbQueries.getPlanExpenditureById,
+                    param: new { Id });
+            }
+            return planExpenditure;
+        }
         #endregion
     }
 }

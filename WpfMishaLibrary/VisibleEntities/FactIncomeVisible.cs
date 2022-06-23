@@ -10,6 +10,7 @@ namespace WpfMishaLibrary.VisibleEntities
     {
         public string FactIncomeName { get; set; }
         public string FactIncomeCategory { get; set; }
+        public string CategoryImagePath { get; set; }
         public double Sum { get; set; }
         public string CardName { get; set; }
     }
