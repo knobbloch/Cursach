@@ -83,6 +83,8 @@ namespace WpfMishaLibrary
         {
             // Creating FactExpenditure object.
             // CONVERTING DATETIME DATE TO TICKS, SO TYPEOF(DATE) = LONG
+            if (sum < 0)
+                    return ModelEditDataResultStates.ReturnFactExpenditureState.ErrorTypeSumConstraint;
             var factExpenditureObject = new FactExpenditure
             {
                 ExpenditureName = expenditureName,
@@ -123,6 +125,8 @@ namespace WpfMishaLibrary
         /// </returns>
         public ModelEditDataResultStates.ReturnFactIncomeState AddFactIncome(string incomeName, double sum, DateTime date, PlanIncomeVisible planIncomeVisible, CardVisible cardVisible)
         {
+            if (sum < 0)
+                return ModelEditDataResultStates.ReturnFactIncomeState.ErrorTypeSumConstraint;
             var factIncomeObject = new FactIncome
             {
                 FactIncomeName = incomeName,
@@ -463,7 +467,7 @@ namespace WpfMishaLibrary
                 return factExpenditures;
             }
         }
-
+        // Make generic types because it can be one method, only difference is a type casting
         public List<FactIncomeVisible> GetFactIncomesDiapason(DateTime start, DateTime end)
         {
             if (start > end)

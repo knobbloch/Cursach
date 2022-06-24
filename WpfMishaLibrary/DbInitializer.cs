@@ -20,11 +20,11 @@ namespace WpfMishaLibrary
             
             { "FactIncome", "CREATE TABLE 'FactIncome'('FactIncomeId' INTEGER PRIMARY KEY,'FactIncomeName'TEXT,'FactIncomeCategoryId'INTEGER NOT NULL DEFAULT 1,'Sum'REAL DEFAULT 0 CHECK('Sum' >= 0),'Date'INTEGER NOT NULL,'CardId'INTEGER NOT NULL DEFAULT 1,FOREIGN KEY('CardId') REFERENCES 'Card'('Id') ON DELETE SET DEFAULT,FOREIGN KEY('FactIncomeCategoryId') REFERENCES 'PlanIncome'('PlanIncomeId') ON DELETE SET DEFAULT);" },
             
-            { "FactExpenditure", "CREATE TABLE 'FactExpenditure'('FactExpenditureId'INTEGER PRIMARY KEY,'ExpenditureName'TEXT,'FactExpenditureCategoryId'INTEGER NOT NULL DEFAULT 1,'Sum'REAL DEFAULT 0,'Date'INTEGER NOT NULL,'CardId'INTEGER NOT NULL DEFAULT 1,FOREIGN KEY('CardId') REFERENCES 'Card'('Id') ON DELETE SET DEFAULT,FOREIGN KEY('FactExpenditureCategoryId') REFERENCES 'PlanExpenditure'('PlanExpenditureId') ON DELETE SET DEFAULT );" },
+            { "FactExpenditure", "CREATE TABLE 'FactExpenditure'('FactExpenditureId'INTEGER PRIMARY KEY,'ExpenditureName'TEXT,'FactExpenditureCategoryId'INTEGER NOT NULL DEFAULT 1,'Sum'REAL DEFAULT 0 CHECK('Sum' >= 0),'Date'INTEGER NOT NULL,'CardId'INTEGER NOT NULL DEFAULT 1,FOREIGN KEY('CardId') REFERENCES 'Card'('Id') ON DELETE SET DEFAULT,FOREIGN KEY('FactExpenditureCategoryId') REFERENCES 'PlanExpenditure'('PlanExpenditureId') ON DELETE SET DEFAULT );" },
 
             { "PlanExpenditure", "CREATE TABLE 'PlanExpenditure'('PlanExpenditureId'INTEGER PRIMARY KEY,'ExpenditureCategory'TEXT NOT NULL DEFAULT 'Other','Sum'REAL DEFAULT 0 CHECK('Sum' >= 0),'BeginDate'INTEGER NOT NULL,'EndDate'INTEGER NOT NULL,'PlanExpenditureImagePath'TEXT);" },
 
-            { "PlanIncome", "CREATE TABLE 'PlanIncome'('PlanIncomeId'INTEGER PRIMARY KEY,'IncomeCategory'TEXT NOT NULL DEFAULT 'Other','Sum'REAL DEFAULT 0 CHECK('Sum' >= 0),'BeginDate'INTEGER NOT NULL,'EndDate'INTEGER NOT NULL,'PlanIncomeImagePath'TEXT);" }
+            { "PlanIncome", "CREATE TABLE 'PlanIncome'('PlanIncomeIdн'INTEGER PRIMARY KEY,'IncomeCategory'TEXT NOT NULL DEFAULT 'Other','Sum'REAL DEFAULT 0 CHECK('Sum' >= 0),'BeginDate'INTEGER NOT NULL,'EndDate'INTEGER NOT NULL,'PlanIncomeImagePath'TEXT);" }
         };
         public string DbPath { get; private set; }
         public string DbConnectionString { get; private set; }
