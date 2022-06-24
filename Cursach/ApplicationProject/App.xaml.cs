@@ -43,17 +43,17 @@ namespace ApplicationProject
 
         private void TaskScheduler_UnobservedTaskException(object sender, System.Threading.Tasks.UnobservedTaskExceptionEventArgs e)
         {
-            MessageBox.Show(e.ToString());
+            MessageBox.Show(e.Exception.ToString());
         }
 
         private void Current_DispatcherUnhandledException(object sender, System.Windows.Threading.DispatcherUnhandledExceptionEventArgs e)
         {
-            MessageBox.Show(e.ToString());
+            MessageBox.Show(e.Exception.ToString());
         }
 
         private void CurrentDomain_UnhandledException(object sender, System.UnhandledExceptionEventArgs e)
         {
-            MessageBox.Show(e.ToString());
+            MessageBox.Show(e.ExceptionObject.ToString());
         }
     }
 }
