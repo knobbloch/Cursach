@@ -19,6 +19,7 @@ namespace WpfMishaLibrary
         {
             Success,
             // Sum < 0
+            ErrorTypeSumConstraint,
             ErrorTypeUnrecognized,
             ErrorTypeUpdatingBalance
         }
