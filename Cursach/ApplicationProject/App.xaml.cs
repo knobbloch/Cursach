@@ -26,7 +26,7 @@ namespace ApplicationProject
             ViewsFlowController.IInterPageViewInstance.AccountName = "Тест";
             ViewsFlowController.IDatedPageViewInstance.DateRangeTypes.Add(ApplicationProjectViews.DatedPageView.DateRangeType.MONTH);
 
-            PrezenterInitializer test = new PrezenterInitializer(ViewsFlowController.IAnalysisPageViewInstance,
+            PInitializer test = new PInitializer(ViewsFlowController.IAnalysisPageViewInstance,
                                             ViewsFlowController.IDatedPageViewInstance,
                                             ViewsFlowController.IInterPageViewInstance,
                                             ViewsFlowController.IPlanPageViewInstance,
