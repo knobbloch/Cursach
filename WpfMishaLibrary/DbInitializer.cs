@@ -24,7 +24,7 @@ namespace WpfMishaLibrary
 
             { "PlanExpenditure", "CREATE TABLE 'PlanExpenditure'('PlanExpenditureId'INTEGER PRIMARY KEY,'ExpenditureCategory'TEXT NOT NULL DEFAULT 'Other','Sum'REAL DEFAULT 0 CHECK('Sum' >= 0),'BeginDate'INTEGER NOT NULL,'EndDate'INTEGER NOT NULL,'PlanExpenditureImagePath'TEXT);" },
 
-            { "PlanIncome", "CREATE TABLE 'PlanIncome'('PlanIncomeIdн'INTEGER PRIMARY KEY,'IncomeCategory'TEXT NOT NULL DEFAULT 'Other','Sum'REAL DEFAULT 0 CHECK('Sum' >= 0),'BeginDate'INTEGER NOT NULL,'EndDate'INTEGER NOT NULL,'PlanIncomeImagePath'TEXT);" }
+            { "PlanIncome", "CREATE TABLE 'PlanIncome'('PlanIncomeId'INTEGER PRIMARY KEY,'IncomeCategory'TEXT NOT NULL DEFAULT 'Other','Sum'REAL DEFAULT 0 CHECK('Sum' >= 0),'BeginDate'INTEGER NOT NULL,'EndDate'INTEGER NOT NULL,'PlanIncomeImagePath'TEXT);" }
         };
         public string DbPath { get; private set; }
         public string DbConnectionString { get; private set; }
