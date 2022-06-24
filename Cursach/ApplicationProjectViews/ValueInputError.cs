@@ -12,10 +12,6 @@
         public enum ValueInputErrorType
         {
             /// <summary>
-            /// No error
-            /// </summary>
-            None = 0,
-            /// <summary>
             /// The value is considered empty
             /// </summary>
             EmptyValue = 1,

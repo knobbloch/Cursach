@@ -98,7 +98,9 @@ namespace ApplicationProject.UserControls.DatedPageView
             ShowPreview?.Invoke(this, EventArgs.Empty);
 
             return DateRangeTypes.Count > 0 &&
-                   PageNameText?.Length > 0;
+                   PageNameText?.Length > 0 &&
+                   PresentedView != null &&
+                   PresentedView.Show();
         }
 
         public void DispatchUpdate(ViewUpdate action)

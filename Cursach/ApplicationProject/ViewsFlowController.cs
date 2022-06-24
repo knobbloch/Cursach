@@ -205,9 +205,9 @@ namespace ApplicationProject
 
         public bool Link()
         {
-            return ViewRoot.Present(IInterPageViewInstance) &&
+            return DatedPageViewInstance.Present(IAnalysisPageViewInstance) &&
                    InterPageViewInstance.Present(IDatedPageViewInstance) &&
-                   DatedPageViewInstance.Present(IAnalysisPageViewInstance);
+                   ViewRoot.Present(IInterPageViewInstance);
         }
 
         private void IInterPageViewInstance_CategorySelectedAction(object source, CategorySelectedEventArgs e)
