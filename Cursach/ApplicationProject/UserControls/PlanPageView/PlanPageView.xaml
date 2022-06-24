@@ -147,10 +147,17 @@
                         <RowDefinition Height="30" />
                         <RowDefinition Height="Auto" />
                     </Grid.RowDefinitions>
-                    <uc:BarChart x:Name="IncomeBarChart" Grid.Row="1" BarsSource="{Binding IncomeItems}" FontSize="15" ValueSource="Difference" Height="300" Grid.Row="1">
+                    <uc:BarChart x:Name="IncomeBarChart" BarsSource="{Binding IncomeItems}" FontSize="15" ValueSource="Difference" Height="300" Grid.Row="1">
                         <uc:BarChart.BarTitleTemplate>
                             <DataTemplate>
-                                <TextBlock Text="{Binding Title}" FontSize="{StaticResource TableFontSize}" Foreground="Black" HorizontalAlignment="Center" />
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                    </Grid.RowDefinitions>
+                                    <Image Grid.Row="1" Source="{Binding ImagePath}" MaxWidth="50" MaxHeight="50" Stretch="Uniform" HorizontalAlignment="Center"/>
+                                    <TextBlock Text="{Binding Title}"  HorizontalAlignment="Center" FontSize="{StaticResource TableFontSize}"/>
+                                </Grid>
                             </DataTemplate>
                         </uc:BarChart.BarTitleTemplate>
                     </uc:BarChart>
