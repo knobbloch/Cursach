@@ -74,6 +74,8 @@ namespace ApplicationProject.UserControls.PlanPageView
                    AddExpenseCategoryText.Length > 0;
         }
 
+        public void OnShown() { }
+
         public void DispatchUpdate(ViewUpdate action)
         {
             Dispatcher.Invoke(() => action(this));

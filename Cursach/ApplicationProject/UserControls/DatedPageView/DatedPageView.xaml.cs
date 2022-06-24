@@ -81,6 +81,8 @@ namespace ApplicationProject.UserControls.DatedPageView
             if (PresentedView is ICultureDependentData cultureDependent)
                 cultureDependent.OnCultureChanged(CurrentCulture);
 
+            PresentedView.OnShown();
+
             return true;
         }
         #endregion
@@ -101,6 +103,17 @@ namespace ApplicationProject.UserControls.DatedPageView
                    PageNameText?.Length > 0 &&
                    PresentedView != null &&
                    PresentedView.Show();
+        }
+
+        public void OnShown()
+        {
+            if (PresentedView is ISupportOverlay overlay)
+                overlay.Overlay = Overlay;
+
+            if (PresentedView is ICultureDependentData cultureDependent)
+                cultureDependent.OnCultureChanged(CurrentCulture);
+
+            PresentedView.OnShown();
         }
 
         public void DispatchUpdate(ViewUpdate action)

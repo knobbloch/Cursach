@@ -93,7 +93,7 @@ namespace ApplicationProject.UserControls.AddIncomePageView
             return true;
         }
 
-
+        public void OnShown() { }
         public void OnCultureChanged(CultureInfo newCulture)
         {
             CurrentCulture = newCulture;

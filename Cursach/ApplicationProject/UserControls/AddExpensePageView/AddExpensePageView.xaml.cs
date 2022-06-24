@@ -93,7 +93,7 @@ namespace ApplicationProject.UserControls.AddExpensePageView
             return true;
         }
 
-
+        public void OnShown() { }
         public void OnCultureChanged(CultureInfo newCulture)
         {
             CurrentCulture = newCulture;
