@@ -66,6 +66,8 @@ namespace ApplicationProject.UserControls.InterPageView
             if (PresentedView is ISupportOverlay overlay2)
                 overlay2.Overlay = Overlay;
 
+            PresentedView.OnShown();
+
             return true;
         }
         #endregion
@@ -88,6 +90,17 @@ namespace ApplicationProject.UserControls.InterPageView
                    AccountName?.Length > 0 &&
                    PresentedView != null &&
                    PresentedView.Show();
+        }
+
+        public void OnShown()
+        {
+            if (PresentedView is ISupportOverlay overlay)
+                overlay.Overlay = Overlay;
+
+            if (PresentedView is ICultureDependentData cultureDependent)
+                cultureDependent.OnCultureChanged(CurrentCulture);
+
+            PresentedView.OnShown();
         }
 
         public void DispatchUpdate(ViewUpdate action)

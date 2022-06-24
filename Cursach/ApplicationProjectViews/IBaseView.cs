@@ -16,6 +16,8 @@ namespace ApplicationProjectViews
         /// </summary>
         bool Show();
 
+        void OnShown();
+
         /// <summary>
         /// Dispatch a thread-safe UI update
         /// </summary>

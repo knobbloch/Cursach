@@ -51,6 +51,8 @@ namespace ApplicationProject
             if (PresentedView is ISupportOverlay overlay2)
                 overlay2.Overlay = Overlay;
 
+            PresentedView.OnShown();
+
             return true;
         }
     }

@@ -72,7 +72,8 @@ namespace ApplicationProject.UserControls.AddExpenseCategoryPageView
 
             return true;
         }
-
+        
+        public void OnShown() { }
 
         public void OnCultureChanged(CultureInfo newCulture)
         {
