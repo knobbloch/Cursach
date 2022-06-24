@@ -85,7 +85,9 @@ namespace ApplicationProject.UserControls.InterPageView
 
             return AnalysisButtonName.Length > 0 &&
                    PlanButtonName.Length > 0 &&
-                   AccountName?.Length > 0;
+                   AccountName?.Length > 0 &&
+                   PresentedView != null &&
+                   PresentedView.Show();
         }
 
         public void DispatchUpdate(ViewUpdate action)
