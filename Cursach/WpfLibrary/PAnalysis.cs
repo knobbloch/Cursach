@@ -17,12 +17,6 @@ namespace WpfLibrary
             analysisPage = analysis;
             analysis.ModeChanged += RegimeChange;
 
-            analysis.AddExpenseAction += AddExpenseClicked;
-            analysis.AddExpenseCategoryAction += AddExpenseCategoryClicked;
-
-            analysis.AddIncomeAction += AddIncomeClicked;
-            analysis.AddIncomeCategoryAction += AddIncomeCategoryClicked;
-
             m = model;
             Update();
         }
@@ -157,27 +151,6 @@ namespace WpfLibrary
                     }
                 }              
             });
-        }
-
-        public void AddExpenseClicked(object source, EventArgs a)
-        {
-            PInitializer.AddExpense();
-        }
-
-        public void AddExpenseCategoryClicked(object source, EventArgs a)
-        {
-            PInitializer.AddExpenseCategory();
-        }
-
-
-        public void AddIncomeClicked(object source, EventArgs a)
-        {
-            PInitializer.AddIncome();
-        }
-
-        public void AddIncomeCategoryClicked(object source, EventArgs a)
-        {
-            PInitializer.AddIncomeCategory();
         }
     }
 }

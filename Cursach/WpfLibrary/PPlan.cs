@@ -15,8 +15,6 @@ namespace WpfLibrary
         public PPlan(IPlanPageView plan, WpfMishaLibrary.IModel model)
         {
             planPage = plan;
-            plan.AddExpenseCategoryAction += AddExpenseCategoryClicked;
-            plan.AddIncomeCategoryAction += AddIncomeCategoryClicked;
             plan.CurrentMode = IPlanPageView.PlanPageMode.Expenses;
             m = model;
             Update();
@@ -46,16 +44,20 @@ namespace WpfLibrary
         {
             ((IPlanPageView)planPage).DispatchUpdate(view =>
             {
-                IPlanPageView planiView = (IPlanPageView)view;
+                IPlanPageView planView = (IPlanPageView)view;
                 List<WpfMishaLibrary.VisibleEntities.PlanExpenditureVisible> list = m.GetPlanExpendituresDiapason(PDate.DateBounds.Start, PDate.DateBounds.End);
                 List<WpfMishaLibrary.VisibleEntities.FactExpenditureVisible> listFact = m.GetFactExpendituresDiapason(PDate.DateBounds.Start, PDate.DateBounds.End);
-                planiView.ExpensesItems.Clear();
+                planView.ExpensesItems.Clear();
                 for (int i = 0; i < list.Count; i++)
                 {
                     double real = 0;
-                    try { real = listFact[i].Sum; } catch { };
-                    planiView.ExpensesItems.Add(new PlanPageExpenseEntry()
-                    { Title = list[i].ExpenditureCategory, PlannedValue = list[i].Sum, RealValue = real, ImagePath = listFact[i].CategoryImagePath});
+                    for (int j = 0; j < listFact.Count; j++)
+                    {
+                        if (listFact[j].FactExpenditureCategory == list[i].ExpenditureCategory)
+                            real += listFact[j].Sum;
+                    }
+                    planView.ExpensesItems.Add(new PlanPageExpenseEntry()
+                    { Title = list[i].ExpenditureCategory, PlannedValue = list[i].Sum, RealValue = real, ImagePath = list[i].PlanExpenditureImagePath});
                 }
             });
         }
@@ -71,32 +73,15 @@ namespace WpfLibrary
                 for (int i = 0; i < list.Count; i++)
                 {
                     double real = 0;
-                    try {real = listFact[i].Sum;} catch { };
+                    for (int j = 0; j < listFact.Count; j++)
+                    {
+                        if (listFact[j].FactIncomeCategory == list[i].IncomeCategory)
+                            real += listFact[j].Sum;
+                    }
                     planView.IncomeItems.Add(new PlanPageIncomeEntry()
-                    { Title = list[i].IncomeCategory, PlannedValue = list[i].Sum, RealValue = real, ImagePath = listFact[i].CategoryImagePath });
+                    { Title = list[i].IncomeCategory, PlannedValue = list[i].Sum, RealValue = real, ImagePath = list[i].PlanIncomeImagePath });
                 }
             });
-        }
-
-        public void AddExpenseClicked(object source, EventArgs a)
-        {
-            PInitializer.AddExpense();
-        }
-
-        public void AddExpenseCategoryClicked(object source, EventArgs a)
-        {
-            PInitializer.AddExpenseCategory();
-        }
-
-
-        public void AddIncomeClicked(object source, EventArgs a)
-        {
-            PInitializer.AddIncome();
-        }
-
-        public void AddIncomeCategoryClicked(object source, EventArgs a)
-        {
-            PInitializer.AddIncomeCategory();
         }
     }
 }

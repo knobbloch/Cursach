@@ -8,54 +8,30 @@ using ApplicationProjectViews.AnalysisPageView;
 using ApplicationProjectViews.DatedPageView;
 using ApplicationProjectViews.InterPageView;
 using ApplicationProjectViews.PlanPageView;
-using ApplicationProjectViews;
 using WpfMishaLibrary;
+using System.IO;
 
 namespace WpfLibrary
 {
     public class PInitializer
     {
-        static IAddExpensePageView addExpensee;
-        static IAddExpenseCategoryPageView addExpenseCategoryy;
-        static IAddIncomePageView addIncomee;
-        static IAddIncomeCategoryPageView addIncomeCategoryy;
-        static IModel modell;
-
         public PInitializer(IAnalysisPageView analysis, IDatedPageView date, IInterPageView inter, IPlanPageView plan,
                             IAddBankAccountPageView addCard, IAddExpenseCategoryPageView addExpenseCategory,
                             IAddExpensePageView addExpensePage, IAddIncomeCategoryPageView addIncomeCategory, IAddIncomePageView addIncomePage)
         {
-            DbWorker model = new DbWorker("C:/other/hse/prog/курсовой/UserData.db");
+            //MessageBox.Show(s, "111", MessageBoxButton.YesNoCancel, MessageBoxImage.Warning, MessageBoxResult.Yes);
+            //DbWorker model = new DbWorker("C:/other/hse/prog/курсовой/UserData.db");
+            //DbWorker model = new DbWorker("./UserData.db");
+            DbWorker model = new DbWorker(Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location) + "\\UserData.db");
             PDate dateCreating = new PDate(date);
             PAnalysis analysisCreate = new PAnalysis(analysis, model);
             PCard cardCreate = new PCard(addCard, model);
             PInterPage interPage = new PInterPage(inter, model, addCard);
             PPlan planPage = new PPlan(plan, model);
-            modell = model;
-            addExpensee = addExpensePage;
-            addExpenseCategoryy = addExpenseCategory;
-            addIncomee = addIncomePage;
-            addIncomeCategoryy = addIncomeCategory;
-        }
-
-        public static void AddExpense()
-        {
-            PAddExpense addExpense = new PAddExpense(addExpensee, modell);
-        }
-
-        public static void AddExpenseCategory()
-        {
-            PAddPlanExpense addExpense = new PAddPlanExpense(addExpenseCategoryy, modell);
-        }
-
-        public static void AddIncome()
-        {
-            PAddIncome addIncome = new PAddIncome(addIncomee, modell);
-        }
-
-        public static void AddIncomeCategory()
-        {
-            PAddPlanIncome addIncome = new PAddPlanIncome(addIncomeCategoryy, modell);
+            PAddExpense addExpense = new PAddExpense(addExpensePage, model);
+            PAddPlanExpense addExpenseCategory1 = new PAddPlanExpense(addExpenseCategory, model);
+            PAddIncome addIncome = new PAddIncome(addIncomePage, model);
+            PAddPlanIncome addIncome1 = new PAddPlanIncome(addIncomeCategory, model);
         }
     }
 }

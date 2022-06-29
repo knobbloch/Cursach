@@ -15,13 +15,12 @@ namespace WpfLibrary
         static IInterPageView interPage;
         public PInterPage(IInterPageView inter, WpfMishaLibrary.IModel model, IAddBankAccountPageView card)
         {
-            card.AddAction += DisplayCards;
             m = model;
             interPage = inter;
-            DisplayCards(inter, new EventArgs());
+            Update();
         }
 
-        public void DisplayCards(object source, EventArgs a)
+        public static void Update()
         {
             interPage.DispatchUpdate(view => {
                 IInterPageView interView = (IInterPageView)view;

@@ -18,6 +18,8 @@ namespace WpfLibrary
         public PAddIncome(IAddIncomePageView addIncomePage, IModel model)
         {
             addIncomePage.AddAction += AddButton;
+            addIncomePage.SelectedDateChanged += Update;
+            addIncomePage.ShowPreview += Update;
             m = model;
             addIncome = addIncomePage;
             addIncomePage.SelectedDate = new DateTime(2022, 6, 20);
@@ -37,6 +39,8 @@ namespace WpfLibrary
                 addIncomee.CurrencyAmount = "0";
                 addIncomee.CurrencyAmountError = null;
                 addIncomee.IncomeNameError = null;
+                addIncomee.SelectedIncomeCategoryError = null;
+                addIncomee.SelectedBankAccountError = null;
             });
             FillCards();
             FillCategories();
@@ -64,7 +68,7 @@ namespace WpfLibrary
             ((IAddIncomePageView)addIncome).DispatchUpdate(view =>
             {
                 IAddIncomePageView addIncomePage = (IAddIncomePageView)view;
-                List<WpfMishaLibrary.VisibleEntities.PlanIncomeVisible> list = m.GetPlanIncomesDiapason(PDate.DateBounds.Start, PDate.DateBounds.End);
+                List<WpfMishaLibrary.VisibleEntities.PlanIncomeVisible> list = m.GetPlanIncomesSelectedDay (addIncomePage.SelectedDate);
                 categoryDict.Clear();
                 addIncome.IncomeCategories.Clear();
                 for (int i = 0; i < list.Count; i++)
@@ -76,40 +80,59 @@ namespace WpfLibrary
             });
         }
 
+        public void Update(object source, EventArgs a)
+        {
+            Update();
+        }
+
         public void AddButton(object source, EventArgs args)
         {
             ((IAddIncomePageView)source).DispatchUpdate(view => {
                 IAddIncomePageView local = (IAddIncomePageView)view;
 
-                if (local.IncomeName == "")
+                WpfMishaLibrary.VisibleEntities.PlanIncomeVisible category = null;
+                WpfMishaLibrary.VisibleEntities.CardVisible card = null;
+                try
+                {
+                    categoryDict.TryGetValue(local.SelectedIncomeCategory, out category);
+                    local.SelectedIncomeCategoryError = null;
+                }
+                catch { local.SelectedIncomeCategoryError = new ApplicationProjectViews.ValueInputError(ApplicationProjectViews.ValueInputError.ValueInputErrorType.EmptyValue, ""); return; }
+
+                try
+                {
+                    cardDict.TryGetValue(local.SelectedBankAccount, out card);
+                    local.SelectedBankAccountError = null;
+                }
+                catch { local.SelectedBankAccountError = new ApplicationProjectViews.ValueInputError(ApplicationProjectViews.ValueInputError.ValueInputErrorType.EmptyValue, ""); return; }
+
+                if ((local.IncomeName).Trim() == "")
                 {
                     local.IncomeNameError = new ApplicationProjectViews.ValueInputError(ApplicationProjectViews.ValueInputError.ValueInputErrorType.EmptyValue, "");
                     return;
                 }
-
-                WpfMishaLibrary.VisibleEntities.PlanIncomeVisible category = null;
-                WpfMishaLibrary.VisibleEntities.CardVisible card = null;
-                try { categoryDict.TryGetValue(local.SelectedIncomeCategory, out category); }
-                catch { local.SelectedIncomeCategoryError = new ApplicationProjectViews.ValueInputError(ApplicationProjectViews.ValueInputError.ValueInputErrorType.EmptyValue, ""); return; }
-                try { cardDict.TryGetValue(local.SelectedBankAccount, out card); }
-                catch { local.SelectedBankAccountError = new ApplicationProjectViews.ValueInputError(ApplicationProjectViews.ValueInputError.ValueInputErrorType.EmptyValue, ""); return; }
+                else
+                    local.IncomeNameError = null;
 
                 try
                 {
-                    ModelEditDataResultStates.ReturnFactIncomeState ret = m.AddFactIncome(local.IncomeName, double.Parse(local.CurrencyAmount), local.SelectedDate, category, card);
+                    ModelEditDataResultStates.ReturnFactIncomeState ret = m.AddFactIncome (local.IncomeName, double.Parse(local.CurrencyAmount), local.SelectedDate, category, card);
                     if (ret == ModelEditDataResultStates.ReturnFactIncomeState.ErrorTypeSumConstraint)
-                        local.CurrencyAmountError = new ApplicationProjectViews.ValueInputError(ApplicationProjectViews.ValueInputError.ValueInputErrorType.OutOfBoundsValue, "");
+                        local.CurrencyAmountError = new ApplicationProjectViews.ValueInputError(ApplicationProjectViews.ValueInputError.ValueInputErrorType.OutOfBoundsValue, ">=0");
                     else
                     {
+                        local.CurrencyAmountError = null;
                         PAnalysis.Update();
                         PPlan.Update();
+                        PInterPage.Update();
                     }
                 }
                 catch
                 {
-                    local.CurrencyAmountError = new ApplicationProjectViews.ValueInputError(ApplicationProjectViews.ValueInputError.ValueInputErrorType.OutOfBoundsValue, "");
+                    local.CurrencyAmountError = new ApplicationProjectViews.ValueInputError(ApplicationProjectViews.ValueInputError.ValueInputErrorType.InvalidSymbol, "");
                 }
             });
         }
     }
 }
+
