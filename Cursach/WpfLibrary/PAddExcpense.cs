@@ -17,10 +17,11 @@ namespace WpfLibrary
         public PAddExpense(IAddExpensePageView addExpensePage, IModel model)
         {
             addExpensePage.AddAction += AddButton;
+            addExpensePage.SelectedDateChanged += Update;
+            addExpensePage.ShowPreview += Update;
             m = model;
             addExpense = addExpensePage;
             addExpensePage.SelectedDate = new DateTime(2022, 6, 20);
-            Update();
         }
 
         static public void Update()
@@ -36,6 +37,8 @@ namespace WpfLibrary
                 addExpensee.CurrencyAmount = "0";
                 addExpensee.CurrencyAmountError = null;
                 addExpensee.ExpenseNameError = null;
+                addExpensee.SelectedExpenseCategoryError = null;
+                addExpensee.SelectedBankAccountError = null;
             });
             FillCards();
             FillCategories();
@@ -63,7 +66,7 @@ namespace WpfLibrary
             ((IAddExpensePageView)addExpense).DispatchUpdate(view =>
             {
                 IAddExpensePageView addExpensePage = (IAddExpensePageView)view;
-                List<WpfMishaLibrary.VisibleEntities.PlanExpenditureVisible> list = m.GetPlanExpendituresDiapason(PDate.DateBounds.Start, PDate.DateBounds.End);
+                List<WpfMishaLibrary.VisibleEntities.PlanExpenditureVisible> list = m.GetPlanExpendituresSelectedDay(addExpensePage.SelectedDate);
                 categoryDict.Clear();
                 addExpense.ExpenseCategories.Clear();
                 for (int i = 0; i < list.Count; i++)
@@ -75,47 +78,56 @@ namespace WpfLibrary
             });
         }
 
+        public void Update(object source, EventArgs a)
+        {
+            Update();
+        }
+
         public void AddButton(object source, EventArgs args)
         {
-            /*
-            WpfMishaLibrary.VisibleEntities.PlanExpenditureVisible category = null;
-            categoryDict.TryGetValue(local.SelectedExpenseCategory, out category);
-            WpfMishaLibrary.VisibleEntities.CardVisible card = null;
-            cardDict.TryGetValue(local.SelectedBankAccount, out card);
-            //m.AddFactExpenditure(local.ExpenseName, ToDouble(local.CurrencyAmount), local.SelectedDate, category, card);
-            PAnalysis.ShowExcpenses();
-            PAnalysis.GraphExpense();*/
-
             ((IAddExpensePageView)source).DispatchUpdate(view => {
                 IAddExpensePageView local = (IAddExpensePageView)view;
 
-                if (local.ExpenseName == "")
+                WpfMishaLibrary.VisibleEntities.PlanExpenditureVisible category = null;
+                WpfMishaLibrary.VisibleEntities.CardVisible card = null;
+                try 
+                { 
+                    categoryDict.TryGetValue(local.SelectedExpenseCategory, out category);
+                    local.SelectedExpenseCategoryError = null;
+                }
+                catch { local.SelectedExpenseCategoryError = new ApplicationProjectViews.ValueInputError(ApplicationProjectViews.ValueInputError.ValueInputErrorType.EmptyValue, ""); return;}
+
+                try 
+                { 
+                    cardDict.TryGetValue(local.SelectedBankAccount, out card);
+                    local.SelectedBankAccountError = null;
+                }
+                catch { local.SelectedBankAccountError = new ApplicationProjectViews.ValueInputError(ApplicationProjectViews.ValueInputError.ValueInputErrorType.EmptyValue, ""); return;}
+
+                if ((local.ExpenseName).Trim() == "")
                 {
                     local.ExpenseNameError = new ApplicationProjectViews.ValueInputError(ApplicationProjectViews.ValueInputError.ValueInputErrorType.EmptyValue, "");
                     return;
                 }
-
-                WpfMishaLibrary.VisibleEntities.PlanExpenditureVisible category = null;
-                WpfMishaLibrary.VisibleEntities.CardVisible card = null;
-                try { categoryDict.TryGetValue(local.SelectedExpenseCategory, out category); }
-                catch { local.SelectedExpenseCategoryError = new ApplicationProjectViews.ValueInputError(ApplicationProjectViews.ValueInputError.ValueInputErrorType.EmptyValue, ""); return;}
-                try { cardDict.TryGetValue(local.SelectedBankAccount, out card); }
-                catch { local.SelectedBankAccountError = new ApplicationProjectViews.ValueInputError(ApplicationProjectViews.ValueInputError.ValueInputErrorType.EmptyValue, ""); return;}
+                else
+                    local.ExpenseNameError = null;
 
                 try
                 {
                     ModelEditDataResultStates.ReturnFactExpenditureState ret = m.AddFactExpenditure(local.ExpenseName, double.Parse(local.CurrencyAmount), local.SelectedDate, category, card);
-                    if (ret == ModelEditDataResultStates.ReturnFactExpenditureState.ErrorTypeUpdatingBalance)
-                        local.CurrencyAmountError = new ApplicationProjectViews.ValueInputError(ApplicationProjectViews.ValueInputError.ValueInputErrorType.OutOfBoundsValue, "");
+                    if (ret == ModelEditDataResultStates.ReturnFactExpenditureState.ErrorTypeSumConstraint)
+                        local.CurrencyAmountError = new ApplicationProjectViews.ValueInputError(ApplicationProjectViews.ValueInputError.ValueInputErrorType.OutOfBoundsValue, ">=0");
                     else
                     {
+                        local.CurrencyAmountError = null;
                         PAnalysis.Update();
                         PPlan.Update();
+                        PInterPage.Update();
                     }
                 }
                 catch
                 {
-                    local.CurrencyAmountError = new ApplicationProjectViews.ValueInputError(ApplicationProjectViews.ValueInputError.ValueInputErrorType.OutOfBoundsValue, "");
+                    local.CurrencyAmountError = new ApplicationProjectViews.ValueInputError(ApplicationProjectViews.ValueInputError.ValueInputErrorType.InvalidSymbol, "");
                 }
             });
         }

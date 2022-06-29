@@ -15,7 +15,7 @@ namespace ApplicationProject.UserControls
 
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            if (value is not ValueInputError error || error.ErrorType == ValueInputError.ValueInputErrorType.None)
+            if (value is not ValueInputError error)
                 return "";
 
             return Resources.Locale.ResourceManager.GetString(error.ErrorType switch

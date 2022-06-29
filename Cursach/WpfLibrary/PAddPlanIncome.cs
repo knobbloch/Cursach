@@ -38,7 +38,7 @@ namespace WpfLibrary
         {
             ((IAddIncomeCategoryPageView)source).DispatchUpdate(view => {
                 IAddIncomeCategoryPageView addView = (IAddIncomeCategoryPageView)view;
-                if (addView.CategoryName == "")
+                if ((addView.CategoryName).Trim() == "")
                 {
                     addView.CategoryNameError = new ApplicationProjectViews.ValueInputError(ApplicationProjectViews.ValueInputError.ValueInputErrorType.EmptyValue, "");
                     return;
@@ -49,20 +49,28 @@ namespace WpfLibrary
                     addView.CategoryImagePathError = new ApplicationProjectViews.ValueInputError(ApplicationProjectViews.ValueInputError.ValueInputErrorType.InvalidSymbol, "");
                     return;
                 }
+                else
+                    addView.CategoryImagePathError = null;
+
+                if (double.Parse(addView.CurrencyAmount) <0)
+                {
+                    addView.CurrencyAmountError = new ApplicationProjectViews.ValueInputError(ApplicationProjectViews.ValueInputError.ValueInputErrorType.InvalidSymbol, "");
+                    return;
+                }
+                else
+                    addView.CurrencyAmountError = null;
 
                 try
                 {
-                    if (double.Parse(addView.CurrencyAmount) < 0)
-                    {
-                        addView.CurrencyAmountError = new ApplicationProjectViews.ValueInputError(ApplicationProjectViews.ValueInputError.ValueInputErrorType.OutOfBoundsValue, "");
-                        return;
-                    }
                     ModelEditDataResultStates.ReturnPlanIncomeState ret = m.AddPlanIncome(addView.CategoryName, double.Parse(addView.CurrencyAmount), PDate.DateBounds.Start, PDate.DateBounds.End, addView.CategoryImagePath);
 
                     if (ret == ModelEditDataResultStates.ReturnPlanIncomeState.ErrorTypeNameConstraint)
                         addView.CategoryNameError = new ApplicationProjectViews.ValueInputError(ApplicationProjectViews.ValueInputError.ValueInputErrorType.DuplicateValue, "");
                     else
-                        PPlan.Update();
+                    {
+                        addView.CategoryNameError = null;
+                        Update();
+                    }
                 }
                 catch
                 {

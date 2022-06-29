@@ -52,7 +52,10 @@ namespace WpfLibrary
                     if (ret == ModelEditDataResultStates.ReturnCardState.ErrorTypeNameConstraint)
                         cardView.AccountNameError = new ApplicationProjectViews.ValueInputError(ApplicationProjectViews.ValueInputError.ValueInputErrorType.DuplicateValue, "");
                     else
+                    {
                         Update();
+                        PInterPage.Update();
+                    }
                 }
                 catch
                 {
